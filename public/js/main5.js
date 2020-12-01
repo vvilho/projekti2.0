@@ -50,18 +50,17 @@ const createCatCards = (cats) => {
         const p3 = document.createElement('p');
         p3.innerHTML = `Kuvaus: ${cat.kuvaus}`;
         // add selected cat's values to modify form
-        if(sessionStorage.getItem('loggedUserID') === cat.userID) {
-            const modButton = document.createElement('button');
-            modButton.innerHTML = 'Modify';
-            modButton.addEventListener('click', () => {
-                const inputs = modForm.querySelectorAll('input');
-                inputs[0].value = cat.kuvaus;
-                inputs[1].value = cat.kuvaID;
+        const modButton = document.createElement('button');
+        modButton.innerHTML = 'Modify';
+        modButton.addEventListener('click', () => {
+            const inputs = modForm.querySelectorAll('input');
+            inputs[0].value = cat.kuvaus;
+            inputs[1].value = cat.kuvaID;
 
 
-                //modForm.querySelector('select').value = cat.ownername;
-            });
-        };
+            //modForm.querySelector('select').value = cat.ownername;
+        });
+
 
         // delete selected cat
         const delButton = document.createElement('button');
@@ -90,11 +89,8 @@ const createCatCards = (cats) => {
         li.appendChild(h2);
         li.appendChild(figure);
         li.appendChild(p3);
-        try {
-            li.appendChild(modButton);
-        }catch (e) {
 
-        }
+        li.appendChild(modButton);
         li.appendChild(delButton);
 
 
