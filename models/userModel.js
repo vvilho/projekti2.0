@@ -6,7 +6,7 @@ const promisePool = pool.promise();
 const getAllUsers = async () => {
     try {
         // TODO: do the LEFT (or INNER) JOIN to get owner name too.
-        const [rows] = await promisePool.query('SELECT userID, nimi, email FROM user');
+        const [rows] = await promisePool.query('SELECT user.userID, user.nimi, user.email FROM user');
         console.log('rows', rows)
         return rows;
     } catch (e) {
@@ -18,7 +18,7 @@ const getAllUsers = async () => {
 const getUser = async (id) => {
     try {
         const [rows] = await promisePool.execute(
-            'SELECT userID, nimi, email FROM user WHERE userID = ?', [id]);
+            'SELECT user.userID, user.nimi, user.email FROM user WHERE user.userID = ?', [id]);
         console.log('rows', rows);
         console.log("Page updated");
         return rows;

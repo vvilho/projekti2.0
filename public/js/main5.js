@@ -21,6 +21,7 @@ const createCatCards = (cats) => {
     // clear ul
     ul.innerHTML = '';
     cats.forEach((cat) => {
+
         // create li with DOM methods
         const img = document.createElement('img');
         img.src = url + '/thumbnails/' + cat.tiedostoNimi;
@@ -48,23 +49,21 @@ const createCatCards = (cats) => {
 
         const p3 = document.createElement('p');
         p3.innerHTML = `Kuvaus: ${cat.kuvaus}`;
-
         // add selected cat's values to modify form
-        //if (cat.ownername === sessionStorage.getItem('loggedUser')) {
-        console.log('nimet on samat')
-        const modButton = document.createElement('button');
-        modButton.innerHTML = 'Modify';
-        modButton.addEventListener('click', () => {
-            const inputs = modForm.querySelectorAll('input');
-            inputs[0].value = cat.kuvaus;
+        if(sessionStorage.getItem('loggedUserID') === cat.userID) {
+            const modButton = document.createElement('button');
+            modButton.innerHTML = 'Modify';
+            modButton.addEventListener('click', () => {
+                const inputs = modForm.querySelectorAll('input');
+                inputs[0].value = cat.kuvaus;
+                inputs[1].value = cat.kuvaID;
 
-            inputs[3].value = cat.kuvaID;
-            modForm.querySelector('select').value = cat.owner;
-        });
-        //};
+
+                //modForm.querySelector('select').value = cat.ownername;
+            });
+        };
+
         // delete selected cat
-
-        //if (cat.ownername === sessionStorage.getItem('loggedUser')) {
         const delButton = document.createElement('button');
         delButton.innerHTML = 'Delete';
         delButton.addEventListener('click', async () => {
@@ -83,20 +82,19 @@ const createCatCards = (cats) => {
                 console.log(e.message());
             }
         });
-        //};
 
-        console.log('Koodi rivi 95', '-', cat.ownername, '-', "-" + sessionStorage.getItem('loggedUser') + "-");
-        console.log(cat.ownername);
-        console.log(sessionStorage.getItem('loggedUser'));
+
         const li = document.createElement('li');
         li.classList.add('light-border');
 
         li.appendChild(h2);
         li.appendChild(figure);
         li.appendChild(p3);
-        li.appendChild(modButton);
+        try {
+            li.appendChild(modButton);
+        }catch (e) {
 
-
+        }
         li.appendChild(delButton);
 
 
@@ -113,6 +111,10 @@ close.addEventListener('click', (evt) => {
 // AJAX call
 
 const getCat = async () => {
+    //Set addcat form hidden input value to userID
+    const inputs = addForm.querySelectorAll('input');
+    inputs[2].value = sessionStorage.getItem('loggedUserID');
+
     userInfo.innerHTML = `${sessionStorage.getItem('loggedUser')}`;
     console.log('getCat token ', sessionStorage.getItem('token'));
     try {
@@ -134,6 +136,7 @@ const getCat = async () => {
 addForm.addEventListener('submit', async (evt) => {
     evt.preventDefault();
     const fd = new FormData(addForm);
+    console.log('toimii');
     const fetchOptions = {
         method: 'POST',
         headers: {
@@ -188,6 +191,8 @@ loginForm.addEventListener('submit', async (evt) => {
         // save token
         sessionStorage.setItem('token', json.token);
         sessionStorage.setItem('loggedUser', json.user.nimi);
+        sessionStorage.setItem('loggedUserID', json.user.userID);
+
         console.log('loggedUser', sessionStorage.getItem('loggedUser'));
 
         // show/hide forms + cats
@@ -213,6 +218,7 @@ logOut.addEventListener('click', async (evt) => {
         console.log(json);
         // remove token
         sessionStorage.removeItem('token');
+        sessionStorage.removeItem('loggedUserID');
 
 
         alert('You have logged out from user: ' + sessionStorage.getItem('loggedUser'));
@@ -245,6 +251,8 @@ addUserForm.addEventListener('submit', async (evt) => {
     // save token
     sessionStorage.setItem('token', json.token);
     sessionStorage.setItem('loggedUser', json.user.nimi);
+    sessionStorage.setItem('loggedUserID', json.user.userID);
+
     console.log('loggedUser', sessionStorage.getItem('loggedUser'));
     // show/hide forms + cats
     loginWrapper.style.display = 'none';

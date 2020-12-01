@@ -18,7 +18,7 @@ const getAllCats = async () => {
 
 const getSpecificCats = async () => {
     try {
-        const [rows] = await promisePool.query('SELECT kuvaID, kuvaus, tiedostoNimi, coords, user.nimi as ownername FROM kuva inner join user on kuva.userID = user.userID');
+        const [rows] = await promisePool.query('SELECT kuvaID, kuvaus, tiedostoNimi, kuva.userID ,coords, user.nimi as ownername FROM kuva inner join user on kuva.userID = user.userID');
         console.log('rows', rows)
         return rows;
     } catch (e) {
@@ -64,9 +64,9 @@ const updateCat = async (params) => {
 }
 
 
-const deleteCat = async (id, userid) => {
+const deleteCat = async (id) => {
     try {
-        const [rows] = await promisePool.execute('DELETE FROM kuva WHERE kuvaID = ? AND userID=?', [id, userid]);
+        const [rows] = await promisePool.execute('DELETE FROM kuva WHERE kuvaID = ?', [id]);
         console.log('rows', rows)
         return rows;
 

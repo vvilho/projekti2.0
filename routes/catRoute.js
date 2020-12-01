@@ -39,6 +39,9 @@ router.post('/', upload.single('cat'), injectFile, catController.make_thumbnail,
 
 router.put('/', [
     body('kuvaus', 'nimi pakollinen').isLength({min: 1}),
+
+
+
 ], catController.cat_update_put);
 
 router.delete('/:id', catController.cat_delete);
