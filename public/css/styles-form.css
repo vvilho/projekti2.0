@@ -1,0 +1,378 @@
+.login-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 7%;
+}
+
+.container-moreUp {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 4%;
+}
+
+.form-wrapper-login {
+    width: 500px;
+    height: 300px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 30px;
+    margin-bottom: 6%;
+}
+
+.form-wrapper-register {
+    width: 500px;
+    height: 390px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 30px;
+    margin-bottom: 4%;
+}
+
+.form-wrapper-luoPalvelut {
+    width: 75%;
+    max-width: 1100px;
+    min-height: 390px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    margin-bottom: 4%;
+}
+
+#main-wrapper {
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 30px;
+    margin-bottom: 4%;
+    display: flex;
+    position: relative;
+    text-align: center;
+
+}
+#main-wrapper ul {
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+#main-wrapper .form-wrapper {
+    justify-content: center;
+}
+
+.form-wrapper-omatPalvelut {
+  width: 900px;
+  height: 390px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 30px;
+  margin-bottom: 4%;
+  display: flex;
+  position: relative;
+}
+
+.form-wrapper-omatTiedot {
+  width: 500px;
+  height: 600px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 30px;
+  margin-bottom: 4%;
+}
+
+#newService-form {
+    display: flex;
+    position: relative;
+}
+
+.container-side {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+}
+
+.container-side-omatPalvelut {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+}
+
+.container-form-register {
+    display: flex;
+    flex-direction: column;
+    margin-left: -14%;
+}
+
+.container-form-login {
+  display: flex;
+  flex-direction: column;
+  margin-left: -22%;
+}
+
+.container-form-omatTiedot {
+  display: flex;
+  flex-direction: column;
+  margin-left: -2%;
+}
+
+.container-form-luoPalvelu {
+  display: flex;
+  flex-direction: column;
+  margin-left: -25%;
+}
+
+.container-form-omatPalvelu {
+  display: flex;
+  flex-direction: column;
+}
+
+.stripe {
+    border-left: solid 1px#cccccc;
+}
+
+
+h2 {
+    text-align: center;
+    color: #1134AD;
+    margin-bottom: 30px;
+    margin-top: 0;
+}
+
+.form-row {
+    margin: 5px;
+    display: flex;
+}
+
+.row-30L {
+  margin-left: -30px;
+}
+
+.row-30R {
+  margin-right: -30px;
+}
+
+/*
+.left {
+  margin-left: -100px;
+}*/
+
+label {
+    display: inline-block;
+    text-align: right;
+    width: 40%;
+    padding: 5px;
+    padding-right: 0px;
+    vertical-align: top;
+    margin-top: 10px;
+  }
+
+label {
+    color: #1134AD;
+    font-weight: 700;
+    font-size: 1.1em;
+}
+
+.rightTab {
+    display: inline-block;
+    text-align: left;
+    width: 50%;
+    vertical-align: middle;
+    margin-left: 15px;
+  }
+
+  input {
+    width: 240px;
+    padding: 2px;
+    padding-left: 7px;
+    padding-right: 7px;
+    margin: 7px;
+    border: 2px solid#cccccc;
+    border-radius: 7px;
+    font-family: Tahoma, sans-serif;
+    font-size: 0.9em;
+  }
+
+  .row-center {
+      display: flex;
+      justify-content: center;
+  }
+
+  .btn-form {
+    background-color: #005C7A;
+    border-radius: 7px;
+    font-weight: 700;
+    color: white;
+    font-size: 1em;
+    padding: 10px 50px;
+    margin: 40px 20px;
+    border: 0px solid;
+    cursor: pointer;
+  }
+
+  .btn-form-small {
+    background-color: #005C7A;
+    border-radius: 5px;
+    font-weight: 700;
+    color: white;
+    font-size: 0.9em;
+    padding: 7px;
+    margin: 20px;
+    border: 0px solid;
+    cursor: pointer;
+  }
+
+  .btn-form:hover, .btn-form-small:hover {
+    background-color:#3E3F3F;
+  }
+
+  a:link {
+    text-decoration: none;
+    color: #1134AD;
+    font-weight: 700;
+    font-size: 1em;
+  }
+  
+  a:visited {
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
+  a:active {
+    text-decoration: underline;
+  }
+
+  textarea {
+	width: 240px;
+	height: 120px;
+    border: 2px solid #cccccc;
+    border-radius: 7px;
+	padding: 7px;
+    font-family: Tahoma, sans-serif;
+    font-size: 0.9em;
+    margin-left: 7px;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0; 
+}
+
+input[type=number] {
+    -moz-appearance:textfield;
+}
+
+select {
+    display: block;
+    font-size: 1em;
+    font-family: sans-serif;
+    font-weight: 700;
+    color: #444;
+    line-height: 1.3;
+    padding: 7px;
+    width: 260px;
+    max-width: 260px; /* useful when width is set to anything other than 100% */
+    box-sizing: border-box;
+    margin: 0;
+    margin-left: 7px;
+    border: 1px solid #aaa;
+    box-shadow: 0 1px 0 1px rgba(0,0,0,.04);
+    border-radius: .5em;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: #fff;
+    cursor: pointer;
+    /* note: bg image below uses 2 urls. The first is an svg data uri for the arrow icon, and the second is the gradient. 
+    for the icon, if you want to change the color, be sure to use `%23` instead of `#`, since it's a url. You can also swap in a different svg icon or an external image reference
+    
+    */
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E'),
+      linear-gradient(to bottom, #ffffff 0%,#e5e5e5 100%);
+    background-repeat: no-repeat, repeat;
+    /* arrow icon position (1em from the right, 50% vertical) , then gradient position*/
+    background-position: right .7em top 50%, 0 0;
+    /* icon size, then gradient */
+    background-size: .65em auto, 100%;
+    }
+    /* Hide arrow icon in IE browsers */
+    select::-ms-expand {
+    display: none;
+    }
+    /* Hover style */
+    select:hover {
+    border-color: #888;
+    }
+    /* Focus style */
+    select:focus {
+    border-color: #aaa;
+    /* It'd be nice to use -webkit-focus-ring-color here but it doesn't work on box-shadow */
+    box-shadow: 0 0 1px 3px rgba(59, 153, 252, .7);
+    box-shadow: 0 0 0 3px -moz-mac-focusring;
+    color: #444; 
+    outline: none;
+    }
+
+    
+    input[type="file"] {
+      cursor: pointer;
+    }
+
+    input:focus, textarea:focus, select:focus{
+      /*box-shadow: 0 0 3px #FF8540;
+      -moz-box-shadow: 0 0 3px #FF8540;
+      -webkit-box-shadow: 0 0 3px #FF8540;*/
+      border: 2px solid rgba(255, 133, 64, 0.7);
+      /*background-color: rgba(255, 133, 64, 0.07);*/
+      /*background-color: rgba(17, 52, 173, 0.05);*/
+      }
+      
+      input:focus, textarea:focus, select:focus {
+      outline-offset: 0px;
+      outline: none;
+      }
+
+.account-delete {
+  border-top: 2px solid #cccccc;
+  padding-top: 30px;
+}
+
+.delete {
+  margin-top: 0px;
+}
+
+ul[style] {
+  list-style-type: none !important;
+}
+
+.label-addArea {
+  display: inline-block;
+  background-color: white;
+  border-radius: 3px;
+  font-weight: 300;
+  color: #005C7A;
+  font-size: 0.9em;
+  padding: 5px;
+  margin: 2px;
+  border: 1px solid #005C7A;
+  cursor: pointer;
+}
+
+
+
+    
+    
+
+    
+
+
+

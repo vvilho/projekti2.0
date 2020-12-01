@@ -1,0 +1,48 @@
+html {
+
+
+}
+body {
+    margin: 0;
+    padding: 0;
+    background-image: linear-gradient(to bottom, rgb(0, 92, 122) 500px, #D8E6EB 500px);
+    height: 100%;
+    min-height: 100vh;
+    background-repeat:no-repeat;
+}
+
+
+header {
+    padding: 0 3vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 60px;
+    background-color: #FFFFFF;
+}
+
+header .profileButton {
+    background-color: #1134AD;
+    border-radius: 30px;
+    border: none;
+    padding: 7px 25px;
+    color: #ffffff;
+    font-size: 1em;
+    cursor: pointer;
+}
+header .profileButton:hover, header .profileButton:focus {
+    background-color: #294fd9;
+}
+
+
+
+
+
+
+header .siteName {
+    color: #1134AD;
+    font-size: 1em;
+}
+h2 {
+    color: black;
+}
