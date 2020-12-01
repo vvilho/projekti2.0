@@ -6,7 +6,7 @@ const promisePool = pool.promise();
 const getAllUsers = async () => {
     try {
         // TODO: do the LEFT (or INNER) JOIN to get owner name too.
-        const [rows] = await promisePool.query('SELECT user_id, name, email FROM wop_user');
+        const [rows] = await promisePool.query('SELECT userID, nimi, email FROM user');
         console.log('rows', rows)
         return rows;
     } catch (e) {
@@ -18,7 +18,7 @@ const getAllUsers = async () => {
 const getUser = async (id) => {
     try {
         const [rows] = await promisePool.execute(
-            'SELECT user_id, name, email FROM wop_user WHERE user_id = ?', [id]);
+            'SELECT userID, nimi, email FROM user WHERE userID = ?', [id]);
         console.log('rows', rows);
         console.log("Page updated");
         return rows;
@@ -33,7 +33,7 @@ const getUser = async (id) => {
 const addUser = async (params) => {
     try {
         const [rows] = await promisePool.execute(
-            'INSERT into wop_user (name, email, password) VALUES (?,?,?)', params);
+            'INSERT into user (nimi, email, password) VALUES (?,?,?)', params);
         console.log('rows', rows);
         return rows;
 
@@ -47,7 +47,7 @@ const getUserLogin = async (params) => {
     try {
         console.log('getUserLogin', params);
         const [rows] = await promisePool.execute(
-            'SELECT * FROM wop_user WHERE email = ?;',
+            'SELECT * FROM user WHERE email = ?;',
             params);
         return rows;
     } catch (e) {
