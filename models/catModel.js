@@ -41,7 +41,7 @@ const getCat = async (id) => {
 
 const addCat = async (params) => {
     try {
-        const [rows] = await promisePool.execute('INSERT into kuva (kuvaus, tiedostoNimi, userID, coords) VALUES (?,?,?,?)', params);
+        const [rows] = await promisePool.execute('INSERT into kuva (kuvaus, tiedostoNimi, userID, coords, omistaja) VALUES (?,?,?,?,?)', params);
         console.log('rows', rows);
         return rows;
 

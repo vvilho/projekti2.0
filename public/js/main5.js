@@ -103,6 +103,7 @@ const createCatCards = (cats) => {
     });
 };
 
+
 // close modal
 close.addEventListener('click', (evt) => {
     evt.preventDefault();
@@ -115,6 +116,7 @@ const getCat = async () => {
     //Set addcat form hidden input value to userID
     const inputs = addForm.querySelectorAll('input');
     inputs[2].value = sessionStorage.getItem('loggedUserID');
+    inputs[3].value = sessionStorage.getItem('loggedUser');
 
     userInfo.innerHTML = `${sessionStorage.getItem('loggedUser')}`;
     console.log('getCat token ', sessionStorage.getItem('token'));
