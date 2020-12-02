@@ -28,7 +28,9 @@ const injectFile = (req, res, next) => {
 
 router.get('/', catController.cat_list_get);
 
-router.get('/:id', catController.cat_get);
+//router.get('/:id', catController.cat_get);
+
+router.get('/:omistaja', catController.cat_get_haku);
 
 
 router.post('/', upload.single('cat'), injectFile, catController.make_thumbnail, [

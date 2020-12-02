@@ -15,6 +15,8 @@ const userLists = document.querySelectorAll('.add-owner');
 const imageModal = document.querySelector('#image-modal');
 const modalImage = document.querySelector('#image-modal img');
 const close = document.querySelector('#image-modal a');
+const hakuForm = document.querySelector('#kuvaHaku');
+
 
 // create cat cards
 const createCatCards = (cats) => {
@@ -112,6 +114,26 @@ close.addEventListener('click', (evt) => {
 
 // AJAX call
 
+hakuForm.addEventListener('submit', async (evt) => {
+    evt.preventDefault();
+    const owner = document.getElementById('hakuSana').value;
+    console.log(owner);
+
+    try {
+        const options = {
+            headers: {
+                'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+            },
+        };
+        const response = await fetch(url + '/cat/'+owner, options);
+        const cats = await response.json();
+        createCatCards(cats);
+    } catch (e) {
+        console.log(e.message);
+    }
+})
+
+
 const getCat = async () => {
     //Set addcat form hidden input value to userID
     const inputs = addForm.querySelectorAll('input');
@@ -139,7 +161,6 @@ const getCat = async () => {
 addForm.addEventListener('submit', async (evt) => {
     evt.preventDefault();
     const fd = new FormData(addForm);
-    console.log('toimii');
     const fetchOptions = {
         method: 'POST',
         headers: {
