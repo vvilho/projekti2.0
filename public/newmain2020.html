@@ -7,6 +7,7 @@
     <link href="./css/cssmain.css" rel="stylesheet">
     <link href="./css/styles-form.css" rel="stylesheet">
     <link href="css/style5.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Kirjaudu</title>
 </head>
 
@@ -87,7 +88,8 @@
         <ul>
             <!-- js creates list here -->
         </ul>
-        <hr>
+        
+        <hr class="stripe-long">
         <div class="forms">
 
             <div class="form-wrapper">
@@ -95,42 +97,32 @@
                 <form class="light-border"
                       enctype="multipart/form-data"
                       id="add-cat-form">
-                    <input class="light-border" type="text" name="name" placeholder="Name" required>
-                    <input class="light-border" type="number" name="age" placeholder="Age" required>
-                    <input class="light-border"
-                           type="number"
-                           step="0.1"
-                           name="weight"
-                           placeholder="Weight"
-                           required>
-                    <select class="light-border add-owner" name="owner" required>
-                        <option value="">Select owner</option>
-                    </select>
+                    <input class="light-border" type="text" name="kuvaus" placeholder="Kuvaus" required>
+
                     <input class="light-border"
                            type="file"
                            name="cat"
                            accept="image/*"
                            placeholder="Choose file">
-                    <button class="light-border" type="submit">Upload</button>
+                    <input type="hidden" name="id">
+                    <button class="light-border btn-form" type="submit">Upload</button>
+
                 </form>
             </div>
+
+             <!-- Search Button -->
+      <form class="catSearch" action="catSearch">
+        <input type="text" placeholder="Search.." name="search">
+        <button type="submit"><i class="fa fa-search"></i></button>
+      </form>
 
             <div class="form-wrapper">
                 <h3>Modify kuva</h3>
                 <form id="mod-cat-form" class="light-border">
-                    <input class="light-border" type="text" name="name" placeholder="Name" required>
-                    <input class="light-border" type="number" name="age" placeholder="Age" required>
-                    <input class="light-border"
-                           type="number"
-                           step="0.1"
-                           name="weight"
-                           placeholder="Weight"
-                           required>
-                    <select class="light-border add-owner" name="owner" required>
-                        <option value="">Select owner</option>
-                    </select>
+                    <input class="light-border" type="text" name="kuvaus" placeholder="Kuvaus" required>
+
                     <input type="hidden" name="id">
-                    <button class="light-border" type="submit">Save changes</button>
+                    <button class="light-border btn-form" type="submit">Save changes</button>
                 </form>
             </div>
         </div>

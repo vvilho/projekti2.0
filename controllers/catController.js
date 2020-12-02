@@ -46,8 +46,8 @@ const cat_create_post = async (req, res) => {
     }
     console.log('coords', coords);
     // Object desctructing
-    const {name, age, weight, owner} = req.body;
-    const params = [name, age, weight, owner, req.file.filename, coords];
+    const {kuvaus, id} = req.body;
+    const params = [kuvaus, req.file.filename, id, coords];
 
     const cat = await catModel.addCat(params);
 
@@ -57,15 +57,14 @@ const cat_create_post = async (req, res) => {
 
 const cat_update_put = async (req, res) => {
     console.log('cat_update_put', req.body);
-
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({errors: errors.array()});
     }
 
     //Object desctructing
-    const {name, age, weight, owner, id} = req.body;
-    const params = [name, age, weight, owner, id];
+    const {kuvaus, id} = req.body;
+    const params = [kuvaus, id];
 
     const cat = await catModel.updateCat(params);
 

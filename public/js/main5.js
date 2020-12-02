@@ -15,23 +15,24 @@ const userLists = document.querySelectorAll('.add-owner');
 const imageModal = document.querySelector('#image-modal');
 const modalImage = document.querySelector('#image-modal img');
 const close = document.querySelector('#image-modal a');
-const searchCatName = document.querySelector('#searchCatName');
+const catSearch = document.querySelector('#catSearch');
 
 // create cat cards
 const createCatCards = (cats) => {
     // clear ul
     ul.innerHTML = '';
     cats.forEach((cat) => {
+
         // create li with DOM methods
         const img = document.createElement('img');
-        img.src = url + '/thumbnails/' + cat.filename;
-        img.alt = cat.name;
+        img.src = url + '/thumbnails/' + cat.tiedostoNimi;
+        img.alt = cat.kuvaID;
         img.classList.add('resp');
 
         // open large image when clicking image
         img.addEventListener('click', () => {
-            modalImage.src = url + '/' + cat.filename;
-            imageModal.alt = cat.name;
+            modalImage.src = url + '/' + cat.tiedostoNimi;
+            imageModal.alt = cat.kuvaID;
             imageModal.classList.toggle('hide');
             try {
                 const coords = JSON.parse(cat.coords);
@@ -44,72 +45,62 @@ const createCatCards = (cats) => {
         const figure = document.createElement('figure').appendChild(img);
 
         const h2 = document.createElement('h2');
-        h2.innerHTML = cat.name;
+        h2.innerHTML = cat.ownername;
 
-        const p1 = document.createElement('p');
-        p1.innerHTML = `Age: ${cat.age}`;
-
-        const p2 = document.createElement('p');
-        p2.innerHTML = `Weight: ${cat.weight}kg`;
 
         const p3 = document.createElement('p');
-        p3.innerHTML = `Owner: ${cat.ownername}`;
-
+        p3.innerHTML = `Kuvaus: ${cat.kuvaus}`;
         // add selected cat's values to modify form
-        //if (cat.ownername === sessionStorage.getItem('loggedUser')) {
-            console.log('nimet on samat')
-            const modButton = document.createElement('button');
-            modButton.innerHTML = 'Modify';
-            modButton.addEventListener('click', () => {
-                const inputs = modForm.querySelectorAll('input');
-                inputs[0].value = cat.name;
-                inputs[1].value = cat.age;
-                inputs[2].value = cat.weight;
-                inputs[3].value = cat.cat_id;
-                modForm.querySelector('select').value = cat.owner;
-            });
-        //};
+        const modButton = document.createElement('button');
+        modButton.innerHTML = 'Modify';
+        modButton.classList.add('btn-form');
+        modButton.classList.add('btn-mod');
+        modButton.addEventListener('click', () => {
+            const inputs = modForm.querySelectorAll('input');
+            inputs[0].value = cat.kuvaus;
+            inputs[1].value = cat.kuvaID;
+
+
+            //modForm.querySelector('select').value = cat.ownername;
+        });
+
+
         // delete selected cat
+        const delButton = document.createElement('button');
+        delButton.innerHTML = 'Delete';
+        delButton.classList.add('btn-form');
+        delButton.classList.add('btn-del');
+        delButton.addEventListener('click', async () => {
+            const fetchOptions = {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+                },
+            };
+            try {
+                const response = await fetch(url + '/cat/' + cat.kuvaID, fetchOptions);
+                const json = await response.json();
+                console.log('delete response', json);
+                getCat();
+            } catch (e) {
+                console.log(e.message());
+            }
+        });
 
-        //if (cat.ownername === sessionStorage.getItem('loggedUser')) {
-            const delButton = document.createElement('button');
-            delButton.innerHTML = 'Delete';
-            delButton.addEventListener('click', async () => {
-                const fetchOptions = {
-                    method: 'DELETE',
-                    headers: {
-                        'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
-                    },
-                };
-                try {
-                    const response = await fetch(url + '/cat/' + cat.cat_id, fetchOptions);
-                    const json = await response.json();
-                    console.log('delete response', json);
-                    getCat();
-                } catch (e) {
-                    console.log(e.message());
-                }
-            });
-        //};
 
-        console.log('Koodi rivi 95','-', cat.ownername, '-', "-" + sessionStorage.getItem('loggedUser') + "-");
-        console.log(cat.ownername);
-        console.log(sessionStorage.getItem('loggedUser'));
         const li = document.createElement('li');
-        li.classList.add('light-border');
+        const hr= document.createElement('hr');
+        hr.classList.add('stripe-small');
 
         li.appendChild(h2);
         li.appendChild(figure);
-        li.appendChild(p1);
-        li.appendChild(p2);
         li.appendChild(p3);
-            li.appendChild(modButton);
 
-
-            li.appendChild(delButton);
-
+        li.appendChild(modButton);
+        li.appendChild(delButton);
 
         ul.appendChild(li);
+        ul.appendChild(hr);
     });
 };
 
@@ -124,6 +115,10 @@ close.addEventListener('click', (evt) => {
 // AJAX call
 
 const getCat = async () => {
+    //Set addcat form hidden input value to userID
+    const inputs = addForm.querySelectorAll('input');
+    inputs[2].value = sessionStorage.getItem('loggedUserID');
+
     userInfo.innerHTML = `${sessionStorage.getItem('loggedUser')}`;
     console.log('getCat token ', sessionStorage.getItem('token'));
     try {
@@ -140,76 +135,12 @@ const getCat = async () => {
     }
 };
 
-const getCatByName = async () => {
-    userInfo.innerHTML = `${sessionStorage.getItem('loggedUser')}`;
-    console.log('getCatByName  token ', sessionStorage.getItem('token'));
-    try {
-        const options = {
-            headers: {
-                'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
-            },
-        };
-        const response = await fetch(url + '/cat', options);
-        const cats = await response.json();
-        createCatCards(cats);
-    } catch (e) {
-        console.log(e.message);
-    }
-};
-
-const getCatByUserName = async () => {
-    userInfo.innerHTML = `${sessionStorage.getItem('loggedUser')}`;
-    console.log('getCatByUSerName  token ', sessionStorage.getItem('token'));
-    try {
-        const options = {
-            headers: {
-                'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
-            },
-        };
-        const response = await fetch(url + '/cat', options);
-        const cats = await response.json();
-        createCatCards(cats);
-    } catch (e) {
-        console.log(e.message);
-    }
-};
-
-// create user options to <select>
-const createUserOptions = (users) => {
-    userLists.forEach((list) => {
-        // clear user list
-        list.innerHTML = '';
-        users.forEach((user) => {
-            // create options with DOM methods
-            const option = document.createElement('option');
-            option.value = user.user_id;
-            option.innerHTML = user.name;
-            option.classList.add('light-border');
-            list.appendChild(option);
-        });
-    });
-};
-
-// get users to form options
-const getUsers = async () => {
-    try {
-        const options = {
-            headers: {
-                'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
-            },
-        };
-        const response = await fetch(url + '/user', options);
-        const users = await response.json();
-        createUserOptions(users);
-    } catch (e) {
-        console.log(e.message);
-    }
-};
 
 // submit add cat form
 addForm.addEventListener('submit', async (evt) => {
     evt.preventDefault();
     const fd = new FormData(addForm);
+    console.log('toimii');
     const fetchOptions = {
         method: 'POST',
         headers: {
@@ -266,16 +197,17 @@ loginForm.addEventListener('submit', async (evt) => {
     } else {
         // save token
         sessionStorage.setItem('token', json.token);
-        sessionStorage.setItem('loggedUser', json.user.name);
+        sessionStorage.setItem('loggedUser', json.user.nimi);
+        sessionStorage.setItem('loggedUserID', json.user.userID);
+
         console.log('loggedUser', sessionStorage.getItem('loggedUser'));
 
         // show/hide forms + cats
         loginWrapper.style.display = 'none';
         logOut.style.display = 'block';
         main.style.display = 'block';
-        userInfo.innerHTML = `${json.user.name}`;
+        userInfo.innerHTML = `${json.user.nimi}`;
         getCat();
-        getUsers();
     }
 });
 
@@ -293,6 +225,7 @@ logOut.addEventListener('click', async (evt) => {
         console.log(json);
         // remove token
         sessionStorage.removeItem('token');
+        sessionStorage.removeItem('loggedUserID');
 
 
         alert('You have logged out from user: ' + sessionStorage.getItem('loggedUser'));
@@ -324,15 +257,16 @@ addUserForm.addEventListener('submit', async (evt) => {
     console.log('user add response', json);
     // save token
     sessionStorage.setItem('token', json.token);
-    sessionStorage.setItem('loggedUser', json.user.name);
+    sessionStorage.setItem('loggedUser', json.user.nimi);
+    sessionStorage.setItem('loggedUserID', json.user.userID);
+
     console.log('loggedUser', sessionStorage.getItem('loggedUser'));
     // show/hide forms + cats
     loginWrapper.style.display = 'none';
     logOut.style.display = 'block';
     main.style.display = 'block';
-    userInfo.innerHTML = `${json.user.name}`;
+    userInfo.innerHTML = `${json.user.nimi}`;
     getCat();
-    getUsers();
 });
 
 // when app starts, check if token exists and hide login form, show logout button and main content, get cats and users
@@ -341,5 +275,4 @@ if (sessionStorage.getItem('token')) {
     logOut.style.display = 'block';
     main.style.display = 'block';
     getCat();
-    getUsers();
 }

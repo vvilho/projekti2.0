@@ -6,7 +6,7 @@ const promisePool = pool.promise();
 const getAllCats = async () => {
     try {
         // TODO: do the LEFT (or INNER) JOIN to get owner name too.
-        const [rows] = await promisePool.query('SELECT cat_id, wop_cat.name, age, weight, filename, coords, wop_user.name as ownername FROM wop_cat inner join wop_user on wop_cat.owner = wop_user.user_id');
+        const [rows] = await promisePool.query('SELECT kuvaID, kuvaus, tiedostoNimi, kuva.userID, coords, user.nimi as ownername FROM kuva inner join user on kuva.userID = user.userID');
         console.log('rows', rows)
         return rows;
     } catch (e) {
@@ -36,9 +36,9 @@ const getCatsByUserName = async (name) => {
     }
 };
 
-const getSpecificCats = async (weight) => {
+const getSpecificCats = async () => {
     try {
-        const [rows] = await promisePool.query('SELECT cat_id, wop_cat.name, age, weight, filename, coords, wop_user.name as ownername FROM wop_cat inner join wop_user on wop_cat.owner = wop_user.user_id where wop_cat.weight = ?', weight);
+        const [rows] = await promisePool.query('SELECT kuvaID, kuvaus, tiedostoNimi, kuva.userID ,coords, user.nimi as ownername FROM kuva inner join user on kuva.userID = user.userID');
         console.log('rows', rows)
         return rows;
     } catch (e) {
@@ -49,7 +49,7 @@ const getSpecificCats = async (weight) => {
 
 const getCat = async (id) => {
     try {
-        const [rows] = await promisePool.execute('SELECT * FROM wop_cat WHERE cat_id = ?', [id]);
+        const [rows] = await promisePool.execute('SELECT * FROM kuva WHERE kuvaID = ?', [id]);
         console.log('rows', rows);
         return rows;
 
@@ -59,9 +59,11 @@ const getCat = async (id) => {
     }
 }
 
+
+
 const addCat = async (params) => {
     try {
-        const [rows] = await promisePool.execute('INSERT into wop_cat (name, age, weight, owner, filename, coords) VALUES (?,?,?,?,?,?)', params);
+        const [rows] = await promisePool.execute('INSERT into kuva (kuvaus, tiedostoNimi, userID, coords) VALUES (?,?,?,?)', params);
         console.log('rows', rows);
         return rows;
 
@@ -73,7 +75,7 @@ const addCat = async (params) => {
 
 const updateCat = async (params) => {
     try {
-        const [rows] = await promisePool.execute('UPDATE wop_cat SET name = ?, age = ?, weight = ?, owner = ? WHERE cat_id = ?', params);
+        const [rows] = await promisePool.execute('UPDATE kuva SET kuvaus = ? WHERE kuvaID = ?', params);
         console.log('rows', rows);
         return rows;
 
@@ -84,9 +86,9 @@ const updateCat = async (params) => {
 }
 
 
-const deleteCat = async (id, userid) => {
+const deleteCat = async (id) => {
     try {
-        const [rows] = await promisePool.execute('DELETE FROM wop_cat WHERE cat_id = ? AND ownerid=?', [id, userid]);
+        const [rows] = await promisePool.execute('DELETE FROM kuva WHERE kuvaID = ?', [id]);
         console.log('rows', rows)
         return rows;
 

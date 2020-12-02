@@ -36,19 +36,16 @@ router.get('/:name', catController.cat_get_by_username);
 
 
 router.post('/', upload.single('cat'), injectFile, catController.make_thumbnail, [
-    body('name', 'vaadittu kenttä').isLength({min: 1}),
-    body('age', 'syötä numero').isLength({min: 1}).isNumeric(),
-    body('weight', 'syötä numero').isLength({min: 1}).isNumeric(),
-    body('owner', 'syötä numero').isLength({min: 1}).isNumeric(),
+    body('kuvaus', 'vaadittu kenttä').isLength({min: 1}),
     body('mimetype', 'ei ole kuva').contains('image'),
 ], catController.cat_create_post);
 
 
 router.put('/', [
-    body('name', 'nimi pakollinen').isLength({min: 1}),
-    body('age', 'anna arvo').isNumeric().isLength({min: 1}),
-    body('weight', 'anna arvo').isNumeric().isLength({min: 1}),
-    body('owner', 'anna arvo').isNumeric().isLength({min: 1})
+    body('kuvaus', 'nimi pakollinen').isLength({min: 1}),
+
+
+
 ], catController.cat_update_put);
 
 router.delete('/:id', catController.cat_delete);

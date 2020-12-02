@@ -21,6 +21,7 @@
     border-radius: 10px;
     padding: 30px;
     margin-bottom: 6%;
+    margin-top: 2%;
 }
 
 .form-wrapper-register {
@@ -51,7 +52,7 @@
     display: flex;
     position: relative;
     text-align: center;
-
+    margin-top: 2%;
 }
 #main-wrapper ul {
     flex-direction: row;
@@ -135,8 +136,23 @@
     border-left: solid 1px#cccccc;
 }
 
+.stripe-down {
+  border-bottom: solid 1px#cccccc;
+}
 
-h2 {
+.stripe-long {
+  border: 1px solid #005C7A;
+}
+
+.stripe-small {
+  margin-top: 2em;
+  margin-bottom: 2em;
+  border: 1px dashed #ccc;
+  width: 85%;
+}
+
+
+h2, h3 {
     text-align: center;
     color: #1134AD;
     margin-bottom: 30px;
