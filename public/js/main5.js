@@ -15,7 +15,12 @@ const userLists = document.querySelectorAll('.add-owner');
 const imageModal = document.querySelector('#image-modal');
 const modalImage = document.querySelector('#image-modal img');
 const close = document.querySelector('#image-modal a');
+<<<<<<< HEAD
 const catSearch = document.querySelector('#catSearch');
+=======
+const hakuForm = document.querySelector('#kuvaHaku');
+
+>>>>>>> main
 
 // create cat cards
 const createCatCards = (cats) => {
@@ -105,7 +110,10 @@ const createCatCards = (cats) => {
 };
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
 // close modal
 close.addEventListener('click', (evt) => {
     evt.preventDefault();
@@ -114,10 +122,35 @@ close.addEventListener('click', (evt) => {
 
 // AJAX call
 
+hakuForm.addEventListener('submit', async (evt) => {
+    evt.preventDefault();
+    const owner = document.getElementById('hakuSana').value;
+    console.log(owner);
+
+    try {
+        const options = {
+            headers: {
+                'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+            },
+        };
+        const response = await fetch(url + '/cat/'+owner, options);
+        const cats = await response.json();
+        if (cats.length >= 1){
+            createCatCards(cats);
+        }else{
+            alert('Haulla ei löytynyt yhtään tulosta');
+        }
+    } catch (e) {
+        console.log(e.message);
+    }
+})
+
+
 const getCat = async () => {
     //Set addcat form hidden input value to userID
     const inputs = addForm.querySelectorAll('input');
     inputs[2].value = sessionStorage.getItem('loggedUserID');
+    inputs[3].value = sessionStorage.getItem('loggedUser');
 
     userInfo.innerHTML = `${sessionStorage.getItem('loggedUser')}`;
     console.log('getCat token ', sessionStorage.getItem('token'));
@@ -161,7 +194,6 @@ const getCatSearch = async () => {
 addForm.addEventListener('submit', async (evt) => {
     evt.preventDefault();
     const fd = new FormData(addForm);
-    console.log('toimii');
     const fetchOptions = {
         method: 'POST',
         headers: {
