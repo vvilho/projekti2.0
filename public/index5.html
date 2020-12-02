@@ -5,6 +5,8 @@
   <title>Example</title>
   <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v1.5.0/mapbox-gl.css" rel="stylesheet"/>
   <link href="css/style5.css" rel="stylesheet">
+  <!--Search button icon library -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 <div class="container">
@@ -45,6 +47,13 @@
     <p id="user-info"></p>
     <button class="light-border">Log out</button>
   </header>
+
+  <!-- Searchbutton  -->
+  <form class="searchCatName" action="searchCatByName">
+    <input type="text" placeholder="Search.." name="search">
+    <button type="submit"><i class="fa fa-search"></i></button>
+  </form>
+
   <main style="display: none">
     <h1>List of cats</h1>
     <input class="light-border" type="number" name="name" placeholder="painohaku">

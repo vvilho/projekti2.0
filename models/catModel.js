@@ -15,6 +15,26 @@ const getAllCats = async () => {
     }
 };
 
+const getCatsByName = async (name) => {
+    try {
+        const [rows] = await promisePool.query('SELECT cat_id, wop_cat.name, age, weight, filename, coords, wop_user.name as ownername FROM wop_cat inner join wop_user on wop_cat.owner = wop_user.user_id where wop_cat.name = ?', name);
+        console.log('rows', rows)
+        return rows;
+    } catch (e) {
+        console.log('catModel error', e.message);
+        return {error: 'DB Error'}
+    }
+};
+const getCatsByUserName = async (name) => {
+    try {
+        const [rows] = await promisePool.query('SELECT cat_id, wop_cat.name, age, weight, filename, coords, wop_user.name as ownername FROM wop_cat inner join wop_user on wop_cat.owner = wop_user.user_id where wop_user.name = ?', name);
+        console.log('rows', rows)
+        return rows;
+    } catch (e) {
+        console.log('catModel error', e.message);
+        return {error: 'DB Error'}
+    }
+};
 
 const getSpecificCats = async (weight) => {
     try {
@@ -82,5 +102,8 @@ module.exports = {
     addCat,
     updateCat,
     deleteCat,
-    getSpecificCats
+    getSpecificCats,
+    getCatsByName,
+    getCatsByUserName,
+
 };

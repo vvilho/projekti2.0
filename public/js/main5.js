@@ -15,6 +15,7 @@ const userLists = document.querySelectorAll('.add-owner');
 const imageModal = document.querySelector('#image-modal');
 const modalImage = document.querySelector('#image-modal img');
 const close = document.querySelector('#image-modal a');
+const searchCatName = document.querySelector('#searchCatName');
 
 // create cat cards
 const createCatCards = (cats) => {
@@ -112,6 +113,8 @@ const createCatCards = (cats) => {
     });
 };
 
+
+
 // close modal
 close.addEventListener('click', (evt) => {
     evt.preventDefault();
@@ -123,6 +126,40 @@ close.addEventListener('click', (evt) => {
 const getCat = async () => {
     userInfo.innerHTML = `${sessionStorage.getItem('loggedUser')}`;
     console.log('getCat token ', sessionStorage.getItem('token'));
+    try {
+        const options = {
+            headers: {
+                'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+            },
+        };
+        const response = await fetch(url + '/cat', options);
+        const cats = await response.json();
+        createCatCards(cats);
+    } catch (e) {
+        console.log(e.message);
+    }
+};
+
+const getCatByName = async () => {
+    userInfo.innerHTML = `${sessionStorage.getItem('loggedUser')}`;
+    console.log('getCatByName  token ', sessionStorage.getItem('token'));
+    try {
+        const options = {
+            headers: {
+                'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+            },
+        };
+        const response = await fetch(url + '/cat', options);
+        const cats = await response.json();
+        createCatCards(cats);
+    } catch (e) {
+        console.log(e.message);
+    }
+};
+
+const getCatByUserName = async () => {
+    userInfo.innerHTML = `${sessionStorage.getItem('loggedUser')}`;
+    console.log('getCatByUSerName  token ', sessionStorage.getItem('token'));
     try {
         const options = {
             headers: {
@@ -205,6 +242,9 @@ modForm.addEventListener('submit', async (evt) => {
     console.log('modify response', json);
     getCat();
 });
+
+
+
 
 // login
 loginForm.addEventListener('submit', async (evt) => {
