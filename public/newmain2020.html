@@ -3,89 +3,84 @@
 
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link href="./css/cssmain.css" rel="stylesheet" />
-    <link href="./css/styles-form.css" rel="stylesheet" />
-    <link href="css/style5.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="./css/cssmain.css" rel="stylesheet">
+    <link href="./css/styles-form.css" rel="stylesheet">
+    <link href="css/style5.css" rel="stylesheet">
     <title>Kirjaudu</title>
 </head>
 
 <body>
-    <header>
-        <h3 class="siteName">SIVUN NIMI</h3>
-        <div class="dropdown" id="log-out">
-            <p id="user-info"></p>
-            <button class="profileButton">Logout</button>
-        </div>
-    </header>
-    <div class="container">
-        <div class="forms" id="login-wrapper">
-            <section class="form-wrapper-login">
-                <h2>Kirjaudu</h2>
-                <form id="login-form">
-                    <div class="container-form-login">
-                        <div class="form-row">
-                            <label>Sähköposti:</label>
-                            <div class="rightTab">
-                                <input autofocus type="text" name="username" placeholder="sähköposti" required />
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <label>Salasana:</label>
-                            <div class="rightTab">
-                                <input type="password" name="password" placeholder="Salasana" required />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row-center">
-                        <button type="submit" class="btn-form">Kirjaudu</button>
-                    </div>
-                </form>
-            </section>
+<header>
+    <a href="newmain2020.html"><h3 class="siteName">SIVUN NIMI</h3></a>
+    <div class="dropdown" id="log-out">
+        <p id="user-info"></p>
+        <button  class="profileButton">Logout</button>
 
-            <section class="form-wrapper-register">
-                <h2>Uusi käyttäjä?</h2>
-                <form id="add-user-form">
-                    <div class="container-form-register">
-                        <div class="form-row">
-                            <label for="nimi">Nimi:</label>
-                            <div class="rightTab">
-                                <input autofocus type="text" name="name" id="nimi" placeholder="nimi" required />
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <label for="email">Sähköposti:</label>
-                            <div class="rightTab">
-                                <input autofocus type="email" id="email" name="username" placeholder="sähköoposti"
-                                    required />
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <label for="salasana">Salasana:</label>
-                            <div class="rightTab">
-                                <input type="password" id="salasana" name="password" pattern="(?=.*[A-Z]).{8,}"
-                                    placeholder="salasana" required />
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <label for="toistaSalasana">Toista&nbsp;salasana:</label>
-                            <div class="rightTab">
-                                <input type="password" id="toistaSalasana" name="password" pattern="(?=.*[A-Z]).{8,}"
-                                    placeholder="salasana" required />
-                            </div>
-                        </div>
-                        <div class="log">
-                            
+    </div>
+</header>
+<div class="container">
+    <div class="forms" id="login-wrapper">
+        <section class="form-wrapper-login">
+            <h2>Kirjaudu</h2>
+            <form id="login-form">
+                <div class="container-form-login">
+                    <div class="form-row">
+                        <label >Sähköposti:</label>
+                        <div class="rightTab">
+                            <input autofocus type="text" name="username"  placeholder="sähköposti"
+                                   required />
                         </div>
                     </div>
-<<<<<<< HEAD
-                    <div class="row-center">
-                        <button type="submit" class="btn-form">Rekisteröidy</button>
+                    <div class="form-row">
+                        <label>Salasana:</label>
+                        <div class="rightTab">
+                            <input type="password" name="password"
+                                   placeholder="Salasana" required />
+                        </div>
                     </div>
-                </form>
-            </section>
-        </div>
-=======
+                </div>
+                <div class="row-center">
+                    <button type="submit" class="btn-form">Kirjaudu</button>
+                </div>
+            </form>
+
+        </section>
+
+        <section class="form-wrapper-register">
+            <h2>Uusi käyttäjä?</h2>
+            <form id="add-user-form">
+                <div class="container-form-register">
+                    <div class="form-row">
+                        <label for="nimi">Nimi:</label>
+                        <div class="rightTab">
+                            <input autofocus type="text" name="name" id="nimi" placeholder="nimi" required />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <label for="email">Sähköposti:</label>
+                        <div class="rightTab">
+                            <input autofocus type="email" id="email" name="username" placeholder="sähköoposti"
+                                required />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <label for="salasana">Salasana:</label>
+                        <div class="rightTab">
+                            <input type="password" id="salasana" name="password" pattern="(?=.*[A-Z]).{8,}"
+                                placeholder="salasana" required />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <label for="toistaSalasana">Toista&nbsp;salasana:</label>
+                        <div class="rightTab">
+                            <input type="password" id="toistaSalasana" name="password" pattern="(?=.*[A-Z]).{8,}"
+                                placeholder="salasana" required />
+                        </div>
+                    </div>
+                    <div class="log">
+                        
+                    </div>
                 </div>
                 <div class="row-center">
                     <button type="submit" class="btn-form">Rekisteröidy</button>
@@ -95,28 +90,22 @@
     </div>
 
     <main style="display: none" id="main-wrapper">
-
+        <form id="kuvaHaku">
+            <input id="hakuSana" class="light-border" type="text" name="omistaja" placeholder="hae käyttäjän kuvia" style="text-align: center">
+            <button type="submit" class="light-border btn-form">Hae</button>
+        </form>
 
 
 
         <h1>Lista kuvista</h1>
->>>>>>> 08bd6274f23d03af9a38203cc7fbb24526ae6926
 
-        <main style="display: none" id="main-wrapper">
-            <h1>Lista kuvista</h1>
+        <ul>
+            <!-- js creates list here -->
+        </ul>
+        
+        <hr class="stripe-long">
+        <div class="forms">
 
-<<<<<<< HEAD
-            <ul>
-                <!-- js creates list here -->
-            </ul>
-
-            <hr class="stripe-long" />
-            <div class="forms">
-                <div class="form-wrapper">
-                    <h3>Add kuva</h3>
-                    <form class="light-border" enctype="multipart/form-data" id="add-cat-form">
-                        <input class="light-border" type="text" name="kuvaus" placeholder="Kuvaus" required />
-=======
             <div class="form-wrapper">
                 <h3>Add kuva</h3>
                 <form class="light-border"
@@ -124,56 +113,44 @@
                       id="add-cat-form">
                     <input class="light-border" type="text" maxlength="140" name="kuvaus" placeholder="Kuvaus" required>
 
+
                     <input class="light-border"
                            type="file"
                            name="cat"
                            accept="image/*"
-                           placeholder="Choose file">
+                           id="files">
                     <input type="hidden" name="id">
                     <input type="hidden" name="owner">
 
                     <button class="light-border btn-form" type="submit">Upload</button>
->>>>>>> 08bd6274f23d03af9a38203cc7fbb24526ae6926
 
-                        <input class="light-border" type="file" name="cat" accept="image/*" placeholder="Choose file" />
-                        <input type="hidden" name="id" />
-                        <button class="light-border btn-form" type="submit">
-                            Upload
-                        </button>
-                    </form>
-                </div>
+                </form>
+            </div>
 
-<<<<<<< HEAD
-                <div class="form-wrapper">
-                    <h3>Modify kuva</h3>
-                    <form id="mod-cat-form" class="light-border">
-                        <input class="light-border" type="text" name="kuvaus" placeholder="Kuvaus" required />
-=======
             <div class="form-wrapper">
                 <h3>Modify kuva</h3>
                 <form id="mod-cat-form" class="light-border">
                     <input class="light-border" maxlength="140" type="text" name="kuvaus" placeholder="Kuvaus" required>
->>>>>>> 08bd6274f23d03af9a38203cc7fbb24526ae6926
 
-                        <input type="hidden" name="id" />
-                        <button class="light-border btn-form" type="submit">
-                            Save changes
-                        </button>
-                    </form>
-                </div>
+                    <input type="hidden" name="id">
+                    <button class="light-border btn-form" type="submit">Save changes</button>
+                </form>
             </div>
-        </main>
-    </div>
-    <div class="hide modal" id="image-modal">
-        <a href="#" class="close">Close</a>
-        <img src="" alt="" />
-        <div id="map"></div>
-    </div>
-    <footer></footer>
-    <script src="js/serialize.js"></script>
-    <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v1.5.0/mapbox-gl.js"></script>
-    <script src="js/mapbox.js"></script>
-    <script src="js/main5.js"></script>
+        </div>
+    </main>
+</div>
+<div class="hide modal" id="image-modal">
+    <a href="#" class="close">Close</a>
+    <img src="" alt="">
+    <div id="map"></div>
+</div>
+<footer>
+
+</footer>
+<script src="js/serialize.js"></script>
+<script src="https://api.tiles.mapbox.com/mapbox-gl-js/v1.5.0/mapbox-gl.js"></script>
+<script src="js/mapbox.js"></script>
+<script src="js/main5.js"></script>
 </body>
 
 </html>

@@ -106,7 +106,7 @@
 .container-form-register {
     display: flex;
     flex-direction: column;
-    align-content: space-around;
+    margin-left: -14%;
 }
 
 .container-form-login {
@@ -383,26 +383,13 @@ ul[style] {
   cursor: pointer;
 }
 
-<<<<<<< HEAD
-.log {
-  display: flex;
-}
-
-.log-style {
-  text-align: right;
-  font-size: 0.9em;
-  color: red;
-}
-
-
-=======
 #kuvaHaku {
     display: flex;
     flex-direction: row}
->>>>>>> 08bd6274f23d03af9a38203cc7fbb24526ae6926
 
-    
-    
+
+
+
 
     
 

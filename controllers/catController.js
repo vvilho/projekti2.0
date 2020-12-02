@@ -12,6 +12,13 @@ const cat_list_get = async (req, res) => {
     res.json(cats);
 };
 
+const cat_get_haku = async (req, res) => {
+    const omistaja = req.params.omistaja;
+    console.log('req');
+    const cat = await catModel.getCatHaku(omistaja);
+    res.json(cat);
+};
+
 const cat_get = async (req, res) => {
     const id = req.params.id;
     const cat = await catModel.getCat(id);
@@ -83,6 +90,7 @@ const make_thumbnail = async (req, res, next) => {
 module.exports = {
     cat_list_get,
     cat_get,
+    cat_get_haku,
     cat_create_post,
     cat_update_put,
     cat_delete,

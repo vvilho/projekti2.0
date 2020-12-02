@@ -39,6 +39,18 @@ const getCat = async (id) => {
     }
 }
 
+const getCatHaku = async (omistaja) => {
+    try {
+        const [rows] = await promisePool.execute('SELECT kuvaID, kuvaus, tiedostoNimi, kuva.userID, coords, omistaja as ownername FROM kuva WHERE omistaja = ?', [omistaja]);
+        console.log('rows', rows);
+        return rows;
+
+    } catch (e) {
+        console.log('catModel error', e.message);
+        return {error: 'DB Error'}
+    }
+}
+
 const addCat = async (params) => {
     try {
         const [rows] = await promisePool.execute('INSERT into kuva (kuvaus, tiedostoNimi, userID, coords, omistaja) VALUES (?,?,?,?,?)', params);
@@ -82,5 +94,6 @@ module.exports = {
     addCat,
     updateCat,
     deleteCat,
-    getSpecificCats
+    getSpecificCats,
+    getCatHaku,
 };
