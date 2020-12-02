@@ -51,54 +51,57 @@ const createCatCards = (cats) => {
 
         const p3 = document.createElement('p');
         p3.innerHTML = `Kuvaus: ${cat.kuvaus}`;
-        // add selected cat's values to modify form
-        const modButton = document.createElement('button');
-        modButton.innerHTML = 'Modify';
-        modButton.classList.add('btn-form');
-        modButton.classList.add('btn-mod');
-        modButton.addEventListener('click', () => {
-            const inputs = modForm.querySelectorAll('input');
-            inputs[0].value = cat.kuvaus;
-            inputs[1].value = cat.kuvaID;
-
-
-            //modForm.querySelector('select').value = cat.ownername;
-        });
-
-
-        // delete selected cat
-        const delButton = document.createElement('button');
-        delButton.innerHTML = 'Delete';
-        delButton.classList.add('btn-form');
-        delButton.classList.add('btn-del');
-        delButton.addEventListener('click', async () => {
-            const fetchOptions = {
-                method: 'DELETE',
-                headers: {
-                    'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
-                },
-            };
-            try {
-                const response = await fetch(url + '/cat/' + cat.kuvaID, fetchOptions);
-                const json = await response.json();
-                console.log('delete response', json);
-                getCat();
-            } catch (e) {
-                console.log(e.message());
-            }
-        });
-
-
         const li = document.createElement('li');
         const hr= document.createElement('hr');
         hr.classList.add('stripe-small');
-
         li.appendChild(h2);
         li.appendChild(figure);
         li.appendChild(p3);
 
-        li.appendChild(modButton);
-        li.appendChild(delButton);
+
+        // add selected cat's values to modify form
+        if (cat.userID == sessionStorage.getItem('loggedUserID')) {
+            console.log('toimiii');
+            const modButton = document.createElement('button');
+            modButton.innerHTML = 'Modify';
+            modButton.classList.add('btn-form');
+            modButton.classList.add('btn-mod');
+            modButton.addEventListener('click', () => {
+                const inputs = modForm.querySelectorAll('input');
+                inputs[0].value = cat.kuvaus;
+                inputs[1].value = cat.kuvaID;
+
+
+            });
+
+
+
+            // delete selected cat
+            const delButton = document.createElement('button');
+            delButton.innerHTML = 'Delete';
+            delButton.classList.add('btn-form');
+            delButton.classList.add('btn-del');
+            delButton.addEventListener('click', async () => {
+                const fetchOptions = {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+                    },
+                };
+                try {
+                    const response = await fetch(url + '/cat/' + cat.kuvaID, fetchOptions);
+                    const json = await response.json();
+                    console.log('delete response', json);
+                    getCat();
+                } catch (e) {
+                    console.log(e.message());
+                }
+            });
+
+            li.appendChild(modButton);
+            li.appendChild(delButton);
+        };
+
 
         ul.appendChild(li);
         ul.appendChild(hr);
