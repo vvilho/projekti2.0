@@ -135,6 +135,27 @@ const getCat = async () => {
     }
 };
 
+const getCatSearch = async () => {
+    //Set addcat form hidden input value to userID
+    const inputs = addForm.querySelectorAll('CatSearch');
+    inputs[2].value = sessionStorage.getItem('loggedUserID');
+
+    userInfo.innerHTML = `${sessionStorage.getItem('loggedUser')}`;
+    console.log('getCatSearch token ', sessionStorage.getItem('token'));
+    try {
+        const options = {
+            headers: {
+                'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+            },
+        };
+        const response = await fetch(url + '/cat', options);
+        const cats = await response.json();
+        createCatCards(cats);
+    } catch (e) {
+        console.log(e.message);
+    }
+};
+
 
 // submit add cat form
 addForm.addEventListener('submit', async (evt) => {

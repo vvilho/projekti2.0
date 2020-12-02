@@ -30,9 +30,9 @@ router.get('/', catController.cat_list_get);
 
 router.get('/:id', catController.cat_get);
 
-router.get('/:name', catController.cat_get_by_name);
+router.get('/:name', catController.cat_get_search);
 
-router.get('/:name', catController.cat_get_by_username);
+
 
 
 router.post('/', upload.single('cat'), injectFile, catController.make_thumbnail, [

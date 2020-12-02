@@ -17,16 +17,9 @@ const cat_get = async (req, res) => {
     const cat = await catModel.getCat(id);
     res.json(cat);
 };
-
-const cat_get_by_name = async (req, res) => {
-    const name = req.params.name;
-    const cat = await catModel.getCat(name);
-    res.json(cat);
-};
-
-const cat_get_by_username = async (req, res) => {
-    const name = req.params.name;
-    const cat = await catModel.getCat(name);
+const cat_get_search = async (req, res) => {
+    const id = req.params.id;
+    const cat = await catModel.getCatSearch(id);
     res.json(cat);
 };
 
@@ -100,6 +93,5 @@ module.exports = {
     cat_update_put,
     cat_delete,
     make_thumbnail,
-    cat_get_by_name,
-    cat_get_by_username,
+    cat_get_search,
 };
