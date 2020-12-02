@@ -15,6 +15,7 @@ const userLists = document.querySelectorAll('.add-owner');
 const imageModal = document.querySelector('#image-modal');
 const modalImage = document.querySelector('#image-modal img');
 const close = document.querySelector('#image-modal a');
+const catSearch = document.querySelector('#catSearch');
 
 // create cat cards
 const createCatCards = (cats) => {
@@ -97,7 +98,87 @@ const createCatCards = (cats) => {
         ul.appendChild(li);
     });
 };
+// create cat search by user
+const createCatSearch = (cats) => {
+    // clear ul
+    ul.innerHTML = '';
+    cats.forEach((cat) => {
 
+        // create li with DOM methods
+        const img = document.createElement('img');
+        img.src = url + '/thumbnails/' + cat.tiedostoNimi;
+        img.alt = cat.kuvaID;
+        img.classList.add('resp');
+
+        // open large image when clicking image
+        img.addEventListener('click', () => {
+            modalImage.src = url + '/' + cat.tiedostoNimi;
+            imageModal.alt = cat.kuvaID;
+            imageModal.classList.toggle('hide');
+            try {
+                const coords = JSON.parse(cat.coords);
+                // console.log(coords);
+                addMarker(coords);
+            } catch (e) {
+            }
+        });
+
+        const figure = document.createElement('figure').appendChild(img);
+
+        const h2 = document.createElement('h2');
+        h2.innerHTML = cat.ownername;
+
+
+        const p3 = document.createElement('p');
+        p3.innerHTML = `Kuvaus: ${cat.kuvaus}`;
+        // add selected cat's values to modify form
+        const modButton = document.createElement('button');
+        modButton.innerHTML = 'Modify';
+        modButton.addEventListener('click', () => {
+            const inputs = modForm.querySelectorAll('input');
+            inputs[0].value = cat.kuvaus;
+            inputs[1].value = cat.kuvaID;
+
+
+            //modForm.querySelector('select').value = cat.ownername;
+        });
+
+
+        // delete selected cat
+        const delButton = document.createElement('button');
+        delButton.innerHTML = 'Delete';
+        delButton.addEventListener('click', async () => {
+            const fetchOptions = {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+                },
+            };
+            try {
+                const response = await fetch(url + '/cat/' + cat.kuvaID, fetchOptions);
+                const json = await response.json();
+                console.log('delete response', json);
+                getCat();
+            } catch (e) {
+                console.log(e.message());
+            }
+        });
+
+
+        const li = document.createElement('li');
+        li.classList.add('light-border');
+
+        li.appendChild(h2);
+        li.appendChild(figure);
+        li.appendChild(p3);
+
+        li.appendChild(modButton);
+        li.appendChild(delButton);
+
+
+        ul.appendChild(li);
+    });
+};
 // close modal
 close.addEventListener('click', (evt) => {
     evt.preventDefault();
