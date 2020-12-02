@@ -82,6 +82,8 @@
 
     <main style="display: none" id="main-wrapper">
 
+
+
         <h1>Lista kuvista</h1>
 
         <ul>
@@ -95,7 +97,7 @@
                 <form class="light-border"
                       enctype="multipart/form-data"
                       id="add-cat-form">
-                    <input class="light-border" type="text" name="kuvaus" placeholder="Kuvaus" required>
+                    <input class="light-border" type="text" maxlength="140" name="kuvaus" placeholder="Kuvaus" required>
 
                     <input class="light-border"
                            type="file"
@@ -111,7 +113,7 @@
             <div class="form-wrapper">
                 <h3>Modify kuva</h3>
                 <form id="mod-cat-form" class="light-border">
-                    <input class="light-border" type="text" name="kuvaus" placeholder="Kuvaus" required>
+                    <input class="light-border" maxlength="140" type="text" name="kuvaus" placeholder="Kuvaus" required>
 
                     <input type="hidden" name="id">
                     <button class="light-border" type="submit">Save changes</button>
