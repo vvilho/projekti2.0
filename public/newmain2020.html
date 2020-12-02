@@ -78,16 +78,34 @@
                             
                         </div>
                     </div>
+<<<<<<< HEAD
                     <div class="row-center">
                         <button type="submit" class="btn-form">Rekisteröidy</button>
                     </div>
                 </form>
             </section>
         </div>
+=======
+                </div>
+                <div class="row-center">
+                    <button type="submit" class="btn-form">Rekisteröidy</button>
+                </div>
+            </form>
+        </section>
+    </div>
+
+    <main style="display: none" id="main-wrapper">
+
+
+
+
+        <h1>Lista kuvista</h1>
+>>>>>>> 08bd6274f23d03af9a38203cc7fbb24526ae6926
 
         <main style="display: none" id="main-wrapper">
             <h1>Lista kuvista</h1>
 
+<<<<<<< HEAD
             <ul>
                 <!-- js creates list here -->
             </ul>
@@ -98,6 +116,24 @@
                     <h3>Add kuva</h3>
                     <form class="light-border" enctype="multipart/form-data" id="add-cat-form">
                         <input class="light-border" type="text" name="kuvaus" placeholder="Kuvaus" required />
+=======
+            <div class="form-wrapper">
+                <h3>Add kuva</h3>
+                <form class="light-border"
+                      enctype="multipart/form-data"
+                      id="add-cat-form">
+                    <input class="light-border" type="text" maxlength="140" name="kuvaus" placeholder="Kuvaus" required>
+
+                    <input class="light-border"
+                           type="file"
+                           name="cat"
+                           accept="image/*"
+                           placeholder="Choose file">
+                    <input type="hidden" name="id">
+                    <input type="hidden" name="owner">
+
+                    <button class="light-border btn-form" type="submit">Upload</button>
+>>>>>>> 08bd6274f23d03af9a38203cc7fbb24526ae6926
 
                         <input class="light-border" type="file" name="cat" accept="image/*" placeholder="Choose file" />
                         <input type="hidden" name="id" />
@@ -107,10 +143,17 @@
                     </form>
                 </div>
 
+<<<<<<< HEAD
                 <div class="form-wrapper">
                     <h3>Modify kuva</h3>
                     <form id="mod-cat-form" class="light-border">
                         <input class="light-border" type="text" name="kuvaus" placeholder="Kuvaus" required />
+=======
+            <div class="form-wrapper">
+                <h3>Modify kuva</h3>
+                <form id="mod-cat-form" class="light-border">
+                    <input class="light-border" maxlength="140" type="text" name="kuvaus" placeholder="Kuvaus" required>
+>>>>>>> 08bd6274f23d03af9a38203cc7fbb24526ae6926
 
                         <input type="hidden" name="id" />
                         <button class="light-border btn-form" type="submit">

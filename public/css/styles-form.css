@@ -383,6 +383,7 @@ ul[style] {
   cursor: pointer;
 }
 
+<<<<<<< HEAD
 .log {
   display: flex;
   align-content: center;
@@ -395,6 +396,11 @@ ul[style] {
 }
 
 
+=======
+#kuvaHaku {
+    display: flex;
+    flex-direction: row}
+>>>>>>> 08bd6274f23d03af9a38203cc7fbb24526ae6926
 
     
     

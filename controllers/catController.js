@@ -33,8 +33,8 @@ const cat_create_post = async (req, res) => {
     }
     console.log('coords', coords);
     // Object desctructing
-    const {kuvaus, id} = req.body;
-    const params = [kuvaus, req.file.filename, id, coords];
+    const {kuvaus, id, owner} = req.body;
+    const params = [kuvaus, req.file.filename, id, coords, owner];
 
     const cat = await catModel.addCat(params);
 

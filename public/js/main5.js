@@ -97,6 +97,7 @@ const createCatCards = (cats) => {
   });
 };
 
+
 // close modal
 close.addEventListener("click", (evt) => {
   evt.preventDefault();
@@ -106,6 +107,7 @@ close.addEventListener("click", (evt) => {
 // AJAX call
 
 const getCat = async () => {
+<<<<<<< HEAD
   //Set addcat form hidden input value to userID
   const inputs = addForm.querySelectorAll("input");
   inputs[2].value = sessionStorage.getItem("loggedUserID");
@@ -124,6 +126,27 @@ const getCat = async () => {
   } catch (e) {
     console.log(e.message);
   }
+=======
+    //Set addcat form hidden input value to userID
+    const inputs = addForm.querySelectorAll('input');
+    inputs[2].value = sessionStorage.getItem('loggedUserID');
+    inputs[3].value = sessionStorage.getItem('loggedUser');
+
+    userInfo.innerHTML = `${sessionStorage.getItem('loggedUser')}`;
+    console.log('getCat token ', sessionStorage.getItem('token'));
+    try {
+        const options = {
+            headers: {
+                'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+            },
+        };
+        const response = await fetch(url + '/cat', options);
+        const cats = await response.json();
+        createCatCards(cats);
+    } catch (e) {
+        console.log(e.message);
+    }
+>>>>>>> 08bd6274f23d03af9a38203cc7fbb24526ae6926
 };
 
 // submit add cat form
