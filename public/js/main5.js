@@ -127,7 +127,11 @@ hakuForm.addEventListener('submit', async (evt) => {
         };
         const response = await fetch(url + '/cat/'+owner, options);
         const cats = await response.json();
-        createCatCards(cats);
+        if (cats.length >= 1){
+            createCatCards(cats);
+        }else{
+            alert('Haulla ei löytynyt yhtään tulosta');
+        }
     } catch (e) {
         console.log(e.message);
     }
