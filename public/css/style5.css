@@ -10,6 +10,14 @@ body {
   padding: 1em;
 }
 
+h1 {
+  /*color: #ff8540;*/
+  color: #a64227;
+  border-bottom: 2px solid #005C7A;
+  padding-bottom: 20px;
+}
+
+
 .light-border {
   border-radius: 8px;
   border: 1px solid #ccc;
@@ -21,13 +29,15 @@ ul {
   margin: 0;
   padding: 0;
   list-style-type: none;
-  display: flex;
-  flex-wrap: nowrap;
+  display: block;
+  max-height: 400px;
+  width: 100%;
   overflow: scroll;
+  overflow-x: hidden;
 }
 
 li {
-  width: 30%;
+  width: 97%;
   margin: .5em;
 }
 
@@ -37,7 +47,7 @@ figure {
 }
 
 .resp {
-  width: 100%;
+  width: 150px;
 }
 
 .forms {
@@ -47,10 +57,11 @@ figure {
 }
 
 .form-wrapper {
-  width: 33%;
+  width: 35%;
+  margin: 40px 10px;
 }
 
-input, button, select {
+input, select {
   display: inline-block;
   width: 100%;
   margin: .5em 0;
@@ -67,9 +78,26 @@ select {
   background-size: .65em auto, 100%;
 }
 
-button{
-  background-color: #ccc;
-  color: #fff;
+.btn-form {
+  display: inline-block;
+  margin: .5em 0;
+  background-color: #005C7A;
+  border-radius: 7px;
+  font-weight: 700;
+  color: white;
+  font-size: 1em;
+  padding: 10px 20px;
+  margin: 10px;
+  border: 0px solid;
+  cursor: pointer;
+}
+
+.btn-mod, .btn-del {
+  width: 20%;
+}
+
+button:hover {
+  background-color:#3E3F3F;
 }
 
 .hide {
