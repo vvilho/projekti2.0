@@ -1,7 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: Verdana;
+  font-family: 'Raleway', sans-serif;
 }
 
 .container {
@@ -9,14 +9,6 @@ body {
   margin: auto;
   padding: 1em;
 }
-
-h1 {
-  /*color: #ff8540;*/
-  color: #a64227;
-  border-bottom: 2px solid #005C7A;
-  padding-bottom: 20px;
-}
-
 
 .light-border {
   border-radius: 8px;
