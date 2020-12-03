@@ -137,3 +137,12 @@ button:hover {
   width: 30vw;
   height: 30vh;
 }
+
+.log {
+  margin-left: 67%;
+}
+
+.log-style {
+  font-size: 0.9em;
+  color: red;
+}

@@ -52,25 +52,34 @@
             <form id="add-user-form">
                 <div class="container-form-register">
                     <div class="form-row">
-                        <label>Nimi:</label>
+                        <label for="nimi">Nimi:</label>
                         <div class="rightTab">
-                            <input autofocus type="text" name="name" id="sahkoposti" placeholder="nimi"
-                                   required />
+                            <input autofocus type="text" name="name" id="nimi" placeholder="nimi" required />
                         </div>
                     </div>
                     <div class="form-row">
-                        <label>Sähköposti:</label>
+                        <label for="email">Sähköposti:</label>
                         <div class="rightTab">
-                            <input autofocus type="email" name="username"  placeholder="sähköoposti"
-                                   required />
+                            <input autofocus type="email" id="email" name="username" placeholder="sähköoposti"
+                                required />
                         </div>
                     </div>
                     <div class="form-row">
-                        <label>Salasana:</label>
+                        <label for="salasana">Salasana:</label>
                         <div class="rightTab">
-                            <input type="password" name="password"
-                                   placeholder="Salasana" required />
+                            <input type="password" id="salasana" name="password" pattern="(?=.*[A-Z]).{8,}"
+                                placeholder="salasana" required />
                         </div>
+                    </div>
+                    <div class="form-row">
+                        <label for="toistaSalasana">Toista&nbsp;salasana:</label>
+                        <div class="rightTab">
+                            <input type="password" id="toistaSalasana" name="password" pattern="(?=.*[A-Z]).{8,}"
+                                placeholder="salasana" required />
+                        </div>
+                    </div>
+                    <div class="log">
+                        
                     </div>
                 </div>
                 <div class="row-center">

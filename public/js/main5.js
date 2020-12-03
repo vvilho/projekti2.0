@@ -266,32 +266,44 @@ logOut.addEventListener('click', async (evt) => {
 });
 
 // submit register form
-addUserForm.addEventListener('submit', async (evt) => {
+addUserForm.addEventListener("submit", async (evt) => {
     evt.preventDefault();
+  
+    //Check if passwords matches selectors
+    const salasana = document.getElementById("salasana").value;
+    const toistaSalasana = document.getElementById("toistaSalasana").value;
+  
     const data = serializeJson(addUserForm);
     const fetchOptions = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
     };
-    const response = await fetch(url + '/auth/register', fetchOptions);
-    const json = await response.json();
-    console.log('user add response', json);
-    // save token
-    sessionStorage.setItem('token', json.token);
-    sessionStorage.setItem('loggedUser', json.user.nimi);
-    sessionStorage.setItem('loggedUserID', json.user.userID);
-
-    console.log('loggedUser', sessionStorage.getItem('loggedUser'));
-    // show/hide forms + cats
-    loginWrapper.style.display = 'none';
-    logOut.style.display = 'block';
-    main.style.display = 'block';
-    userInfo.innerHTML = `${json.user.nimi}`;
-    getCat();
-});
+    //Check if passwords matches if statment
+    if (salasana == toistaSalasana) {
+      const response = await fetch(url + "/auth/register", fetchOptions);
+      const json = await response.json();
+      console.log("user add response", json);
+      // save token
+      sessionStorage.setItem("token", json.token);
+      sessionStorage.setItem("loggedUser", json.user.nimi);
+      sessionStorage.setItem("loggedUserID", json.user.userID);
+  
+      console.log("loggedUser", sessionStorage.getItem("loggedUser"));
+      // show/hide forms + cats
+      loginWrapper.style.display = "none";
+      logOut.style.display = "block";
+      main.style.display = "block";
+      userInfo.innerHTML = `${json.user.nimi}`;
+      getCat();
+    } else {
+      document.querySelector(".log").innerHTML = '<span class="log-style">Salasanat eivät täsmä</span>'
+  
+      console.log("salasanat eivät täsmä");
+    }
+  });
 
 // when app starts, check if token exists and hide login form, show logout button and main content, get cats and users
 if (sessionStorage.getItem('token')) {
