@@ -15,12 +15,8 @@ const userLists = document.querySelectorAll('.add-owner');
 const imageModal = document.querySelector('#image-modal');
 const modalImage = document.querySelector('#image-modal img');
 const close = document.querySelector('#image-modal a');
-<<<<<<< HEAD
-const catSearch = document.querySelector('#catSearch');
-=======
 const hakuForm = document.querySelector('#kuvaHaku');
 
->>>>>>> main
 
 // create cat cards
 const createCatCards = (cats) => {
@@ -45,6 +41,8 @@ const createCatCards = (cats) => {
                 addMarker(coords);
             } catch (e) {
             }
+            createCommentCards();
+            
         });
 
         const figure = document.createElement('figure').appendChild(img);
@@ -109,11 +107,19 @@ const createCatCards = (cats) => {
     });
 };
 
+const createCommentCards = (comment) => {
+    ul.innerHTML = '';
+    comments.forEach((comment) => {
 
-<<<<<<< HEAD
+        // create li with DOM methods
+        const commentList = document.createElement('commentList');
+        commentList.classList.add = url + '/comment/' + commment.commenttiID;
+        
+        
 
-=======
->>>>>>> main
+    });
+};
+
 // close modal
 close.addEventListener('click', (evt) => {
     evt.preventDefault();

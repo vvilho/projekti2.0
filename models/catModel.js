@@ -40,15 +40,9 @@ const getCat = async (id) => {
     }
 }
 
-<<<<<<< HEAD
-const getCatSearch = async (id) => {
-    try {
-        const [rows] = await promisePool.execute('SELECT * FROM kuva WHERE ownerID = ?', [id]);
-=======
 const getCatHaku = async (omistaja) => {
     try {
         const [rows] = await promisePool.execute('SELECT kuvaID, kuvaus, tiedostoNimi, kuva.userID, coords, omistaja as ownername FROM kuva WHERE omistaja = ?', [omistaja]);
->>>>>>> main
         console.log('rows', rows);
         return rows;
 
@@ -58,11 +52,6 @@ const getCatHaku = async (omistaja) => {
     }
 }
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> main
 const addCat = async (params) => {
     try {
         const [rows] = await promisePool.execute('INSERT into kuva (kuvaus, tiedostoNimi, userID, coords, omistaja) VALUES (?,?,?,?,?)', params);
@@ -107,10 +96,5 @@ module.exports = {
     updateCat,
     deleteCat,
     getSpecificCats,
-<<<<<<< HEAD
-    getCatSearch,
-
-=======
     getCatHaku,
->>>>>>> main
 };
