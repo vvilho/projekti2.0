@@ -8,12 +8,14 @@
     <link href="./css/styles-form.css" rel="stylesheet">
     <link href="css/style5.css" rel="stylesheet">
     <title>Kirjaudu</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;1,100;1,300;1,400;1,500&display=swap" rel="stylesheet">
 </head>
 
 <body>
 <header>
-    <a href="newmain2020.html"><h3 class="siteName">SIVUN NIMI</h3></a>
-    <div class="dropdown" id="log-out">
+    <a href="newmain2020.html"><h3 class="siteName">PHOTOGRAM</h3></a>
+    <div class="dropdown" id="log-out" >
         <p id="user-info"></p>
         <button  class="profileButton">Logout</button>
 
@@ -142,7 +144,29 @@
 <div class="hide modal" id="image-modal">
     <a href="#" class="close">Close</a>
     <img src="" alt="">
-    <div id="map"></div>
+    <!--<div id="map"></div>--!>
+    <div id="kommenttiKentta">
+        <h3>Kommentit</h3>
+        <hr>
+        <div class="kommentit">
+            <p><h5>Jaakkima:</h5> Super siisti kuva</p>
+            <p><h5>Herantis Pekkalainen:</h5>wow upeeta!!!</p>
+        </div>
+
+
+
+
+
+
+    </div>
+    <div id="teeKommentti">
+        <form id="kommentti" class="light-border">
+            <input class="light-border" type="text" maxlength="140" name="kommentti" placeholder="Kirjoita kommentti" required>
+            <input type="hidden" name="kuvaId">
+            <button class="light-border btn-form" type="submit">Julkaise</button>
+        </form>
+    </div>
+
 </div>
 <footer>
 

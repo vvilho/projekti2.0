@@ -1,14 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+
 html {
-
-
+    font-family: Quicksand;
 }
+
 body {
     margin: 0;
     padding: 0;
     background-image: linear-gradient(to bottom, rgb(0, 92, 122) 500px, #D8E6EB 500px);
     height: 100%;
     min-height: 100vh;
-    background-repeat:no-repeat;
+    background-repeat: no-repeat;
 }
 
 
@@ -30,19 +32,38 @@ header .profileButton {
     font-size: 1em;
     cursor: pointer;
 }
+
 header .profileButton:hover, header .profileButton:focus {
     background-color: #294fd9;
 }
 
-
-
-
+#log-out [style] {
+    display: flex !important;
+}
 
 
 header .siteName {
     color: #1134AD;
     font-size: 1em;
 }
+
 h2 {
     color: black;
+}
+
+#kommenttiKentta h3 {
+    text-align: center;
+
+}
+
+#kommenttiKentta {
+    padding-top: 25px;
+    margin-top: 15px;
+    background-color: white;
+    width: 100%;
+    min-height: 150px;
+    border-radius: 10px;
+}
+.kommentit {
+    padding: 25px 25px;
 }

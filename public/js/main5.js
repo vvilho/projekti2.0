@@ -115,6 +115,15 @@ close.addEventListener('click', (evt) => {
     imageModal.classList.toggle('hide');
 });
 
+document.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape') {
+        console.log('esc pressed');
+        if (!imageModal.classList.contains('hide')) {
+            imageModal.classList.toggle('hide');
+        }
+    }
+});
+
 // AJAX call
 
 hakuForm.addEventListener('submit', async (evt) => {
