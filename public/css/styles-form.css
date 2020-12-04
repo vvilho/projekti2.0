@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@700&display=swap');
 .login-container {
     width: 100%;
     height: 100%;
@@ -153,10 +155,19 @@
 
 
 h2, h3 {
+  font-family: 'Merriweather Sans', sans-serif;
     text-align: center;
     color: #1134AD;
     margin-bottom: 30px;
-    margin-top: 0;
+    margin-top: 10px;
+}
+
+h1 {
+  /*color: #ff8540;*/
+  font-family: 'Merriweather Sans', sans-serif;
+  color: #a64227;
+  border-bottom: 2px solid #005C7A;
+  padding-bottom: 20px;
 }
 
 .form-row {
@@ -202,14 +213,13 @@ label {
   }
 
   input {
-    width: 240px;
-    padding: 2px;
+    padding: 7px;
     padding-left: 7px;
     padding-right: 7px;
     margin: 7px;
     border: 2px solid#cccccc;
     border-radius: 7px;
-    font-family: Tahoma, sans-serif;
+    font-family: 'Raleway', sans-serif;
     font-size: 0.9em;
   }
 
@@ -266,14 +276,13 @@ label {
   }
 
   textarea {
-	width: 240px;
-	height: 120px;
+	  width: 100%;
+	  height: 120px;
     border: 2px solid #cccccc;
     border-radius: 7px;
-	padding: 7px;
-    font-family: Tahoma, sans-serif;
+	  padding: 7px;
+    font-family: 'Raleway', sans-serif;
     font-size: 0.9em;
-    margin-left: 7px;
 }
 
 input[type=number]::-webkit-inner-spin-button, 
