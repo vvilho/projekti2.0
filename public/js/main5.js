@@ -61,7 +61,6 @@ const createCatCards = (cats) => {
 
         // add selected cat's values to modify form
         if (cat.userID == sessionStorage.getItem('loggedUserID')) {
-            console.log('toimiii');
             const modButton = document.createElement('button');
             modButton.innerHTML = 'Modify';
             modButton.classList.add('btn-form');
@@ -117,7 +116,6 @@ close.addEventListener('click', (evt) => {
 
 document.addEventListener('keydown', (e) => {
     if(e.key === 'Escape') {
-        console.log('esc pressed');
         if (!imageModal.classList.contains('hide')) {
             imageModal.classList.toggle('hide');
         }
