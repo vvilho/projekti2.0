@@ -80,6 +80,9 @@
             </form>
         </section>
     </div>
+    
+
+
 
     <main style="display: none" id="main-wrapper">
         <form id="kuvaHaku">
@@ -127,6 +130,35 @@
                     <button class="light-border btn-form" type="submit">Save changes</button>
                 </form>
             </div>
+
+            <section class="form-wrapper-register">
+                <h2>Kommentoi</h2>
+                <form id="add-comment-form">
+                    <div class="container-form-register">
+                        <div class="form-row">
+                            <label>Nimi:</label>
+                            <div class="commentTab">
+                                <input autofocus type="text" name="name" id="eposti" placeholder="nimi"
+                                    required />
+                            </div>
+                        </div>                 
+                    </div>
+                    <div class="row-center">
+                        <button type="submit" class="btn-form">Julkaise</button>
+                    </div>
+                </form>
+            </section>
+
+            <div class="form-wrapper">
+                <h3>Muokkaa kommenttia</h3>
+                <form id="mod-comment-form" class="light-border">
+                    <input class="light-border" maxlength=140 type="text" name="Teksti" placeholder="Teksti" required>
+
+                    <input type="hidden" name="id">
+                    <button class="light-border btn-form" type="submit">Save changes</button>
+                </form>
+            </div>
+
         </div>
     </main>
 </div>

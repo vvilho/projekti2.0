@@ -7,7 +7,7 @@ const getAllComments = async () => {
     try {
         // TODO: do the LEFT (or INNER) JOIN to get owner name too.
         const [rows] = await promisePool.query('SELECT kommenttiID, kommenttiText, user.nimi as userID, kuva.kuvaID as kuvaID FROM kommentti inner join user on kommentti.userID = user.userID inner join kuva on kommentti.kuvaID = kuva.kuvaID');
-        console.log('rows', rows)
+        console.log('rows', rows);
         return rows;
     } catch (e) {
         console.log('commentModel error', e.message);
@@ -20,7 +20,7 @@ const getAllComments = async () => {
 const getSpecificComments = async () => {
     try {
         const [rows] = await promisePool.query('SELECT kommenttiID, kommenttiText, user.nimi as userID, kuva.kuvaID as kuvaID FROM kommentti inner join user on kommentti.userID = user.userID inner join kuva on kommentti.kuvaID = kuva.kuvaID');
-        console.log('rows', rows)
+        console.log('rows', rows);
         return rows;
     } catch (e) {
         console.log('commentModel error', e.message);
@@ -68,7 +68,7 @@ const updateComment = async (params) => {
 const deleteComment = async (id) => {
     try {
         const [rows] = await promisePool.execute('DELETE FROM kommentti WHERE kommenttiID = ?', [id]);
-        console.log('rows', rows)
+        console.log('rows', rows);
         return rows;
 
     } catch (e) {

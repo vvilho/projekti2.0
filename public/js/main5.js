@@ -11,11 +11,14 @@ const addUserForm = document.querySelector('#add-user-form');
 const addForm = document.querySelector('#add-cat-form');
 const modForm = document.querySelector('#mod-cat-form');
 const ul = document.querySelector('ul');
+const ul2 = document.querySelector('#ul2');// Vilho HTML TARVITAAN
 const userLists = document.querySelectorAll('.add-owner');
 const imageModal = document.querySelector('#image-modal');
 const modalImage = document.querySelector('#image-modal img');
 const close = document.querySelector('#image-modal a');
 const hakuForm = document.querySelector('#kuvaHaku');
+const addCommentForm = document.querySelector('#add-comment-form');// Vilho HTML TARVITAAN
+const modCommentForm = document.querySelector('#mod-comment-form');// Vilho HTML TARVITAAN
 
 
 // create cat cards
@@ -40,7 +43,9 @@ const createCatCards = (cats) => {
                 // console.log(coords);
                 addMarker(coords);
             } catch (e) {
+                
             }
+            
             createCommentCards();
             
         });
@@ -107,16 +112,63 @@ const createCatCards = (cats) => {
     });
 };
 
-const createCommentCards = (comment) => {
-    ul.innerHTML = '';
+const createCommentCards =  (comments) => {
+    //ul2.innerHTML = '';
     comments.forEach((comment) => {
 
         // create li with DOM methods
         const commentList = document.createElement('commentList');
-        commentList.classList.add = url + '/comment/' + commment.commenttiID;
-        
-        
+        commentList.classList.add = url + '/comment/' + commment.kommenttiID;
 
+        const h3 = document.createElement('h3');
+        h3.innerHTML = comment.kommenttiID;
+
+
+        const p4 = document.createElement('p');
+        p4.innerHTML = `Kommentti: ${comment.kommenttiText}`;
+
+        const li = document.createElement('li');
+
+
+        // delete selected comment
+        const delButton = document.createElement('button');
+        delButton.innerHTML = 'Delete';
+        delButton.classList.add('btn-form');
+        delButton.classList.add('btn-del');
+        delButton.addEventListener('click', async () => {
+            const fetchOptions = {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+                },
+            };
+            try {
+                const response = await fetch(url + '/comment/' + comment.kommenttiID, fetchOptions);
+                const json = await response.json();
+                console.log('delete response', json);
+                getComment();
+            } catch (e) {
+                console.log(e.message());
+            }
+        });
+
+
+        // add selected comment's values to modify form
+        const modCommentButton = document.createElement('button');
+        modCommentButton.innerHTML = 'Muuta kommenttia';
+        modCommentButton.classList.add('btn-form');
+        modCommentButton.classList.add('btn-mod');
+        modCommentButton.addEventListener('click', () => {
+            const inputs = modCommentForm.querySelectorAll('input');
+            inputs[0].value = comment.kommenttiText;
+        });
+
+        li.appendChild(h3);
+
+        li.appendChild(modCommentButton);
+        li.appendChild(delCommentButton);
+
+        ul2.appendChild(li);
     });
 };
 
@@ -174,6 +226,28 @@ const getCat = async () => {
     }
 };
 
+const getComment = async () => {
+    //Set addcat form hidden input value to userID
+    const inputs = addForm.querySelectorAll('input');
+    inputs[2].value = sessionStorage.getItem('loggedUserID');
+    inputs[3].value = sessionStorage.getItem('loggedUser');
+
+    userInfo.innerHTML = `${sessionStorage.getItem('loggedUser')}`;
+    console.log('getComment token ', sessionStorage.getItem('token'));
+    try {
+        const options = {
+            headers: {
+                'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+            },
+        };
+        const response = await fetch(url + '/comment', options);
+        const comments = await response.json();
+        createCommentCards(comments);
+    } catch (e) {
+        console.log(e.message);
+    }
+};
+
 const getCatSearch = async () => {
     //Set addcat form hidden input value to userID
     const inputs = addForm.querySelectorAll('CatSearch');
@@ -212,6 +286,22 @@ addForm.addEventListener('submit', async (evt) => {
     console.log('add response', json);
     getCat();
 });
+// submit add comment form
+addCommentForm.addEventListener('submit', async (evt) => {
+    evt.preventDefault();
+    const fd = new FormData(addCommentForm);
+    const fetchOptions = {
+        method: 'POST',
+        headers: {
+            'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+        },
+        body: fd,
+    };
+    const response = await fetch(url + '/comment', fetchOptions);
+    const json = await response.json();
+    console.log('add comment response', json);
+    getComment();
+});
 
 // submit modify form
 modForm.addEventListener('submit', async (evt) => {
@@ -232,6 +322,27 @@ modForm.addEventListener('submit', async (evt) => {
     console.log('modify response', json);
     getCat();
 });
+
+// submit modify comment form
+modCommentForm.addEventListener('submit', async (evt) => {
+    evt.preventDefault();
+    const data = serializeJson(modCommentForm);
+    const fetchOptions = {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+        },
+        body: JSON.stringify(data),
+    };
+
+    console.log(fetchOptions);
+    const response = await fetch(url + '/comment', fetchOptions);
+    const json = await response.json();
+    console.log('modify response', json);
+    getComment();
+});
+
 
 
 
