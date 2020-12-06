@@ -16,6 +16,8 @@ const imageModal = document.querySelector('#image-modal');
 const modalImage = document.querySelector('#image-modal img');
 const close = document.querySelector('#image-modal a');
 const hakuForm = document.querySelector('#kuvaHaku');
+const commentForm = document.querySelector('#kommentti');
+const ulKommentti = document.querySelector('#ulKommentti');
 
 
 // create cat cards
@@ -31,13 +33,20 @@ const createCatCards = (cats) => {
         img.classList.add('resp');
 
         // open large image when clicking image
+
         img.addEventListener('click', () => {
+
             modalImage.src = url + '/' + cat.tiedostoNimi;
             imageModal.alt = cat.kuvaID;
             imageModal.classList.toggle('hide');
+            const inputs = commentForm.querySelectorAll('input');
+            inputs[0].value = '';
+            inputs[1].value = cat.kuvaID;
+            inputs[2].value = sessionStorage.getItem('loggedUserID');
+            //get imagecomments
+            getComments();
             try {
                 const coords = JSON.parse(cat.coords);
-                // console.log(coords);
                 addMarker(coords);
             } catch (e) {
             }
@@ -52,7 +61,7 @@ const createCatCards = (cats) => {
         const p3 = document.createElement('p');
         p3.innerHTML = `Kuvaus: ${cat.kuvaus}`;
         const li = document.createElement('li');
-        const hr= document.createElement('hr');
+        const hr = document.createElement('hr');
         hr.classList.add('stripe-small');
         li.appendChild(h2);
         li.appendChild(figure);
@@ -72,7 +81,6 @@ const createCatCards = (cats) => {
 
 
             });
-
 
 
             // delete selected cat
@@ -99,7 +107,8 @@ const createCatCards = (cats) => {
 
             li.appendChild(modButton);
             li.appendChild(delButton);
-        };
+        }
+        ;
 
 
         ul.appendChild(li);
@@ -108,6 +117,30 @@ const createCatCards = (cats) => {
 };
 
 
+// create comments ul
+
+const createCommentUl = (comments) => {
+    ulKommentti.innerHTML = '';
+    comments.forEach((comment) => {
+        const li = document.createElement('li');
+        const h4 = document.createElement('h4');
+        h4.innerHTML = comment.nimi;
+        const p = document.createElement('p');
+        p.innerHTML = comment.kommenttiText;
+        const br = document.createElement('br');
+
+        li.appendChild(h4);
+        li.appendChild(p);
+        li.appendChild(br);
+        li.appendChild(br);
+
+        ulKommentti.appendChild(li);
+
+    });
+
+
+};
+
 // close modal
 close.addEventListener('click', (evt) => {
     evt.preventDefault();
@@ -115,15 +148,14 @@ close.addEventListener('click', (evt) => {
 });
 
 document.addEventListener('keydown', (e) => {
-    if(e.key === 'Escape') {
+    if (e.key === 'Escape') {
         if (!imageModal.classList.contains('hide')) {
             imageModal.classList.toggle('hide');
         }
     }
 });
 
-// AJAX call
-
+// hae kuvia käyttäjänimellä
 hakuForm.addEventListener('submit', async (evt) => {
     evt.preventDefault();
     const owner = document.getElementById('hakuSana').value;
@@ -135,11 +167,12 @@ hakuForm.addEventListener('submit', async (evt) => {
                 'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
             },
         };
-        const response = await fetch(url + '/cat/'+owner, options);
+        const response = await fetch(url + '/cat/' + owner, options);
         const cats = await response.json();
-        if (cats.length >= 1){
+
+        if (cats.length >= 1) {
             createCatCards(cats);
-        }else{
+        } else {
             alert('Haulla ei löytynyt yhtään tulosta');
         }
     } catch (e) {
@@ -171,7 +204,9 @@ const getCat = async () => {
 };
 
 
-// submit add cat form
+// submit add kuva form
+
+
 addForm.addEventListener('submit', async (evt) => {
     evt.preventDefault();
     const fd = new FormData(addForm);
@@ -182,11 +217,56 @@ addForm.addEventListener('submit', async (evt) => {
         },
         body: fd,
     };
+
     const response = await fetch(url + '/cat', fetchOptions);
     const json = await response.json();
     console.log('add response', json);
     getCat();
 });
+
+const getComments = async () => {
+
+    const kuvaID = document.getElementById('commentKuvaID').value;
+
+    try {
+        const options = {
+            headers: {
+                'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+            },
+        };
+        const response = await fetch(url + '/comment/' + kuvaID, options);
+        const comments = await response.json();
+        createCommentUl(comments);
+    } catch (e) {
+        console.log(e.message);
+    }
+};
+
+
+
+//submit comment
+
+commentForm.addEventListener('submit', async (evt) => {
+    evt.preventDefault();
+    const data = serializeJson(commentForm);
+    const inputs = commentForm.querySelectorAll('input');
+    inputs[0].value = '';
+    const fetchOptions = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+        },
+        body: JSON.stringify(data),
+    };
+    const response = await fetch(url + '/comment', fetchOptions);
+    const json = await response.json();
+
+
+    console.log('newComment response', json);
+    getComments();
+});
+
 
 // submit modify form
 modForm.addEventListener('submit', async (evt) => {
@@ -201,10 +281,9 @@ modForm.addEventListener('submit', async (evt) => {
         body: JSON.stringify(data),
     };
 
-    console.log(fetchOptions);
     const response = await fetch(url + '/cat', fetchOptions);
     const json = await response.json();
-    console.log('modify response', json);
+    console.log('modifyKuvaus response', json);
     getCat();
 });
 
@@ -275,42 +354,42 @@ logOut.addEventListener('click', async (evt) => {
 // submit register form
 addUserForm.addEventListener("submit", async (evt) => {
     evt.preventDefault();
-  
+
     //Check if passwords matches selectors
     const salasana = document.getElementById("salasana").value;
     const toistaSalasana = document.getElementById("toistaSalasana").value;
-  
+
     const data = serializeJson(addUserForm);
     const fetchOptions = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
     };
     //Check if passwords matches if statment
     if (salasana == toistaSalasana) {
-      const response = await fetch(url + "/auth/register", fetchOptions);
-      const json = await response.json();
-      console.log("user add response", json);
-      // save token
-      sessionStorage.setItem("token", json.token);
-      sessionStorage.setItem("loggedUser", json.user.nimi);
-      sessionStorage.setItem("loggedUserID", json.user.userID);
-  
-      console.log("loggedUser", sessionStorage.getItem("loggedUser"));
-      // show/hide forms + cats
-      loginWrapper.style.display = "none";
-      logOut.style.display = "block";
-      main.style.display = "block";
-      userInfo.innerHTML = `${json.user.nimi}`;
-      getCat();
+        const response = await fetch(url + "/auth/register", fetchOptions);
+        const json = await response.json();
+        console.log("user add response", json);
+        // save token
+        sessionStorage.setItem("token", json.token);
+        sessionStorage.setItem("loggedUser", json.user.nimi);
+        sessionStorage.setItem("loggedUserID", json.user.userID);
+
+        console.log("loggedUser", sessionStorage.getItem("loggedUser"));
+        // show/hide forms + cats
+        loginWrapper.style.display = "none";
+        logOut.style.display = "block";
+        main.style.display = "block";
+        userInfo.innerHTML = `${json.user.nimi}`;
+        getCat();
     } else {
-      document.querySelector(".log").innerHTML = '<span class="log-style">Salasanat eivät täsmä</span>'
-  
-      console.log("salasanat eivät täsmä");
+        document.querySelector(".log").innerHTML = '<span class="log-style">Salasanat eivät täsmä</span>'
+
+        console.log("salasanat eivät täsmä");
     }
-  });
+});
 
 // when app starts, check if token exists and hide login form, show logout button and main content, get cats and users
 if (sessionStorage.getItem('token')) {

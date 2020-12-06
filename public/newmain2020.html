@@ -2,22 +2,23 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="./css/cssmain.css" rel="stylesheet">
     <link href="./css/styles-form.css" rel="stylesheet">
     <link href="css/style5.css" rel="stylesheet">
     <title>Kirjaudu</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;1,100;1,300;1,400;1,500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;1,100;1,300;1,400;1,500&display=swap"
+          rel="stylesheet">
 </head>
 
 <body>
 <header>
     <a href="newmain2020.html"><h3 class="siteName">PHOTOGRAM</h3></a>
-    <div class="dropdown" id="log-out" >
+    <div class="dropdown" id="log-out">
         <p id="user-info"></p>
-        <button  class="profileButton">Logout</button>
+        <button class="profileButton">Logout</button>
 
     </div>
 </header>
@@ -28,17 +29,17 @@
             <form id="login-form">
                 <div class="container-form-login">
                     <div class="form-row">
-                        <label >Sähköposti:</label>
+                        <label>Sähköposti:</label>
                         <div class="rightTab">
-                            <input autofocus type="text" name="username"  placeholder="sähköposti"
-                                   required />
+                            <input autofocus type="text" name="username" placeholder="sähköposti"
+                                   required/>
                         </div>
                     </div>
                     <div class="form-row">
                         <label>Salasana:</label>
                         <div class="rightTab">
                             <input type="password" name="password"
-                                   placeholder="Salasana" required />
+                                   placeholder="Salasana" required/>
                         </div>
                     </div>
                 </div>
@@ -56,32 +57,32 @@
                     <div class="form-row">
                         <label for="nimi">Nimi:</label>
                         <div class="rightTab">
-                            <input autofocus type="text" name="name" id="nimi" placeholder="nimi" required />
+                            <input autofocus type="text" name="name" id="nimi" placeholder="nimi" required/>
                         </div>
                     </div>
                     <div class="form-row">
                         <label for="email">Sähköposti:</label>
                         <div class="rightTab">
                             <input autofocus type="email" id="email" name="username" placeholder="sähköoposti"
-                                required />
+                                   required/>
                         </div>
                     </div>
                     <div class="form-row">
                         <label for="salasana">Salasana:</label>
                         <div class="rightTab">
                             <input type="password" id="salasana" name="password" pattern="(?=.*[A-Z]).{8,}"
-                                placeholder="salasana" required />
+                                   placeholder="salasana" required/>
                         </div>
                     </div>
                     <div class="form-row">
                         <label for="toistaSalasana">Toista&nbsp;salasana:</label>
                         <div class="rightTab">
                             <input type="password" id="toistaSalasana" name="password" pattern="(?=.*[A-Z]).{8,}"
-                                placeholder="salasana" required />
+                                   placeholder="salasana" required/>
                         </div>
                     </div>
                     <div class="log">
-                        
+
                     </div>
                 </div>
                 <div class="row-center">
@@ -93,10 +94,10 @@
 
     <main style="display: none" id="main-wrapper">
         <form id="kuvaHaku">
-            <input id="hakuSana" class="light-border" type="text" name="omistaja" placeholder="hae käyttäjän kuvia" style="text-align: center">
+            <input id="hakuSana" class="light-border" type="text" name="omistaja" placeholder="hae käyttäjän kuvia"
+                   style="text-align: center">
             <button type="submit" class="light-border btn-form">Hae</button>
         </form>
-
 
 
         <h1>Lista kuvista</h1>
@@ -104,7 +105,7 @@
         <ul>
             <!-- js creates list here -->
         </ul>
-        
+
         <hr class="stripe-long">
         <div class="forms">
 
@@ -144,26 +145,28 @@
 <div class="hide modal" id="image-modal">
     <a href="#" class="close">Close</a>
     <img src="" alt="">
-    <!-- <div id="map"></div> --!>
+
 
     <div id="kommenttiKentta">
         <h3>Kommentit</h3>
         <hr>
-        <div class="kommentit">
-            <p><h5>Jaakkima:</h5> Super siisti kuva</p>
-            <p><h5>Herantis Pekkalainen:</h5>wow upeeta!!!</p>
-        </div>
+        <ul class="kommentit" id="ulKommentti">
 
-
-
-
+        </ul>
 
 
     </div>
     <div id="teeKommentti">
-        <form id="kommentti" class="light-border">
-            <input class="light-border" type="text" maxlength="140" name="kommentti" placeholder="Kirjoita kommentti" required>
-            <input type="hidden" name="kuvaId">
+        <form
+                method="post"
+                enctype="application/x-www-form-urlencoded"
+                id="kommentti"
+                class="light-border">
+
+            <input id="kommenttiInput" class="light-border" type="text" name="kommentti" placeholder="Kirjoita kommentti" required>
+            <input type="hidden"  name="kuvaID" id="commentKuvaID">
+            <input type="hidden" name="userID" id="commentUserID">
+
             <button class="light-border btn-form" type="submit">Julkaise</button>
         </form>
     </div>

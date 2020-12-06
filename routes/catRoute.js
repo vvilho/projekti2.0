@@ -8,9 +8,9 @@ const catController = require('../controllers/catController');
 
 
 const fileFilter = (req, file, cb) => {
-    if(file.mimetype.includes('image')){
+    if (file.mimetype.includes('image')) {
         cb(null, true);
-    }else{
+    } else {
         cb(null, false);
     }
 }
@@ -33,18 +33,21 @@ router.get('/', catController.cat_list_get);
 router.get('/:omistaja', catController.cat_get_haku);
 
 
-router.post('/', upload.single('cat'), injectFile, catController.make_thumbnail, [
-    body('kuvaus', 'vaadittu kenttä').isLength({min: 1}),
-    body('mimetype', 'ei ole kuva').contains('image'),
-], catController.cat_create_post);
+router.post('/',
+    upload.single('cat'),
+    injectFile, catController.make_thumbnail,
+    [
+        body('kuvaus', 'vaadittu kenttä').isLength({min: 1}),
+        body('mimetype', 'ei ole kuva').contains('image'),
+    ],
+    catController.cat_create_post);
 
 
-router.put('/', [
-    body('kuvaus', 'nimi pakollinen').isLength({min: 1}),
-
-
-
-], catController.cat_update_put);
+router.put('/',
+    [
+        body('kuvaus', 'kuvaus pakollinen').isLength({min: 1}),
+    ],
+    catController.cat_update_put);
 
 router.delete('/:id', catController.cat_delete);
 

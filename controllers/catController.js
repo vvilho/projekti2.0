@@ -27,6 +27,7 @@ const cat_get = async (req, res) => {
 
 const cat_create_post = async (req, res) => {
     console.log('cat_create_post', req.body, req.file);
+
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({errors: errors.array()});
