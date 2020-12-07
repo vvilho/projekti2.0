@@ -11,7 +11,7 @@ const addUserForm = document.querySelector('#add-user-form');
 const addForm = document.querySelector('#add-cat-form');
 const modForm = document.querySelector('#mod-cat-form');
 const ul = document.querySelector('ul');
-const userLists = document.querySelectorAll('.add-owner');
+const kuntaList = document.querySelectorAll('#add-kunta');
 const imageModal = document.querySelector('#image-modal');
 const modalImage = document.querySelector('#image-modal img');
 const close = document.querySelector('#image-modal a');
@@ -78,7 +78,8 @@ const createCatCards = (cats) => {
         const h2 = document.createElement('h2');
         h2.innerHTML = cat.ownername;
 
-
+        const p4 = document.createElement('p');
+        p4.innerHTML = `Paikka: ${cat.kunta}`;
         const p3 = document.createElement('p');
         p3.innerHTML = `Kuvaus: ${cat.kuvaus}`;
         const li = document.createElement('li');
@@ -88,6 +89,7 @@ const createCatCards = (cats) => {
         hr.classList.add('stripe-small');
         li.appendChild(h2);
         li.appendChild(figure);
+        li.appendChild(p4);
         li.appendChild(p3);
         li.appendChild(like);
 
@@ -256,6 +258,40 @@ const getCat = async () => {
 };
 
 
+// create kunta options to <select>
+const createKuntaOptions = (kunnat) => {
+    kuntaList.forEach((list) => {
+        // clear user list
+        list.innerHTML = '';
+        kunnat.forEach((kunta) => {
+            // create options with DOM methods
+            const option = document.createElement('option');
+            option.value = kunta.Kuntanumero;
+            option.innerHTML = kunta.Kunta;
+            option.classList.add('light-border');
+            list.appendChild(option);
+        });
+    });
+};
+
+// get kunta to form options
+const getKunta = async () => {
+    try {
+        const options = {
+            headers: {
+                'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+            },
+        };
+        const response = await fetch(url + '/kunta', options);
+        const kunnat = await response.json();
+        createKuntaOptions(kunnat);
+    }
+    catch (e) {
+        console.log(e.message);
+    }
+};
+
+
 // submit add kuva form
 
 
@@ -365,14 +401,10 @@ const getlike = async (kuvaID, userID) => {
 
     const response = await fetch(url + '/like/'+kuvaID+'/'+userID, fetchOptions);
     const json = await response.json();
-    console.log('Getlike response', json.length);
     //check if user has liked the image
 
     if(json.length > 0){
-        console.log('true', json)
         return await json.length;
-    }else{
-        console.log('false', json);
     }
 
 
@@ -457,6 +489,7 @@ loginForm.addEventListener('submit', async (evt) => {
         main.style.display = 'block';
         userInfo.innerHTML = `${json.user.nimi}`;
         getCat();
+        getKunta();
     }
 });
 
@@ -523,6 +556,7 @@ addUserForm.addEventListener("submit", async (evt) => {
         main.style.display = "block";
         userInfo.innerHTML = `${json.user.nimi}`;
         getCat();
+        getKunta();
     } else {
         document.querySelector(".log").innerHTML = '<span class="log-style">Salasanat eivät täsmä</span>'
 
@@ -536,4 +570,6 @@ if (sessionStorage.getItem('token')) {
     logOut.style.display = 'block';
     main.style.display = 'block';
     getCat();
+    getKunta();
+    console.log('toiniii');
 }

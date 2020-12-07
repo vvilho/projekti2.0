@@ -116,12 +116,15 @@
                       id="add-cat-form">
                     <input class="light-border" type="text" maxlength="140" name="kuvaus" placeholder="Kuvaus" required>
 
-
+                    <select id="add-kunta" class="light-border" name="kunta" required>
+                        <option value="">Valitse kunta</option>
+                    </select>
                     <input class="light-border"
                            type="file"
                            name="cat"
                            accept="image/*"
                            id="files">
+
                     <input type="hidden" name="id">
                     <input type="hidden" name="owner">
 

@@ -38,12 +38,13 @@ const cat_create_post = async (req, res) => {
     try {
          coords = await getCoordinates(req.file.path);
     } catch (e) {
+        coords = [60,20];
         console.log(e);
     }
     console.log('coords', coords);
     // Object desctructing
-    const {kuvaus, id, owner} = req.body;
-    const params = [kuvaus, req.file.filename, id, coords, owner];
+    const {kuvaus, id, owner, kunta} = req.body;
+    const params = [kuvaus, req.file.filename, id, coords, owner, kunta];
 
     const cat = await catModel.addCat(params);
 
