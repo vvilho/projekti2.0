@@ -263,6 +263,13 @@ const createKuntaOptions = (kunnat) => {
     kuntaList.forEach((list) => {
         // clear user list
         list.innerHTML = '';
+        const option = document.createElement('option');
+        option.value = '';
+        option.innerHTML = 'Kuvan sijainti';
+        option.classList.add('light-border');
+        option.disabled;
+        option.selected;
+        list.appendChild(option);
         kunnat.forEach((kunta) => {
             // create options with DOM methods
             const option = document.createElement('option');
