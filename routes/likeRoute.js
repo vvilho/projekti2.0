@@ -14,5 +14,8 @@ router.delete('/', likeController.like_delete);
 
 router.get('/:kuvaID/:userID', likeController.like_get);
 
+router.get('/:kuvaID', likeController.all_likes_get);
+
+
 module.exports = router;
 

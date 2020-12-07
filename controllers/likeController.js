@@ -31,6 +31,25 @@ const like_get = async (req, res) => {
     res.json(like);
 };
 
+const all_likes_get = async (req, res) => {
+    console.log('like_get');
+
+
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+        return res.status(400).json({errors: errors.array()});
+    }
+
+
+    // Object desctructing
+    const {kuvaID} = req.params;
+    const params = [kuvaID];
+    const like = await likeModel.getAlllikes(params);
+
+    res.json(like);
+};
+
 const like_create_post = async (req, res) => {
     console.log('like_create_post', req.body);
     console.log(req.body);
@@ -77,6 +96,7 @@ const like_delete = async (req, res) => {
 module.exports = {
     like_list_get,
     like_get,
+    all_likes_get,
     like_create_post,
     like_delete,
 };

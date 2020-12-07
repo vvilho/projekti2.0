@@ -3,14 +3,14 @@
 const pool = require('../database/db');
 const promisePool = pool.promise();
 
-const getAlllikes = async () => {
+const getAlllikes = async (params) => {
     try {
-        // TODO: do the LEFT (or INNER) JOIN to get owner name too.
-        const [rows] = await promisePool.query('SELECT kuvaID, kuvaus, tiedostoNimi, kuva.userID, coords, user.nimi as ownername FROM kuva inner join user on kuva.userID = user.userID');
-        console.log('rows', rows)
+        const [rows] = await promisePool.execute('SELECT COUNT(likeID) as likecount from tykkaa WHERE kuvaID = ?', params);
+        console.log('rows', rows);
         return rows;
+
     } catch (e) {
-        console.log('likeModel error', e.message);
+        console.log('likeModel getlike error', e.message);
         return {error: 'DB Error'}
     }
 };
@@ -38,6 +38,8 @@ const getlike = async (params) => {
         return {error: 'DB Error'}
     }
 }
+
+
 
 
 

@@ -78,6 +78,12 @@ const createCatCards = (cats) => {
         const h2 = document.createElement('h2');
         h2.innerHTML = cat.ownername;
 
+        const likecount = document.createElement('p');
+        getlikes(cat.kuvaID).then(x => {
+
+            likecount.innerHTML = `Likes: ${x[0].likecount}`;
+        })
+
         const p4 = document.createElement('p');
         p4.innerHTML = `Paikka: ${cat.kunta}`;
         const p3 = document.createElement('p');
@@ -91,6 +97,7 @@ const createCatCards = (cats) => {
         li.appendChild(figure);
         li.appendChild(p4);
         li.appendChild(p3);
+        li.appendChild(likecount);
         li.appendChild(like);
 
         //if user has liked a picture set button color red
@@ -111,6 +118,7 @@ const createCatCards = (cats) => {
                 addlike(cat.kuvaID, sessionStorage.getItem('loggedUserID'));
                 like.classList.add('tykkaaBtn');
             }
+            getCat();
         });
 
 
@@ -394,7 +402,7 @@ const removelike = async (kuvaID, userID) => {
 
 
 
-// get likes
+// get like
 
 const getlike = async (kuvaID, userID) => {
 
@@ -413,6 +421,26 @@ const getlike = async (kuvaID, userID) => {
     if(json.length > 0){
         return await json.length;
     }
+
+
+};
+//get likes
+
+const getlikes = async (kuvaID) => {
+
+
+    const fetchOptions = {
+        headers: {
+            'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+        },
+
+    };
+
+    const response = await fetch(url + '/like/'+kuvaID, fetchOptions);
+    const json = await response.json();
+    //check if user has liked the image
+
+    return json;
 
 
 };
