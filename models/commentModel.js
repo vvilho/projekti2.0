@@ -28,9 +28,9 @@ const getSpecificComments = async () => {
     }
 };
 
-const getComment = async (id) => {
+const getComment = async (name) => {
     try {
-        const [rows] = await promisePool.execute('SELECT * FROM komment WHERE kommentID = ?', [id]);
+        const [rows] = await promisePool.execute('SELECT * FROM kommentti WHERE kuvaID = ?', [name]);
         console.log('rows', rows);
         return rows;
 
@@ -77,6 +77,19 @@ const deleteComment = async (id) => {
     }
 }
 
+
+const getCommentLikes = async (like) => {
+    try {
+        const [rows] = await promisePool.execute('SELECT COUNT(like) FROM likes WHERE kommenttiID = ?', [like]);
+        console.log('rows', rows);
+        return rows;
+
+    } catch (e) {
+        console.log('commentModel error', e.message);
+        return {error: 'DB Error'}
+    }
+}
+
 module.exports = {
     getAllComments,
     getComment,
@@ -84,4 +97,6 @@ module.exports = {
     updateComment,
     deleteComment,
     getSpecificComments,
+    getCommentLikes
+    
 };

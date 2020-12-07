@@ -34,7 +34,7 @@ router.get('/:omistaja', catController.cat_get_haku);
 
 router.get('/:name', catController.cat_get_search);
 
-
+router.get('/:like', catController.cat_likes_get);
 
 
 router.post('/', upload.single('cat'), injectFile, catController.make_thumbnail, [

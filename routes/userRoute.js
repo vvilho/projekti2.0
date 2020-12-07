@@ -13,6 +13,8 @@ router.get('/', userController.user_list_get);
 
 router.get('/:id', userController.user_get);
 
+router.get('/:count', userController.user_get_count);
+
 
 router.put('/', (req, res) => {
     res.send('With this endpoint you can edit users.')

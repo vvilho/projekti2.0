@@ -19,11 +19,15 @@ const comment_get = async (req, res) => {
     res.json(comment);
 };
 const comment_get_search = async (req, res) => {
-    const id = req.params.id;
-    const comment = await commentModel.getCommentSearch(id);
+    const name = req.params.name;
+    const comment = await commentModel.getCommentSearch(name);
     res.json(comment);
 };
-
+const comment_likes_get = async (req, res) => {
+    const like = req.params.like;
+    const comment = await commentModel.getComment(like);
+    res.json(comment);
+};
 
 const comment_create_post = async (req, res) => {
     console.log('comment_create_post', req.body, req.file);
@@ -81,4 +85,5 @@ module.exports = {
     comment_update_put,
     comment_delete,
     comment_get_search,
+    comment_likes_get,
 };

@@ -11,14 +11,15 @@ const addUserForm = document.querySelector('#add-user-form');
 const addForm = document.querySelector('#add-cat-form');
 const modForm = document.querySelector('#mod-cat-form');
 const ul = document.querySelector('ul');
-const ul2 = document.querySelector('#ul2');// Vilho HTML TARVITAAN
+const ul2 = document.querySelector('#ul2');
 const userLists = document.querySelectorAll('.add-owner');
 const imageModal = document.querySelector('#image-modal');
 const modalImage = document.querySelector('#image-modal img');
 const close = document.querySelector('#image-modal a');
 const hakuForm = document.querySelector('#kuvaHaku');
-const addCommentForm = document.querySelector('#add-comment-form');// Vilho HTML TARVITAAN
-const modCommentForm = document.querySelector('#mod-comment-form');// Vilho HTML TARVITAAN
+const addCommentForm = document.querySelector('#kommentti');
+const likesFormCat = document.querySelector('#likesCat');
+const likesFormComment = document.querySelector('#likesComment');
 
 
 // create cat cards
@@ -38,6 +39,9 @@ const createCatCards = (cats) => {
             modalImage.src = url + '/' + cat.tiedostoNimi;
             imageModal.alt = cat.kuvaID;
             imageModal.classList.toggle('hide');
+            const input = addCommentForm.querySelector('#kommenttiInput');
+            input[1].value = cat.kuvaID;
+            getComment(cat.kuvaID);
             try {
                 const coords = JSON.parse(cat.coords);
                 // console.log(coords);
@@ -45,9 +49,6 @@ const createCatCards = (cats) => {
             } catch (e) {
                 
             }
-            
-            createCommentCards();
-            
         });
 
         const figure = document.createElement('figure').appendChild(img);
@@ -58,54 +59,57 @@ const createCatCards = (cats) => {
 
         const p3 = document.createElement('p');
         p3.innerHTML = `Kuvaus: ${cat.kuvaus}`;
-        // add selected cat's values to modify form
-        const modButton = document.createElement('button');
-        modButton.innerHTML = 'Modify';
-        modButton.classList.add('btn-form');
-        modButton.classList.add('btn-mod');
-        modButton.addEventListener('click', () => {
-            const inputs = modForm.querySelectorAll('input');
-            inputs[0].value = cat.kuvaus;
-            inputs[1].value = cat.kuvaID;
-
-
-            //modForm.querySelector('select').value = cat.ownername;
-        });
-
-
-        // delete selected cat
-        const delButton = document.createElement('button');
-        delButton.innerHTML = 'Delete';
-        delButton.classList.add('btn-form');
-        delButton.classList.add('btn-del');
-        delButton.addEventListener('click', async () => {
-            const fetchOptions = {
-                method: 'DELETE',
-                headers: {
-                    'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
-                },
-            };
-            try {
-                const response = await fetch(url + '/cat/' + cat.kuvaID, fetchOptions);
-                const json = await response.json();
-                console.log('delete response', json);
-                getCat();
-            } catch (e) {
-                console.log(e.message());
-            }
-        });
-
-
         const li = document.createElement('li');
         const hr= document.createElement('hr');
         hr.classList.add('stripe-small');
-
         li.appendChild(h2);
         li.appendChild(figure);
         li.appendChild(p3);
 
-        li.appendChild(modButton);
-        li.appendChild(delButton);
+
+        // add selected cat's values to modify form
+        if (cat.userID == sessionStorage.getItem('loggedUserID')) {
+            console.log('toimiii');
+            const modButton = document.createElement('button');
+            modButton.innerHTML = 'Modify';
+            modButton.classList.add('btn-form');
+            modButton.classList.add('btn-mod');
+            modButton.addEventListener('click', () => {
+                const inputs = modForm.querySelectorAll('input');
+                inputs[0].value = cat.kuvaus;
+                inputs[1].value = cat.kuvaID;
+
+
+            });
+
+
+
+            // delete selected cat
+            const delButton = document.createElement('button');
+            delButton.innerHTML = 'Delete';
+            delButton.classList.add('btn-form');
+            delButton.classList.add('btn-del');
+            delButton.addEventListener('click', async () => {
+                const fetchOptions = {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+                    },
+                };
+                try {
+                    const response = await fetch(url + '/cat/' + cat.kuvaID, fetchOptions);
+                    const json = await response.json();
+                    console.log('delete response', json);
+                    getCat();
+                } catch (e) {
+                    console.log(e.message());
+                }
+            });
+
+            li.appendChild(modButton);
+            li.appendChild(delButton);
+        };
+
 
         ul.appendChild(li);
         ul.appendChild(hr);
@@ -152,20 +156,8 @@ const createCommentCards =  (comments) => {
             }
         });
 
-
-        // add selected comment's values to modify form
-        const modCommentButton = document.createElement('button');
-        modCommentButton.innerHTML = 'Muuta kommenttia';
-        modCommentButton.classList.add('btn-form');
-        modCommentButton.classList.add('btn-mod');
-        modCommentButton.addEventListener('click', () => {
-            const inputs = modCommentForm.querySelectorAll('input');
-            inputs[0].value = comment.kommenttiText;
-        });
-
         li.appendChild(h3);
 
-        li.appendChild(modCommentButton);
         li.appendChild(delCommentButton);
 
         ul2.appendChild(li);
@@ -176,6 +168,15 @@ const createCommentCards =  (comments) => {
 close.addEventListener('click', (evt) => {
     evt.preventDefault();
     imageModal.classList.toggle('hide');
+});
+
+document.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape') {
+        console.log('esc pressed');
+        if (!imageModal.classList.contains('hide')) {
+            imageModal.classList.toggle('hide');
+        }
+    }
 });
 
 // AJAX call
@@ -201,7 +202,7 @@ hakuForm.addEventListener('submit', async (evt) => {
     } catch (e) {
         console.log(e.message);
     }
-})
+});
 
 
 const getCat = async () => {
@@ -226,23 +227,71 @@ const getCat = async () => {
     }
 };
 
-const getComment = async () => {
-    //Set addcat form hidden input value to userID
-    const inputs = addForm.querySelectorAll('input');
-    inputs[2].value = sessionStorage.getItem('loggedUserID');
-    inputs[3].value = sessionStorage.getItem('loggedUser');
+const getComment = async (kuvaID) => {
 
-    userInfo.innerHTML = `${sessionStorage.getItem('loggedUser')}`;
-    console.log('getComment token ', sessionStorage.getItem('token'));
     try {
         const options = {
             headers: {
                 'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
             },
         };
-        const response = await fetch(url + '/comment', options);
+        const response = await fetch(url + '/comment/'+kuvaID, options);
         const comments = await response.json();
+        console.log(comments);
         createCommentCards(comments);
+    } catch (e) {
+        console.log(e.message);
+    }
+};
+
+const getUserCount = async (count) => {
+
+    try {
+        const options = {
+            headers: {
+                'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+            },
+        };
+        const response = await fetch(url + '/user/'+count, options);
+        const count = await response.json();
+        console.log(count);
+        
+    } catch (e) {
+        console.log(e.message);
+    }
+};
+
+
+const getCommentLikes = async (like) => {
+
+    try {
+        const options = {
+            headers: {
+                'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+            },
+        };
+        const response = await fetch(url + '/comment/'+like, options);
+        const likes = await response.json();
+        console.log(likes);
+        
+    } catch (e) {
+        console.log(e.message);
+    }
+};
+
+
+const getCatLikes = async (like) => {
+
+    try {
+        const options = {
+            headers: {
+                'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+            },
+        };
+        const response = await fetch(url + '/cat/'+like, options);
+        const likes = await response.json();
+        console.log(likes);
+        
     } catch (e) {
         console.log(e.message);
     }
@@ -303,6 +352,39 @@ addCommentForm.addEventListener('submit', async (evt) => {
     getComment();
 });
 
+// submit like cat form
+likesFormCat.onClick('submit', async (evt) => {
+    evt.preventDefault();
+    const fd = new FormData(likesFormCat);
+    const fetchOptions = {
+        method: 'POST',
+        headers: {
+            'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+        },
+        body: fd,
+    };
+    const response = await fetch(url + '/likes', fetchOptions);
+    const json = await response.json();
+    console.log('add comment response', json);
+    getCatLikes();
+});
+
+// submit like comment form
+likesFormComment.onClick('submit', async (evt) => {
+    evt.preventDefault();
+    const fd = new FormData(likesFormComment);
+    const fetchOptions = {
+        method: 'POST',
+        headers: {
+            'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+        },
+        body: fd,
+    };
+    const response = await fetch(url + '/likes', fetchOptions);
+    const json = await response.json();
+    console.log('add comment response', json);
+    getCommentLikes();
+});
 // submit modify form
 modForm.addEventListener('submit', async (evt) => {
     evt.preventDefault();
@@ -323,25 +405,7 @@ modForm.addEventListener('submit', async (evt) => {
     getCat();
 });
 
-// submit modify comment form
-modCommentForm.addEventListener('submit', async (evt) => {
-    evt.preventDefault();
-    const data = serializeJson(modCommentForm);
-    const fetchOptions = {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
-        },
-        body: JSON.stringify(data),
-    };
 
-    console.log(fetchOptions);
-    const response = await fetch(url + '/comment', fetchOptions);
-    const json = await response.json();
-    console.log('modify response', json);
-    getComment();
-});
 
 
 
@@ -412,32 +476,44 @@ logOut.addEventListener('click', async (evt) => {
 });
 
 // submit register form
-addUserForm.addEventListener('submit', async (evt) => {
+addUserForm.addEventListener("submit", async (evt) => {
     evt.preventDefault();
+  
+    //Check if passwords matches selectors
+    const salasana = document.getElementById("salasana").value;
+    const toistaSalasana = document.getElementById("toistaSalasana").value;
+  
     const data = serializeJson(addUserForm);
     const fetchOptions = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
     };
-    const response = await fetch(url + '/auth/register', fetchOptions);
-    const json = await response.json();
-    console.log('user add response', json);
-    // save token
-    sessionStorage.setItem('token', json.token);
-    sessionStorage.setItem('loggedUser', json.user.nimi);
-    sessionStorage.setItem('loggedUserID', json.user.userID);
-
-    console.log('loggedUser', sessionStorage.getItem('loggedUser'));
-    // show/hide forms + cats
-    loginWrapper.style.display = 'none';
-    logOut.style.display = 'block';
-    main.style.display = 'block';
-    userInfo.innerHTML = `${json.user.nimi}`;
-    getCat();
-});
+    //Check if passwords matches if statment
+    if (salasana == toistaSalasana) {
+      const response = await fetch(url + "/auth/register", fetchOptions);
+      const json = await response.json();
+      console.log("user add response", json);
+      // save token
+      sessionStorage.setItem("token", json.token);
+      sessionStorage.setItem("loggedUser", json.user.nimi);
+      sessionStorage.setItem("loggedUserID", json.user.userID);
+  
+      console.log("loggedUser", sessionStorage.getItem("loggedUser"));
+      // show/hide forms + cats
+      loginWrapper.style.display = "none";
+      logOut.style.display = "block";
+      main.style.display = "block";
+      userInfo.innerHTML = `${json.user.nimi}`;
+      getCat();
+    } else {
+      document.querySelector(".log").innerHTML = '<span class="log-style">Salasanat eivät täsmä</span>'
+  
+      console.log("salasanat eivät täsmä");
+    }
+  });
 
 // when app starts, check if token exists and hide login form, show logout button and main content, get cats and users
 if (sessionStorage.getItem('token')) {

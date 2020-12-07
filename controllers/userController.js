@@ -11,9 +11,16 @@ const user_list_get = async (req, res) => {
     res.json(users);
 };
 
+
 const user_get = async (req, res) => {
     const id = req.params.id;
     const user = await userModel.getUser(id);
+    res.json(user);
+};
+
+const user_get_count = async (req, res) => {
+    const count = req.params.count;
+    const user = await userModel.getUser(count);
     res.json(user);
 };
 
@@ -23,5 +30,5 @@ const user_get = async (req, res) => {
 module.exports = {
     user_list_get,
     user_get,
-
+    user_get_count
 };

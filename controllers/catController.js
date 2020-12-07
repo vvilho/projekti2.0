@@ -29,6 +29,12 @@ const cat_get_search = async (req, res) => {
     const cat = await catModel.getCatSearch(id);
     res.json(cat);
 };
+const cat_likes_get = async (req, res) => {
+    const like = req.params.like;
+    const comment = await commentModel.getComment(like);
+    res.json(cat);
+};
+
 
 
 const cat_create_post = async (req, res) => {
@@ -102,4 +108,5 @@ module.exports = {
     cat_delete,
     make_thumbnail,
     cat_get_search,
+    cat_likes_get,
 };

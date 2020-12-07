@@ -52,6 +52,18 @@ const getCatHaku = async (omistaja) => {
     }
 }
 
+const getLikesKuva = async (like) => {
+    try {
+        const [rows] = await promisePool.execute('SELECT COUNT(like) FROM likes WHERE kuvaID = ?', [like]);
+        console.log('rows', rows);
+        return rows;
+
+    } catch (e) {
+        console.log('commentModel error', e.message);
+        return {error: 'DB Error'}
+    }
+}
+
 const addCat = async (params) => {
     try {
         const [rows] = await promisePool.execute('INSERT into kuva (kuvaus, tiedostoNimi, userID, coords, omistaja) VALUES (?,?,?,?,?)', params);
@@ -97,4 +109,5 @@ module.exports = {
     deleteCat,
     getSpecificCats,
     getCatHaku,
+    getLikesKuva,
 };
