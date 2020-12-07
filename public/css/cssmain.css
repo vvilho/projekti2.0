@@ -55,15 +55,24 @@ h2 {
     text-align: center;
 
 }
+#kommenttiOsio {
+    height: 100%;
+}
 
 #kommenttiKentta {
     padding-top: 25px;
     margin-top: 15px;
     background-color: white;
     width: 100%;
-    min-height: 150px;
     border-radius: 10px;
 }
 .kommentit {
     padding: 25px 25px;
+}
+#ulKommentti {
+    height: 150px;
+}
+
+.tykkaaBtn {
+    background-color: #a64227;
 }

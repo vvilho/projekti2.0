@@ -146,29 +146,32 @@
     <a href="#" class="close">Close</a>
     <img src="" alt="">
 
+    <div id="kommenttiOsio">
+        <div id="kommenttiKentta">
+            <h3>Kommentit</h3>
+            <hr>
+            <ul id="kuvanKuvaus"></ul>
+            <ul class="kommentit" id="ulKommentti">
 
-    <div id="kommenttiKentta">
-        <h3>Kommentit</h3>
-        <hr>
-        <ul class="kommentit" id="ulKommentti">
-
-        </ul>
+            </ul>
 
 
-    </div>
-    <div id="teeKommentti">
-        <form
-                method="post"
-                enctype="application/x-www-form-urlencoded"
-                id="kommentti"
-                class="light-border">
+        </div>
+        <div id="teeKommentti">
+            <form
+                    method="post"
+                    enctype="application/x-www-form-urlencoded"
+                    id="kommentti"
+                    class="light-border">
 
-            <input id="kommenttiInput" class="light-border" type="text" name="kommentti" placeholder="Kirjoita kommentti" required>
-            <input type="hidden"  name="kuvaID" id="commentKuvaID">
-            <input type="hidden" name="userID" id="commentUserID">
+                <input id="kommenttiInput" class="light-border" type="text" name="kommentti"
+                       placeholder="Kirjoita kommentti" required>
+                <input type="hidden" name="kuvaID" id="commentKuvaID">
+                <input type="hidden" name="userID" id="commentUserID">
 
-            <button class="light-border btn-form" type="submit">Julkaise</button>
-        </form>
+                <button class="light-border btn-form" type="submit">Julkaise</button>
+            </form>
+        </div>
     </div>
 
 </div>

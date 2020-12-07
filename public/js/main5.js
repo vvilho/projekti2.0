@@ -18,6 +18,7 @@ const close = document.querySelector('#image-modal a');
 const hakuForm = document.querySelector('#kuvaHaku');
 const commentForm = document.querySelector('#kommentti');
 const ulKommentti = document.querySelector('#ulKommentti');
+const ulKuvaus = document.querySelector('#kuvanKuvaus');
 
 
 // create cat cards
@@ -25,6 +26,7 @@ const createCatCards = (cats) => {
     // clear ul
     ul.innerHTML = '';
     cats.forEach((cat) => {
+
 
         // create li with DOM methods
         const img = document.createElement('img');
@@ -43,6 +45,25 @@ const createCatCards = (cats) => {
             inputs[0].value = '';
             inputs[1].value = cat.kuvaID;
             inputs[2].value = sessionStorage.getItem('loggedUserID');
+
+            //add kuvaus as first comment
+            ulKuvaus.innerHTML = '';
+
+            const li = document.createElement('li');
+            const h4 = document.createElement('h4');
+            h4.innerHTML = cat.ownername;
+            const p = document.createElement('p');
+            p.innerHTML = `Kuvaus: ${cat.kuvaus}`;
+            const hr = document.createElement('hr');
+            const br = document.createElement('br');
+
+            li.appendChild(h4);
+            li.appendChild(p);
+            li.appendChild(hr);
+            li.appendChild(br);
+
+            ulKuvaus.appendChild(li);
+
             //get imagecomments
             getComments();
             try {
@@ -62,10 +83,33 @@ const createCatCards = (cats) => {
         p3.innerHTML = `Kuvaus: ${cat.kuvaus}`;
         const li = document.createElement('li');
         const hr = document.createElement('hr');
+        const like = document.createElement('button');
+        like.innerHTML = 'Like';
         hr.classList.add('stripe-small');
         li.appendChild(h2);
         li.appendChild(figure);
         li.appendChild(p3);
+        li.appendChild(like);
+
+        //if user has liked a picture set button color red
+
+        getlike(cat.kuvaID, sessionStorage.getItem('loggedUserID')).then(x => {
+            if(x){
+                like.classList.add('tykkaaBtn');
+            }
+        });
+
+
+
+        like.addEventListener('click', () => {
+            if (like.classList.contains('tykkaaBtn')) {
+                like.classList.remove('tykkaaBtn');
+                removelike(cat.kuvaID, sessionStorage.getItem('loggedUserID'));
+            }else{
+                addlike(cat.kuvaID, sessionStorage.getItem('loggedUserID'));
+                like.classList.add('tykkaaBtn');
+            }
+        });
 
 
         // add selected cat's values to modify form
@@ -75,6 +119,7 @@ const createCatCards = (cats) => {
             modButton.classList.add('btn-form');
             modButton.classList.add('btn-mod');
             modButton.addEventListener('click', () => {
+                console.log('modifynappi');
                 const inputs = modForm.querySelectorAll('input');
                 inputs[0].value = cat.kuvaus;
                 inputs[1].value = cat.kuvaID;
@@ -89,19 +134,21 @@ const createCatCards = (cats) => {
             delButton.classList.add('btn-form');
             delButton.classList.add('btn-del');
             delButton.addEventListener('click', async () => {
-                const fetchOptions = {
-                    method: 'DELETE',
-                    headers: {
-                        'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
-                    },
-                };
-                try {
-                    const response = await fetch(url + '/cat/' + cat.kuvaID, fetchOptions);
-                    const json = await response.json();
-                    console.log('delete response', json);
-                    getCat();
-                } catch (e) {
-                    console.log(e.message());
+                if (confirm('Haluatko varmasti poistaa kuvan?')) {
+                    const fetchOptions = {
+                        method: 'DELETE',
+                        headers: {
+                            'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+                        },
+                    };
+                    try {
+                        const response = await fetch(url + '/cat/' + cat.kuvaID, fetchOptions);
+                        const json = await response.json();
+                        console.log('delete response', json);
+                        getCat();
+                    } catch (e) {
+                        console.log(e.message());
+                    }
                 }
             });
 
@@ -119,9 +166,11 @@ const createCatCards = (cats) => {
 
 // create comments ul
 
+
 const createCommentUl = (comments) => {
     ulKommentti.innerHTML = '';
     comments.forEach((comment) => {
+
         const li = document.createElement('li');
         const h4 = document.createElement('h4');
         h4.innerHTML = comment.nimi;
@@ -140,6 +189,8 @@ const createCommentUl = (comments) => {
 
 
 };
+
+
 
 // close modal
 close.addEventListener('click', (evt) => {
@@ -197,6 +248,7 @@ const getCat = async () => {
         };
         const response = await fetch(url + '/cat', options);
         const cats = await response.json();
+        console.log(cats);
         createCatCards(cats);
     } catch (e) {
         console.log(e.message);
@@ -209,7 +261,10 @@ const getCat = async () => {
 
 addForm.addEventListener('submit', async (evt) => {
     evt.preventDefault();
+
     const fd = new FormData(addForm);
+    const inputs = addForm.querySelectorAll('input');
+    inputs[0].value = '';
     const fetchOptions = {
         method: 'POST',
         headers: {
@@ -222,6 +277,7 @@ addForm.addEventListener('submit', async (evt) => {
     const json = await response.json();
     console.log('add response', json);
     getCat();
+    alert('Uusi kuva lisätty! :)');
 });
 
 const getComments = async () => {
@@ -241,6 +297,87 @@ const getComments = async () => {
         console.log(e.message);
     }
 };
+
+//add like
+
+const addlike = async (kuvaID, userID) => {
+
+
+
+    const fetchOptions = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+        },
+        body: JSON.stringify({
+            kuvaID: kuvaID,
+            userID: userID
+        })
+
+    };
+
+    const response = await fetch(url + '/like', fetchOptions);
+    const json = await response.json();
+
+    console.log('Addlike response', json);
+
+};
+//remove like
+
+const removelike = async (kuvaID, userID) => {
+
+
+
+    const fetchOptions = {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+        },
+        body: JSON.stringify({
+            kuvaID: kuvaID,
+            userID: userID
+        })
+
+    };
+
+    const response = await fetch(url + '/like', fetchOptions);
+    const json = await response.json();
+
+    console.log('Deletelike response', json);
+
+};
+
+
+
+// get likes
+
+const getlike = async (kuvaID, userID) => {
+
+
+    const fetchOptions = {
+        headers: {
+            'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+        },
+
+    };
+
+    const response = await fetch(url + '/like/'+kuvaID+'/'+userID, fetchOptions);
+    const json = await response.json();
+    console.log('Getlike response', json.length);
+    //check if user has liked the image
+
+    if(json.length > 0){
+        console.log('true', json)
+        return await json.length;
+    }else{
+        console.log('false', json);
+    }
+
+
+};
+
 
 
 
@@ -272,6 +409,8 @@ commentForm.addEventListener('submit', async (evt) => {
 modForm.addEventListener('submit', async (evt) => {
     evt.preventDefault();
     const data = serializeJson(modForm);
+    const inputs = modForm.querySelectorAll('input');
+    inputs[0].value = '';
     const fetchOptions = {
         method: 'PUT',
         headers: {
