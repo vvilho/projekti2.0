@@ -19,6 +19,8 @@ const hakuForm = document.querySelector('#kuvaHaku');
 const commentForm = document.querySelector('#kommentti');
 const ulKommentti = document.querySelector('#ulKommentti');
 const ulKuvaus = document.querySelector('#kuvanKuvaus');
+const userCountForm = document.querySelector('#userCountForm');
+const mostLiked = document.querySelector('#mostLiked');
 
 
 // create cat cards
@@ -378,7 +380,47 @@ const getlike = async (kuvaID, userID) => {
 
 };
 
+const getUserCount = async () => {
 
+    try {
+        const options = {
+            headers: {
+                'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+            },
+        };
+        const response = await fetch(url + '/user/' , options);
+        const count = await response.json();
+        createUserCount(count);
+    } catch (e) {
+        console.log(e.message);
+    }
+};
+const createUserCount = async (count) => {
+
+    getUserCount(count);
+    const p = document.createElement('p');
+    p.innerHTML = 'määrä',count.user;
+    userCountForm.appendChild(p);
+};
+
+
+const getMostlikedUser = async () => {
+
+    try {
+        const options = {
+            headers: {
+                'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+            },
+        };
+        const response = await fetch(url + '/like/' , options);
+        const mostliked = await response.json();
+    } catch (e) {
+        console.log(e.message);
+    }
+    const p  = document.createElement('p');
+    p.innerHTML = mostliked.like;
+    MostLiked.appendChild(p);
+};
 
 
 //submit comment

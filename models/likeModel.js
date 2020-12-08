@@ -39,13 +39,21 @@ const getlike = async (params) => {
     }
 }
 
+const getMostlike = async () => {
+    try {
+        const [rows] = await promisePool.execute('SELECT userID, COUNT(*) AS Frequency FROM kommentti GROUP BY userID ORDER BY COUNT(*) DESC LIMIT 1;');
+        console.log('rows', rows);
+        return rows;
 
+    } catch (e) {
+        console.log('likeModel getMostlike error', e.message);
+        return {error: 'DB Error'}
+    }
+}
 
 const addlike = async (params) => {
+
     console.log('likeModel');
-
-
-
     try {
         const [rows] = await promisePool.execute('INSERT into tykkaa (kuvaID, userID) VALUES (?,?)', params);
         console.log('rows', rows);
@@ -82,5 +90,5 @@ module.exports = {
     addlike,
     deletelike,
     getSpecificlikes,
-
+    getMostlike
 };

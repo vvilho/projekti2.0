@@ -31,10 +31,17 @@ const like_get = async (req, res) => {
     res.json(like);
 };
 
+const like_get_most = async (req, res) => {
+    
+    const id = req.params.id;
+    const like = await likeModel.getLike(id);
+    res.json(like);
+};
+
+
 const like_create_post = async (req, res) => {
     console.log('like_create_post', req.body);
     console.log(req.body);
-
 
     const errors = validationResult(req);
 
@@ -42,14 +49,12 @@ const like_create_post = async (req, res) => {
         return res.status(400).json({errors: errors.array()});
     }
 
-
     // Object desctructing
     const {kuvaID, userID} = req.body;
     const params = [kuvaID, userID];
     const like = await likeModel.addlike(params);
 
     res.json({message: 'like upload ok'});
-
 };
 
 
@@ -79,4 +84,5 @@ module.exports = {
     like_get,
     like_create_post,
     like_delete,
+    like_get_most
 };
