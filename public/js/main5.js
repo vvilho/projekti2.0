@@ -308,7 +308,7 @@ const getCat = async () => {
 // create kunta options to <select>
 const createKuntaOptions = (kunnat) => {
     kuntaList.forEach((list) => {
-        // clear user list
+        // clear kunta list
         list.innerHTML = '';
         const option = document.createElement('option');
         option.value = '';
