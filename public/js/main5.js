@@ -26,6 +26,9 @@ const changePostModal = document.querySelector('#popup2');
 const closeMe = document.querySelector('.closeMe');
 const closeMe2 = document.querySelector('.closeMe2');
 
+const userCountForm = document.querySelector('#userCountForm');
+const mostLiked = document.querySelector('#mostLiked');
+
 
 // create cat cards
 const createCatCards = (cats) => {
@@ -155,7 +158,7 @@ const createCatCards = (cats) => {
 
             // delete selected cat
             const delButton = document.createElement('button');
-            delButton.innerHTML = 'Delete';
+            delButton.innerHTML = 'Poista';
             delButton.classList.add('btn-form');
             delButton.classList.add('btn-del');
             delButton.addEventListener('click', async () => {
@@ -640,6 +643,58 @@ addUserForm.addEventListener("submit", async (evt) => {
     }
 });
 
+const getMostlikedUser = async () => {
+
+    try {
+        const options = {
+            headers: {
+                'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+            },
+        };
+        const response = await fetch(url + '/like/most' , options);
+        const mostlikes = await response.json();
+        createMostLikedUser(mostlikes);
+    } catch (e) {
+        console.log(e.message);
+    }
+    
+};
+const createMostLikedUser = async (mostlikes) => {
+
+    const p  = document.createElement('p');
+    p.innerHTML = mostlikes[0].nimi;
+    mostLiked.appendChild(p);
+};
+
+
+const createUserCount = async (count) => {
+
+    const p = document.createElement('p');
+    //p.innerHTML = 'teksti';
+    p.innerHTML = count[0].maara;
+    userCountForm.appendChild(p);
+};
+
+
+const getUserCount = async () => {
+
+    try {
+        const options = {
+            headers: {
+                'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+            },
+        };
+        
+        const response = await fetch(url + '/user/count' , options);
+        const count = await response.json();
+        console.log('main.js getusercount',count);
+        createUserCount(count);
+    } catch (e) {
+        console.log(e.message);
+    }
+};
+
+
 
 //scroll-up code
 //Get the button:
@@ -669,6 +724,8 @@ if (sessionStorage.getItem('token')) {
     main.style.display = 'block';
     getCat();
     getKunta();
+    getUserCount();
+    getMostlikedUser();
     console.log('toiniii');
 }
 

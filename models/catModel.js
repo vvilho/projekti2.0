@@ -7,7 +7,7 @@ const getAllCats = async () => {
     try {
         // TODO: do the LEFT (or INNER) JOIN to get owner name too.
         const [rows] = await promisePool.query('SELECT kuvaID, kuvaus, tiedostoNimi, kuva.userID, coords, user.nimi as ownername, Sijainti.Kunta as kunta FROM kuva inner join user on kuva.userID = user.userID inner join Sijainti on kuva.Kuntanumero = Sijainti.Kuntanumero');
-        console.log('GetAllCats: rows', rows);
+
         return rows;
     } catch (e) {
         console.log('catModel error', e.message);
