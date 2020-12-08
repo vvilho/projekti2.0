@@ -7,7 +7,7 @@ const getAllkunta = async () => {
     try {
 
         const [rows] = await promisePool.query('SELECT * FROM Sijainti');
-        console.log('rows', rows)
+        console.log('kunnat rows', rows[1],rows[2],'...')
         return rows;
     } catch (e) {
         console.log('kuntaModel error', e.message);

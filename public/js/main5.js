@@ -85,6 +85,7 @@ const createCatCards = (cats) => {
         h2.innerHTML = cat.ownername;
 
         const likecount = document.createElement('p');
+        likecount.setAttribute('id', 'likecount');
         getlikes(cat.kuvaID).then(x => {
 
             likecount.innerHTML = `Likes: ${x[0].likecount}`;
@@ -106,7 +107,7 @@ const createCatCards = (cats) => {
         li.appendChild(likecount);
         li.appendChild(like);
 
-        //if user has liked a picture set button color red
+        //if user has liked a picture set thumbsup color yellow
 
         getlike(cat.kuvaID, sessionStorage.getItem('loggedUserID')).then(x => {
             if(x){
@@ -132,6 +133,7 @@ const createCatCards = (cats) => {
                 like.classList.add('liked-color');
             }
             getCat();
+
         });
 
 
@@ -188,6 +190,9 @@ const createCatCards = (cats) => {
 
 
 // create comments ul
+
+
+
 
 
 const createCommentUl = (comments) => {
@@ -460,7 +465,7 @@ const getlike = async (kuvaID, userID) => {
 
 
 };
-//get likes
+//get likes / likecount
 
 const getlikes = async (kuvaID) => {
 
@@ -474,7 +479,7 @@ const getlikes = async (kuvaID) => {
 
     const response = await fetch(url + '/like/'+kuvaID, fetchOptions);
     const json = await response.json();
-    //check if user has liked the image
+
 
     return json;
 

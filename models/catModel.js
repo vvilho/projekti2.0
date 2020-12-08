@@ -7,7 +7,7 @@ const getAllCats = async () => {
     try {
         // TODO: do the LEFT (or INNER) JOIN to get owner name too.
         const [rows] = await promisePool.query('SELECT kuvaID, kuvaus, tiedostoNimi, kuva.userID, coords, user.nimi as ownername, Sijainti.Kunta as kunta FROM kuva inner join user on kuva.userID = user.userID inner join Sijainti on kuva.Kuntanumero = Sijainti.Kuntanumero');
-        console.log('rows', rows)
+        console.log('GetAllCats: rows', rows);
         return rows;
     } catch (e) {
         console.log('catModel error', e.message);
@@ -16,21 +16,12 @@ const getAllCats = async () => {
 };
 
 
-const getSpecificCats = async () => {
-    try {
-        const [rows] = await promisePool.query('SELECT kuvaID, kuvaus, tiedostoNimi, kuva.userID ,coords, user.nimi as ownername FROM kuva inner join user on kuva.userID = user.userID');
-        console.log('rows', rows)
-        return rows;
-    } catch (e) {
-        console.log('catModel error', e.message);
-        return {error: 'DB Error'}
-    }
-};
+
 
 const getCat = async (id) => {
     try {
         const [rows] = await promisePool.execute('SELECT * FROM kuva WHERE kuvaID = ?', [id]);
-        console.log('rows', rows);
+        console.log('getCat: rows', rows);
         return rows;
 
     } catch (e) {
@@ -42,7 +33,7 @@ const getCat = async (id) => {
 const getCatHaku = async (omistaja) => {
     try {
         const [rows] = await promisePool.execute('SELECT kuvaID, kuvaus, tiedostoNimi, kuva.userID, coords, omistaja as ownername, Sijainti.Kunta as kunta FROM kuva inner join Sijainti on kuva.Kuntanumero = Sijainti.Kuntanumero WHERE omistaja = ?', [omistaja]);
-        console.log('rows', rows);
+        console.log('GetCatHaku: rows', rows);
         return rows;
 
     } catch (e) {
@@ -54,7 +45,7 @@ const getCatHaku = async (omistaja) => {
 const addCat = async (params) => {
     try {
         const [rows] = await promisePool.execute('INSERT into kuva (kuvaus, tiedostoNimi, userID, coords, omistaja, Kuntanumero) VALUES (?,?,?,?,?,?)', params);
-        console.log('rows', rows);
+        console.log('addCat: rows', rows);
         return rows;
 
     } catch (e) {
@@ -66,7 +57,7 @@ const addCat = async (params) => {
 const updateCat = async (params) => {
     try {
         const [rows] = await promisePool.execute('UPDATE kuva SET kuvaus = ? WHERE kuvaID = ?', params);
-        console.log('rows', rows);
+        console.log('updateCat: rows', rows);
         return rows;
 
     } catch (e) {
@@ -79,7 +70,7 @@ const updateCat = async (params) => {
 const deleteCat = async (id) => {
     try {
         const [rows] = await promisePool.execute('DELETE FROM kuva WHERE kuvaID = ?', [id]);
-        console.log('rows', rows)
+        console.log('deleteCats: rows', rows)
         return rows;
 
     } catch (e) {
@@ -94,6 +85,5 @@ module.exports = {
     addCat,
     updateCat,
     deleteCat,
-    getSpecificCats,
     getCatHaku,
 };

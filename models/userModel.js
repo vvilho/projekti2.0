@@ -7,7 +7,7 @@ const getAllUsers = async () => {
     try {
         // TODO: do the LEFT (or INNER) JOIN to get owner name too.
         const [rows] = await promisePool.query('SELECT user.userID, user.nimi, user.email FROM user');
-        console.log('rows', rows)
+        console.log('getAllUsers: rows', rows)
         return rows;
     } catch (e) {
         console.log('userModel error', e.message);
@@ -19,7 +19,7 @@ const getUser = async (id) => {
     try {
         const [rows] = await promisePool.execute(
             'SELECT user.userID, user.nimi, user.email FROM user WHERE user.userID = ?', [id]);
-        console.log('rows', rows);
+        console.log('getUser: rows', rows);
         console.log("Page updated");
         return rows;
 
@@ -34,7 +34,7 @@ const addUser = async (params) => {
     try {
         const [rows] = await promisePool.execute(
             'INSERT into user (nimi, email, password) VALUES (?,?,?)', params);
-        console.log('rows', rows);
+        console.log('addUser: rows', rows);
         return rows;
 
     } catch (e) {
