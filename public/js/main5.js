@@ -666,3 +666,5 @@ if (sessionStorage.getItem('token')) {
     getKunta();
     console.log('toiniii');
 }
+
+//loppu
