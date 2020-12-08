@@ -24,6 +24,7 @@ header {
 }
 
 header .profileButton {
+    display: inline-block;
     background-color: #1134AD;
     border-radius: 30px;
     border: none;
@@ -31,6 +32,7 @@ header .profileButton {
     color: #ffffff;
     font-size: 1em;
     cursor: pointer;
+    margin-top: 0.5em;
 }
 
 header .profileButton:hover, header .profileButton:focus {
@@ -44,7 +46,13 @@ header .profileButton:hover, header .profileButton:focus {
 
 header .siteName {
     color: #1134AD;
-    font-size: 1em;
+    font-size: 1.2em;
+    margin-top: 1.3em;
+}
+
+#user-info {
+    float: left;
+    padding-right: 20px;
 }
 
 h2 {

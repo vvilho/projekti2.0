@@ -5,9 +5,34 @@ body {
 }
 
 .container {
-  max-width: 40em;
+  max-width: 55em;
   margin: auto;
   padding: 1em;
+  display: flex;
+  position: relative;
+}
+
+.container-fixed {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  bottom: 3%;
+  right: 2%;
+}
+
+.fa-level-up-alt {
+  color: #1134AD;
+  font-size: 25px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.fa-level-up-alt:hover {
+  color: #3E3F3F
+}
+
+.dark {
+  border: 2px solid #005C7A !important;
 }
 
 h1 {
@@ -30,9 +55,7 @@ ul {
   padding: 0;
   list-style-type: none;
   display: block;
-  max-height: 400px;
   width: 100%;
-  overflow: scroll;
   overflow-x: hidden;
 }
 
@@ -58,7 +81,7 @@ figure {
 }
 
 .form-wrapper {
-  width: 35%;
+  width: 70%;
   margin: 40px 10px;
 }
 
@@ -69,7 +92,7 @@ input, select {
 }
 
 select {
-  line-height: 1.5em;
+  line-height: 1em;
   -webkit-appearance: none;
   appearance: none;
   background-color: #fff;
@@ -94,7 +117,6 @@ select {
 }
 
 .btn-mod, .btn-del {
-  width: 20%;
 }
 
 button:hover {
@@ -126,7 +148,7 @@ button:hover {
   position: absolute;
   top: 1em;
   right: 1em;
-  color: #fff;
+  color: #1134AD;
   text-shadow: #000;
   font-size: 2em;
   background-color: white;
@@ -151,5 +173,44 @@ button:hover {
 .log-style {
   font-size: 0.9em;
   color: red;
+}
+
+.popup {
+  margin: 70px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  width: 30%;
+  position: relative;
+  transition: all 0.5s ease-in-out;
+}
+
+.popup .closeMe, .popup .closeMe2 {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  transition: all 200ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+}
+.popup .closeMe:hover, .popup .closeMe2:hover {
+  color: #1134AD;
+}
+
+.fa-thumbs-up {
+  color: #3E3F3F;
+  font-size: 30px;
+  cursor: pointer;
+  padding: 10px
+}
+
+.fa-thumbs-up:hover {
+  color: black;
+}
+
+.fa-thumbs-up.liked-color {
+  color: #ff8540;
 }
 

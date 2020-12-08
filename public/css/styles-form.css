@@ -162,6 +162,10 @@ h2, h3 {
     margin-top: 10px;
 }
 
+.popup > h2 {
+  margin-bottom: -10px;
+}
+
 h1 {
   /*color: #ff8540;*/
   font-family: 'Merriweather Sans', sans-serif;
@@ -213,7 +217,7 @@ label {
   }
 
   input {
-    padding: 7px;
+    padding: 10px;
     padding-left: 7px;
     padding-right: 7px;
     margin: 7px;
@@ -252,9 +256,14 @@ label {
     cursor: pointer;
   }
 
+  .warm {
+    background-color:#ff8540!important;
+  }
+
   .btn-form:hover, .btn-form-small:hover {
     background-color:#3E3F3F;
   }
+  
 
   a:link {
     text-decoration: none;
@@ -302,10 +311,8 @@ select {
     font-family: sans-serif;
     font-weight: 700;
     color: #444;
-    line-height: 1.3;
+    line-height: 1;
     padding: 7px;
-    width: 260px;
-    max-width: 260px; /* useful when width is set to anything other than 100% */
     box-sizing: border-box;
     margin: 0;
     margin-left: 7px;
