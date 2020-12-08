@@ -11,7 +11,7 @@ const addUserForm = document.querySelector('#add-user-form');
 const addForm = document.querySelector('#add-cat-form');
 const modForm = document.querySelector('#mod-cat-form');
 const ul = document.querySelector('ul');
-const userLists = document.querySelectorAll('.add-owner');
+const kuntaList = document.querySelectorAll('#add-kunta');
 const imageModal = document.querySelector('#image-modal');
 const modalImage = document.querySelector('#image-modal img');
 const close = document.querySelector('#image-modal a');
@@ -21,6 +21,12 @@ const ulKommentti = document.querySelector('#ulKommentti');
 const ulKuvaus = document.querySelector('#kuvanKuvaus');
 const userCountForm = document.querySelector('#userCountForm');
 const mostLiked = document.querySelector('#mostLiked');
+const buttonAddPost = document.querySelector('.addPost');
+const buttonChangePost = document.querySelector('.changePost');
+const addPostModal = document.querySelector('#popup1');
+const changePostModal = document.querySelector('#popup2');
+const closeMe = document.querySelector('.closeMe');
+const closeMe2 = document.querySelector('.closeMe2');
 
 
 // create cat cards
@@ -80,44 +86,61 @@ const createCatCards = (cats) => {
         const h2 = document.createElement('h2');
         h2.innerHTML = cat.ownername;
 
+        const likecount = document.createElement('p');
+        getlikes(cat.kuvaID).then(x => {
 
+            likecount.innerHTML = `Likes: ${x[0].likecount}`;
+        })
+
+        const p4 = document.createElement('p');
+        p4.innerHTML = `Paikka: ${cat.kunta}`;
         const p3 = document.createElement('p');
         p3.innerHTML = `Kuvaus: ${cat.kuvaus}`;
         const li = document.createElement('li');
         const hr = document.createElement('hr');
-        const like = document.createElement('button');
-        like.innerHTML = 'Like';
+        const like = document.createElement('i');
+        like.innerHTML = '<i class="fas fa-thumbs-up"></i>';
         hr.classList.add('stripe-small');
         li.appendChild(h2);
         li.appendChild(figure);
+        li.appendChild(p4);
         li.appendChild(p3);
+        li.appendChild(likecount);
         li.appendChild(like);
 
         //if user has liked a picture set button color red
 
         getlike(cat.kuvaID, sessionStorage.getItem('loggedUserID')).then(x => {
             if(x){
-                like.classList.add('tykkaaBtn');
+                like.innerHTML = '';
+                like.classList.add('fas');
+                like.classList.add('fa-thumbs-up');
+                like.classList.add('liked-color');
             }
         });
 
 
-
+//<i class="far fa-thumbs-up"></i>
         like.addEventListener('click', () => {
-            if (like.classList.contains('tykkaaBtn')) {
-                like.classList.remove('tykkaaBtn');
+            if (like.classList.contains('fa-thumbs-up')) {
+                like.classList.remove('fas');
+                like.classList.remove('fa-thumbs-up');
+                like.classList.remove('liked-color');
                 removelike(cat.kuvaID, sessionStorage.getItem('loggedUserID'));
             }else{
                 addlike(cat.kuvaID, sessionStorage.getItem('loggedUserID'));
-                like.classList.add('tykkaaBtn');
+                like.classList.add('fas');
+                like.classList.add('tfa-thumbs-up');
+                like.classList.add('liked-color');
             }
+            getCat();
         });
 
 
         // add selected cat's values to modify form
         if (cat.userID == sessionStorage.getItem('loggedUserID')) {
             const modButton = document.createElement('button');
-            modButton.innerHTML = 'Modify';
+            modButton.innerHTML = 'Muokkaa';
             modButton.classList.add('btn-form');
             modButton.classList.add('btn-mod');
             modButton.addEventListener('click', () => {
@@ -125,8 +148,8 @@ const createCatCards = (cats) => {
                 const inputs = modForm.querySelectorAll('input');
                 inputs[0].value = cat.kuvaus;
                 inputs[1].value = cat.kuvaID;
-
-
+                //add change-post-modal
+                changePostModal.classList.toggle('hide');
             });
 
 
@@ -192,18 +215,41 @@ const createCommentUl = (comments) => {
 
 };
 
+// open add-post-modal
+buttonAddPost.addEventListener('click', () => {
+    addPostModal.classList.toggle('hide');
+        });
 
+buttonChangePost.addEventListener('click', () => {
+    changePostModal.classList.toggle('hide');
+        });
 
-// close modal
+// open add-post-modal
+closeMe.addEventListener('click', () => {
+        addPostModal.classList.toggle('hide');
+        });
+
+// open change-post-modal
+closeMe2.addEventListener('click', () => {
+        changePostModal.classList.toggle('hide');  
+        });
+
+// close image-modal
 close.addEventListener('click', (evt) => {
     evt.preventDefault();
     imageModal.classList.toggle('hide');
 });
 
+// close modals with escape
 document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
+    if(e.key === 'Escape') {
+        console.log('esc pressed');
         if (!imageModal.classList.contains('hide')) {
             imageModal.classList.toggle('hide');
+        } else if (!addPostModal.classList.contains('hide')) {
+            addPostModal.classList.toggle('hide');
+        } else if (!changePostModal.classList.contains('hide')) {
+            changePostModal.classList.toggle('hide');
         }
     }
 });
@@ -231,7 +277,7 @@ hakuForm.addEventListener('submit', async (evt) => {
     } catch (e) {
         console.log(e.message);
     }
-})
+});
 
 
 const getCat = async () => {
@@ -253,6 +299,47 @@ const getCat = async () => {
         console.log(cats);
         createCatCards(cats);
     } catch (e) {
+        console.log(e.message);
+    }
+};
+
+
+// create kunta options to <select>
+const createKuntaOptions = (kunnat) => {
+    kuntaList.forEach((list) => {
+        // clear user list
+        list.innerHTML = '';
+        const option = document.createElement('option');
+        option.value = '';
+        option.innerHTML = 'Kuvan sijainti';
+        option.classList.add('light-border');
+        option.disabled;
+        option.selected;
+        list.appendChild(option);
+        kunnat.forEach((kunta) => {
+            // create options with DOM methods
+            const option = document.createElement('option');
+            option.value = kunta.Kuntanumero;
+            option.innerHTML = kunta.Kunta;
+            option.classList.add('light-border');
+            list.appendChild(option);
+        });
+    });
+};
+
+// get kunta to form options
+const getKunta = async () => {
+    try {
+        const options = {
+            headers: {
+                'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+            },
+        };
+        const response = await fetch(url + '/kunta', options);
+        const kunnat = await response.json();
+        createKuntaOptions(kunnat);
+    }
+    catch (e) {
         console.log(e.message);
     }
 };
@@ -353,7 +440,7 @@ const removelike = async (kuvaID, userID) => {
 
 
 
-// get likes
+// get like
 
 const getlike = async (kuvaID, userID) => {
 
@@ -367,15 +454,31 @@ const getlike = async (kuvaID, userID) => {
 
     const response = await fetch(url + '/like/'+kuvaID+'/'+userID, fetchOptions);
     const json = await response.json();
-    console.log('Getlike response', json.length);
     //check if user has liked the image
 
     if(json.length > 0){
-        console.log('true', json)
         return await json.length;
-    }else{
-        console.log('false', json);
     }
+
+
+};
+//get likes
+
+const getlikes = async (kuvaID) => {
+
+
+    const fetchOptions = {
+        headers: {
+            'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+        },
+
+    };
+
+    const response = await fetch(url + '/like/'+kuvaID, fetchOptions);
+    const json = await response.json();
+    //check if user has liked the image
+
+    return json;
 
 
 };
@@ -499,6 +602,7 @@ loginForm.addEventListener('submit', async (evt) => {
         main.style.display = 'block';
         userInfo.innerHTML = `${json.user.nimi}`;
         getCat();
+        getKunta();
     }
 });
 
@@ -519,7 +623,7 @@ logOut.addEventListener('click', async (evt) => {
         sessionStorage.removeItem('loggedUserID');
 
 
-        alert('You have logged out from user: ' + sessionStorage.getItem('loggedUser'));
+        alert('Olet kirjautunut ulos: ' + sessionStorage.getItem('loggedUser'));
         // show/hide forms + cats
         loginWrapper.style.display = 'flex';
         logOut.style.display = 'none';
@@ -565,6 +669,7 @@ addUserForm.addEventListener("submit", async (evt) => {
         main.style.display = "block";
         userInfo.innerHTML = `${json.user.nimi}`;
         getCat();
+        getKunta();
     } else {
         document.querySelector(".log").innerHTML = '<span class="log-style">Salasanat eivät täsmä</span>'
 
@@ -572,10 +677,34 @@ addUserForm.addEventListener("submit", async (evt) => {
     }
 });
 
+
+//scroll-up code
+//Get the button:
+const mybutton = document.getElementById("myBtn");
+
+// When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    mybutton.style.display = "block";
+  } else {
+    mybutton.style.display = "none";
+  }
+}
+
+// When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+  document.body.scrollTop = 0; // For Safari
+  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+}
+
 // when app starts, check if token exists and hide login form, show logout button and main content, get cats and users
 if (sessionStorage.getItem('token')) {
     loginWrapper.style.display = 'none';
     logOut.style.display = 'block';
     main.style.display = 'block';
     getCat();
+    getKunta();
+    console.log('toiniii');
 }
