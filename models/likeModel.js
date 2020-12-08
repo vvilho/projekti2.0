@@ -75,7 +75,7 @@ const deletelike = async (params) => {
 
 const getMostlike = async () => {
     try {
-        const [rows] = await promisePool.execute('SELECT tykkaa.userID, user.nimi, COUNT(tykkaa.userID) AS Frequency FROM tykkaa inner JOIN user on tykkaa.userID = user.userID GROUP BY tykkaa.userID ORDER BY COUNT(tykkaa.userID) DESC LIMIT 1;');
+        const [rows] = await promisePool.execute('SELECT tykkaa.kuvaID, kuva.omistaja, COUNT(tykkaa.kuvaID) AS Frequency FROM tykkaa inner JOIN kuva on tykkaa.kuvaID = kuva.kuvaID GROUP BY tykkaa.kuvaID ORDER BY COUNT(tykkaa.kuvaID) DESC LIMIT 1;');
         console.log('getMostlike modelissa', rows);
         return rows;
 
