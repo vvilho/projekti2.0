@@ -17,11 +17,16 @@ const user_get = async (req, res) => {
     res.json(user);
 };
 
+const user_count_get = async (req, res) => {
+    const user = await userModel.getUser();
+    res.json(user);
+};
+
 
 
 
 module.exports = {
     user_list_get,
     user_get,
-
+    user_count_get
 };

@@ -78,11 +78,26 @@ const deletelike = async (params) => {
     }
 }
 
+// likeModel
+
+const getMostlike = async () => {
+    try {
+        const [rows] = await promisePool.execute('SELECT userID, COUNT(*) AS Frequency FROM kommentti GROUP BY userID ORDER BY COUNT(*) DESC LIMIT 1;');
+        //console.log('rows', rows);
+        return rows;
+
+    } catch (e) {
+        console.log('likeModel getMostlike error', e.message);
+        return {error: 'DB Error'}
+    }
+}
+
+
 module.exports = {
     getAlllikes,
     getlike,
     addlike,
     deletelike,
     getSpecificlikes,
-
+    getMostlike
 };

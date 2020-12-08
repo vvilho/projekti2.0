@@ -55,9 +55,24 @@ const getUserLogin = async (params) => {
     }
 };
 
+const getUserCount = async () => {
+    try {
+        const [rows] = await promisePool.execute(
+            'SELECT COUNT(userID) FROM user');
+        console.log('rows', rows);
+        return rows;
+
+
+    } catch (e) {
+        console.log('userModel error', e.message);
+        return {error: 'DB Error'}
+    }
+};
+
 module.exports = {
     getAllUsers,
     getUser,
     addUser,
     getUserLogin,
+    getUserCount
 };

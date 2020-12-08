@@ -26,6 +26,9 @@ const changePostModal = document.querySelector('#popup2');
 const closeMe = document.querySelector('.closeMe');
 const closeMe2 = document.querySelector('.closeMe2');
 
+const userCountForm = document.querySelector('#userCountForm');
+const mostLiked = document.querySelector('#mostLiked');
+
 
 // create cat cards
 const createCatCards = (cats) => {
@@ -634,6 +637,51 @@ addUserForm.addEventListener("submit", async (evt) => {
         console.log("salasanat eivät täsmä");
     }
 });
+
+const getMostlikedUser = async () => {
+
+    try {
+        const options = {
+            headers: {
+                'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+            },
+        };
+        const response = await fetch(url + '/like/' , options);
+        const mostliked = await response.json();
+    } catch (e) {
+        console.log(e.message);
+    }
+    const p  = document.createElement('p');
+    p.innerHTML = mostliked.like;
+    MostLiked.appendChild(p);
+};
+
+
+const createUserCount = async (count) => {
+
+    getUserCount(count);
+    const p = document.createElement('p');
+    p.innerHTML = 'määrä',count.user;
+    userCountForm.appendChild(p);
+};
+
+
+const getUserCount = async () => {
+
+    try {
+        const options = {
+            headers: {
+                'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+            },
+        };
+        const response = await fetch(url + '/user/' , options);
+        const count = await response.json();
+        createUserCount(count);
+    } catch (e) {
+        console.log(e.message);
+    }
+};
+
 
 
 //scroll-up code
