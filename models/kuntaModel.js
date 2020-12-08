@@ -16,9 +16,6 @@ const getAllkunta = async () => {
 };
 
 
-
-
-
 module.exports = {
     getAllkunta
 
