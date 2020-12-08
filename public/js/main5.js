@@ -33,7 +33,7 @@ const mostLiked = document.querySelector('#mostLiked');
 const createCatCards = (cats) => {
     // clear ul
     ul.innerHTML = '';
-    cats.forEach((cat) => {
+    cats.reverse().forEach((cat) => {
 
 
         // create li with DOM methods
