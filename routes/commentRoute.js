@@ -17,5 +17,10 @@ router.post('/',
     commentController.comment_create_post);
 
 router.get('/:kuvaID', commentController.comment_get);
+
+router.get('/maara/:kuvaID', commentController.comment_get_maara);
+
+
+
 module.exports = router;
 

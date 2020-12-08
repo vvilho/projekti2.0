@@ -25,7 +25,6 @@ const addPostModal = document.querySelector('#popup1');
 const changePostModal = document.querySelector('#popup2');
 const closeMe = document.querySelector('.closeMe');
 const closeMe2 = document.querySelector('.closeMe2');
-
 const userCountForm = document.querySelector('#userCountForm');
 const mostLiked = document.querySelector('#mostLiked');
 
@@ -81,18 +80,26 @@ const createCatCards = (cats) => {
             } catch (e) {
             }
         });
+        const likecount = document.createElement('p');
+        const commentcount = document.createElement('p');
+
 
         const figure = document.createElement('figure').appendChild(img);
 
         const h2 = document.createElement('h2');
         h2.innerHTML = cat.ownername;
 
-        const likecount = document.createElement('p');
-        likecount.setAttribute('id', 'likecount');
         getlikes(cat.kuvaID).then(x => {
 
-            likecount.innerHTML = `Likes: ${x[0].likecount}`;
-        })
+            likecount.innerHTML = `Tykkäyksiä: ${x[0].likecount}`;
+        });
+
+        getcommentmaara(cat.kuvaID).then(x => {
+
+            commentcount.innerHTML = `Kommentteja: ${x[0].maara}`;
+        });
+
+
 
         const p4 = document.createElement('p');
         p4.innerHTML = `Paikka: ${cat.kunta}`;
@@ -101,41 +108,51 @@ const createCatCards = (cats) => {
         const li = document.createElement('li');
         const hr = document.createElement('hr');
         const like = document.createElement('i');
-        like.innerHTML = '<i class="fas fa-thumbs-up"></i>';
+        like.classList.add('fas');
+        like.classList.add('fa-thumbs-up')
         hr.classList.add('stripe-small');
         li.appendChild(h2);
         li.appendChild(figure);
         li.appendChild(p4);
         li.appendChild(p3);
         li.appendChild(likecount);
+        li.appendChild(commentcount);
         li.appendChild(like);
 
         //if user has liked a picture set thumbsup color yellow
 
         getlike(cat.kuvaID, sessionStorage.getItem('loggedUserID')).then(x => {
             if(x){
-                like.innerHTML = '';
-                like.classList.add('fas');
-                like.classList.add('fa-thumbs-up');
-                like.classList.add('liked-color');
+                //like.innerHTML = '';
+
+                like.classList.toggle('liked-color');
             }
         });
 
 
-//<i class="far fa-thumbs-up"></i>
-        like.addEventListener('click', () => {
-            if (like.classList.contains('fa-thumbs-up')) {
-                like.classList.remove('fas');
-                like.classList.remove('fa-thumbs-up');
-                like.classList.remove('liked-color');
-                removelike(cat.kuvaID, sessionStorage.getItem('loggedUserID'));
+
+        like.addEventListener('click', async() => {
+            if (like.classList.contains('liked-color')) {
+                //remove like from photo and update database
+                await removelike(cat.kuvaID, sessionStorage.getItem('loggedUserID'));
+
+                like.classList.toggle('liked-color');
+                await getlikes(cat.kuvaID).then(x => {
+
+                    likecount.innerHTML = `Tykkäyksiä: ${x[0].likecount}`;
+                });
+
             }else{
-                addlike(cat.kuvaID, sessionStorage.getItem('loggedUserID'));
-                like.classList.add('fas');
-                like.classList.add('tfa-thumbs-up');
-                like.classList.add('liked-color');
+                //add like to photo and update database
+                await addlike(cat.kuvaID, sessionStorage.getItem('loggedUserID'));
+
+                like.classList.toggle('liked-color');
+                await getlikes(cat.kuvaID).then(x => {
+
+                    likecount.innerHTML = `Tykkäyksiä: ${x[0].likecount}`;
+                });
             }
-            getCat();
+
 
         });
 
@@ -189,6 +206,7 @@ const createCatCards = (cats) => {
         ul.appendChild(li);
         ul.appendChild(hr);
     });
+
 };
 
 
@@ -265,6 +283,8 @@ hakuForm.addEventListener('submit', async (evt) => {
     evt.preventDefault();
     const owner = document.getElementById('hakuSana').value;
     console.log(owner);
+    const inputs = hakuForm.querySelectorAll('input');
+    inputs[0].value = '';
 
     try {
         const options = {
@@ -321,6 +341,7 @@ const createKuntaOptions = (kunnat) => {
         option.classList.add('light-border');
         option.disabled;
         option.selected;
+        option.value = '0';
         list.appendChild(option);
         kunnat.forEach((kunta) => {
             // create options with DOM methods
@@ -358,8 +379,10 @@ addForm.addEventListener('submit', async (evt) => {
     evt.preventDefault();
 
     const fd = new FormData(addForm);
-    const inputs = addForm.querySelectorAll('input');
-    inputs[0].value = '';
+
+
+
+
     const fetchOptions = {
         method: 'POST',
         headers: {
@@ -373,6 +396,16 @@ addForm.addEventListener('submit', async (evt) => {
     console.log('add response', json);
     getCat();
     alert('Uusi kuva lisätty! :)');
+    //clear inputs
+    const inputs = addForm.querySelectorAll('input');
+    inputs[0].value = '';
+    inputs[1].value = '';
+
+    const select = addForm.querySelector('select');
+    select.value = '0';
+
+    //exit
+    addPostModal.classList.toggle('hide');
 });
 
 const getComments = async () => {
@@ -482,6 +515,28 @@ const getlikes = async (kuvaID) => {
 
     const response = await fetch(url + '/like/'+kuvaID, fetchOptions);
     const json = await response.json();
+
+
+    return json;
+
+
+};
+
+//get comments / commentcount
+
+const getcommentmaara = async (kuvaID) => {
+
+
+    const fetchOptions = {
+        headers: {
+            'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+        },
+
+    };
+
+    const response = await fetch(url + '/comment/maara/'+kuvaID, fetchOptions);
+    const json = await response.json();
+
 
 
     return json;
@@ -698,18 +753,7 @@ const getUserCount = async () => {
 
 //scroll-up code
 //Get the button:
-const mybutton = document.getElementById("myBtn");
 
-// When the user scrolls down 20px from the top of the document, show the button
-window.onscroll = function() {scrollFunction()};
-
-function scrollFunction() {
-  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-    mybutton.style.display = "block";
-  } else {
-    mybutton.style.display = "none";
-  }
-}
 
 // When the user clicks on the button, scroll to the top of the document
 function topFunction() {
@@ -726,7 +770,7 @@ if (sessionStorage.getItem('token')) {
     getKunta();
     getUserCount();
     getMostlikedUser();
-    console.log('toiniii');
+    console.log('Page updated');
 }
 
 //loppu
