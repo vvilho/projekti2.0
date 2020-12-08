@@ -18,7 +18,8 @@ const user_get = async (req, res) => {
 };
 
 const user_count_get = async (req, res) => {
-    const user = await userModel.getUser();
+    console.log('user_count_get');
+    const user = await userModel.getUserCount();
     res.json(user);
 };
 

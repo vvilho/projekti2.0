@@ -39,15 +39,8 @@ const getlike = async (params) => {
     }
 }
 
-
-
-
-
 const addlike = async (params) => {
     console.log('likeModel');
-
-
-
     try {
         const [rows] = await promisePool.execute('INSERT into tykkaa (kuvaID, userID) VALUES (?,?)', params);
         console.log('rows', rows);
@@ -82,8 +75,8 @@ const deletelike = async (params) => {
 
 const getMostlike = async () => {
     try {
-        const [rows] = await promisePool.execute('SELECT userID, COUNT(*) AS Frequency FROM kommentti GROUP BY userID ORDER BY COUNT(*) DESC LIMIT 1;');
-        //console.log('rows', rows);
+        const [rows] = await promisePool.execute('SELECT tykkaa.userID, user.nimi, COUNT(tykkaa.userID) AS Frequency FROM tykkaa inner JOIN user on tykkaa.userID = user.userID GROUP BY tykkaa.userID ORDER BY COUNT(tykkaa.userID) DESC LIMIT 1;');
+        console.log('getMostlike modelissa', rows);
         return rows;
 
     } catch (e) {

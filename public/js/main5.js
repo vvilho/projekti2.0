@@ -156,7 +156,7 @@ const createCatCards = (cats) => {
 
             // delete selected cat
             const delButton = document.createElement('button');
-            delButton.innerHTML = 'Delete';
+            delButton.innerHTML = 'Poista';
             delButton.classList.add('btn-form');
             delButton.classList.add('btn-del');
             delButton.addEventListener('click', async () => {
@@ -646,22 +646,27 @@ const getMostlikedUser = async () => {
                 'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
             },
         };
-        const response = await fetch(url + '/like/' , options);
-        const mostliked = await response.json();
+        const response = await fetch(url + '/like/most' , options);
+        const mostlikes = await response.json();
+        createMostLikedUser(mostlikes);
     } catch (e) {
         console.log(e.message);
     }
+    
+};
+const createMostLikedUser = async (mostlikes) => {
+
     const p  = document.createElement('p');
-    p.innerHTML = mostliked.like;
-    MostLiked.appendChild(p);
+    p.innerHTML = mostlikes[0].nimi;
+    mostLiked.appendChild(p);
 };
 
 
 const createUserCount = async (count) => {
 
-    getUserCount(count);
     const p = document.createElement('p');
-    p.innerHTML = 'määrä',count.user;
+    //p.innerHTML = 'teksti';
+    p.innerHTML = count[0].maara;
     userCountForm.appendChild(p);
 };
 
@@ -674,8 +679,10 @@ const getUserCount = async () => {
                 'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
             },
         };
-        const response = await fetch(url + '/user/' , options);
+        
+        const response = await fetch(url + '/user/count' , options);
         const count = await response.json();
+        console.log('main.js getusercount',count);
         createUserCount(count);
     } catch (e) {
         console.log(e.message);
@@ -712,6 +719,8 @@ if (sessionStorage.getItem('token')) {
     main.style.display = 'block';
     getCat();
     getKunta();
+    getUserCount();
+    getMostlikedUser();
     console.log('toiniii');
 }
 

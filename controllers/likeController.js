@@ -74,7 +74,7 @@ const like_create_post = async (req, res) => {
 
 const like_delete = async (req, res) => {
     console.log('like_delete', req.body);
-    console.log(req.body);
+    //console.log(req.body);
 
 
     const errors = validationResult(req);
@@ -95,7 +95,7 @@ const like_delete = async (req, res) => {
 const like_get_most = async (req, res) => {
     
     const id = req.params.id;
-    const like = await likeModel.getLike(id);
+    const like = await likeModel.getMostlike(id);
     res.json(like);
 };
 

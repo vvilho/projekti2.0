@@ -12,11 +12,13 @@ router.post('/', likeController.like_create_post);
 
 router.delete('/', likeController.like_delete);
 
+router.get('/most/',likeController.like_get_most);
+
 router.get('/:kuvaID/:userID', likeController.like_get);
 
 router.get('/:kuvaID', likeController.all_likes_get);
 
-router.get('/',likeController.like_get_most);
+
 
 
 module.exports = router;

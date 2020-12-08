@@ -58,8 +58,8 @@ const getUserLogin = async (params) => {
 const getUserCount = async () => {
     try {
         const [rows] = await promisePool.execute(
-            'SELECT COUNT(userID) FROM user');
-        console.log('rows', rows);
+            'SELECT COUNT(userID) AS maara FROM user');
+            console.log('getUSerCount',rows);
         return rows;
 
 

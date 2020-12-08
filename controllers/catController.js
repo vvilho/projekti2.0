@@ -8,14 +8,12 @@ const {getCoordinates} = require('../utils/imageMeta');
 const cats = catModel.cats;
 
 const cat_list_get = async (req, res) => {
-    console.log(req);
     const cats = await catModel.getAllCats();
     res.json(cats);
 };
 
 const cat_get_haku = async (req, res) => {
     const omistaja = req.params.omistaja;
-    console.log('req');
     const cat = await catModel.getCatHaku(omistaja);
     res.json(cat);
 };
