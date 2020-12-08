@@ -2,16 +2,16 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link href="./css/cssmain.css" rel="stylesheet"/>
-    <link href="./css/styles-form.css" rel="stylesheet"/>
-    <link href="css/style5.css" rel="stylesheet"/>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="./css/cssmain.css" rel="stylesheet" />
+    <link href="./css/styles-form.css" rel="stylesheet" />
+    <link href="css/style5.css" rel="stylesheet" />
     <title>Kirjaudu</title>
-    <link rel="preconnect" href="https://fonts.gstatic.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
-            href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;1,100;1,300;1,400;1,500&display=swap"
-            rel="stylesheet"/>
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;1,100;1,300;1,400;1,500&display=swap"
+        rel="stylesheet" />
     <script src="https://kit.fontawesome.com/f597d13d63.js" crossorigin="anonymous"></script>
 
 
@@ -21,203 +21,215 @@
 </head>
 
 <body>
-<!-------------------------------- header ------------------------------->
-<header>
-    <a href="newmain2020.html">
-        <h3 class="siteName">PHOTOGRAM</h3>
-    </a>
+    <!-------------------------------- header ------------------------------->
+    <header>
+        <a href="newmain2020.html">
+            <h3 class="siteName">PHOTOGRAM</h3>
+        </a>
 
-    <div id="userCountForm">
-        <h7>
-            käyttäjämäärä:
-        </h7>
-    </div>
+        <div id="userCountForm">
+            <h7>
+                käyttäjämäärä:
+            </h7>
+        </div>
 
-    <div id="mostLiked">
-        <h8>
-            tykätyin käyttäjä
-        </h8>
-    </div>
-    <div class="dropdown" id="log-out">
-        <p id="user-info"></p>
-        <button class="profileButton">Kirjaudu ulos</button>
-    </div>
-</header>
-<!-------------------------------- login --------------------------------->
-<div class="container">
-    <div class="forms" id="login-wrapper">
-        <section class="form-wrapper-login">
-            <h2>Kirjaudu</h2>
-            <form id="login-form">
-                <div class="container-form-login">
-                    <div class="form-row">
-                        <label>Sähköposti:</label>
-                        <div class="rightTab">
-                            <input autofocus type="text" name="username" placeholder="sähköposti" required/>
+        <div id="mostLiked">
+            <h8>
+                tykätyin käyttäjä
+            </h8>
+        </div>
+        <div class="dropdown" id="log-out">
+            <p id="user-info"></p>
+            <button class="profileButton">Kirjaudu ulos</button>
+        </div>
+    </header>
+    <!-------------------------------- login --------------------------------->
+    <div class="container">
+        <div class="forms" id="login-wrapper">
+            <section class="form-wrapper-login">
+                <h2>Kirjaudu</h2>
+                <form id="login-form">
+                    <div class="container-form-login">
+                        <div class="form-row">
+                            <label>Sähköposti:</label>
+                            <div class="rightTab">
+                                <input autofocus type="text" name="username" placeholder="sähköposti" required />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <label>Salasana:</label>
+                            <div class="rightTab">
+                                <input type="password" name="password" placeholder="Salasana" required />
+                            </div>
                         </div>
                     </div>
-                    <div class="form-row">
-                        <label>Salasana:</label>
-                        <div class="rightTab">
-                            <input type="password" name="password" placeholder="Salasana" required/>
-                        </div>
+                    <div class="row-center">
+                        <button type="submit" class="btn-form">Kirjaudu</button>
                     </div>
-                </div>
-                <div class="row-center">
-                    <button type="submit" class="btn-form">Kirjaudu</button>
-                </div>
-            </form>
-        </section>
-        <!-------------------------------- register ------------------------------->
-        <section class="form-wrapper-register">
-            <h2>Uusi käyttäjä?</h2>
-            <form id="add-user-form">
-                <div class="container-form-register">
-                    <div class="form-row">
-                        <label for="nimi">Nimi:</label>
-                        <div class="rightTab">
-                            <input autofocus type="text" name="name" id="nimi" placeholder="nimi" required/>
+                </form>
+            </section>
+            <!-------------------------------- register ------------------------------->
+            <section class="form-wrapper-register">
+                <h2>Uusi käyttäjä?</h2>
+                <form id="add-user-form">
+                    <div class="container-form-register">
+                        <div class="form-row">
+                            <label for="nimi">Nimi:</label>
+                            <div class="rightTab">
+                                <input autofocus type="text" name="name" id="nimi" placeholder="nimi" required />
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-row">
-                        <label for="email">Sähköposti:</label>
-                        <div class="rightTab">
-                            <input autofocus type="email" id="email" name="username" placeholder="sähköoposti"
-                                   required/>
+                        <div class="form-row">
+                            <label for="email">Sähköposti:</label>
+                            <div class="rightTab">
+                                <input autofocus type="email" id="email" name="username" placeholder="sähköoposti"
+                                    required />
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-row">
-                        <label for="salasana">Salasana:</label>
-                        <div class="rightTab">
-                            <input type="password" id="salasana" name="password" pattern="(?=.*[A-Z]).{8,}"
-                                   placeholder="salasana" required/>
+                        <div class="form-row">
+                            <label for="salasana">Salasana:</label>
+                            <div class="rightTab">
+                                <input type="password" id="salasana" name="password" pattern="(?=.*[A-Z]).{8,}"
+                                    placeholder="salasana" required />
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-row">
-                        <label for="toistaSalasana">Toista&nbsp;salasana:</label>
-                        <div class="rightTab">
-                            <input type="password" id="toistaSalasana" name="password" pattern="(?=.*[A-Z]).{8,}"
-                                   placeholder="salasana" required/>
+                        <div class="form-row">
+                            <label for="toistaSalasana">Toista&nbsp;salasana:</label>
+                            <div class="rightTab">
+                                <input type="password" id="toistaSalasana" name="password" pattern="(?=.*[A-Z]).{8,}"
+                                    placeholder="salasana" required />
+                            </div>
                         </div>
+                        <div class="log"></div>
                     </div>
-                    <div class="log"></div>
-                </div>
-                <div class="row-center">
-                    <button type="submit" class="btn-form">Rekisteröidy</button>
-                </div>
-            </form>
-        </section>
-    </div>
+                    <div class="row-center">
+                        <button type="submit" class="btn-form">Rekisteröidy</button>
+                    </div>
+                </form>
+            </section>
+        </div>
 
-    <!-------------------------------- main ------------------------------->
-    <main style="display: none" id="main-wrapper">
-        <!-------------------------------- search --------------------->
-        <section>
-            <form id="kuvaHaku">
-                <input id="hakuSana" class="light-border" type="text" name="omistaja"
-                       placeholder="hae käyttäjän kuvia" style="text-align: center"/>
-                <button type="submit" class="light-border btn-form">Hae</button>
-            </form>
-        </section>
+        <!-------------------------------- main ------------------------------->
+        <main style="display: none" id="main-wrapper">
+            <!-------------------------------- search --------------------->
+            <section>
+                <form id="kuvaHaku">
+                    <input id="hakuSana" class="light-border" type="text" name="omistaja"
+                        placeholder="hae käyttäjän kuvia" style="text-align: center" />
+                    <button type="submit" class="light-border btn-form">Hae</button>
+                </form>
+            </section>
 
             <!-------------------------------- list --------------------->
 
-        <section>
-            <h1>Lista kuvista</h1>
-            <ul>
-                <!-- js creates list here -->
-            </ul>
-            <hr class="stripe-long"/>
-        </section>
-        <section></section>
-        <!----------------- add post (hidden section) --------------->
-        <section id="popup1" class="hide modal">
-            <div class="popup">
-                <h2>Lisä kuva</h2>
-                <a class="closeMe" href="#">&times;</a>
-                <div class="forms">
-                    <div class="form-wrapper">
-                        <form class="light-border dark" enctype="multipart/form-data"
-                              enctype="application/x-www-form-urlencoded" id="add-cat-form">
-                            <input class="light-border" type="text" maxlength="140" name="kuvaus"
-                                   placeholder="Kuvaus" required/>
-                            <select id="add-kunta" class="light-border" name="kunta" required>
-                                <option value="" disabled selected>
-                                    Select your option
-                                </option>
-                                <option value="">Valitse kunta</option>
-                            </select>
-                            <input class="light-border" type="file" name="cat" accept="image/*" id="files"/>
-                            <input type="hidden" name="id"/>
-                            <input type="hidden" name="owner"/>
-                            <button class="light-border btn-form" type="submit">
-                                Lisä
-                            </button>
+            <section>
+                <h1>Lista kuvista</h1>
+                <ul>
+                    <!-- js creates list here -->
+                </ul>
+                <hr class="stripe-long" />
+            </section>
+            <section></section>
+            <!----------------- add post (hidden section) --------------->
+            <section id="popup1" class="hide modal">
+                <div class="popup">
+                    <h2>Lisä kuva</h2>
+                    <a class="closeMe" href="#">&times;</a>
+                    <div class="forms">
+                        <div class="form-wrapper">
+                            <form class="light-border dark" enctype="multipart/form-data"
+                                enctype="application/x-www-form-urlencoded" id="add-cat-form">
+                                <input class="light-border" type="text" maxlength="140" name="kuvaus"
+                                    placeholder="Kuvaus" required />
+                                <select id="add-kunta" class="light-border" name="kunta" required>
+                                    <option value="" disabled selected>
+                                        Select your option
+                                    </option>
+                                    <option value="">Valitse kunta</option>
+                                </select>
+                                <input class="light-border" type="file" name="cat" accept="image/*" id="files" />
+                                <input type="hidden" name="id" />
+                                <input type="hidden" name="owner" />
+                                <button class="light-border btn-form" type="submit">
+                                    Lisä
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!----------------- change post (hidden section) --------------->
+            <section id="popup2" class="hide modal">
+                <div class="popup">
+                    <h2>Muokkaa kuvausta</h2>
+                    <a class="closeMe2" href="#">&times;</a>
+                    <div class="forms">
+                        <div class="form-wrapper">
+                            <form id="mod-cat-form" class="light-border dark">
+                                <input class="light-border" maxlength="140" type="text" name="kuvaus"
+                                    placeholder="Kuvaus" required />
+
+                                <input type="hidden" name="id" />
+                                <button class="light-border btn-form changePost" type="submit">
+                                    Tallentaa
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="container-fixed">
+                <i class="fas fa-level-up-alt" onclick="topFunction()"></i>
+                <button class="addPost btn-form">Lisää&nbsp;kuva</button>
+            </section>
+        </main>
+    </div>
+
+    <!-------------------------------- image-modal -------------------------->
+    <!-------------------------------- image-modal -------------------------->
+    <div class="hide modal" id="image-modal">
+        <div class="container-modal">
+            <div id="kuvaOsio">
+                <img src="" alt="" />
+            </div>
+
+            <div id="kommenttiOsio">
+                <div class="flex-container">
+                    <a href="#" class="close">Close</a>
+                    <div>
+                        <ul id="kuvanKuvaus"></ul>
+                        <h3 class="comments-style">Kommentit</h3>
+                    </div>
+
+                    <div id="kommenttiKentta">
+                        <hr class="stripe-long" />
+                        <ul class="kommentit" id="ulKommentti"></ul>
+                        <hr class="stripe-long" />
+                    </div>
+
+                    <div id="teeKommentti">
+                        <form method="post" enctype="application/x-www-form-urlencoded" id="kommentti" class="">
+                            <input id="kommenttiInput" class="light-border" type="text" name="kommentti"
+                                placeholder="Kirjoita kommentti" required />
+                            <input type="hidden" name="kuvaID" id="commentKuvaID" />
+                            <input type="hidden" name="userID" id="commentUserID" />
+                            <div class="row-center">
+                                <button class="light-border btn-form" type="submit">
+                                    Julkaise
+                                </button>
+                            </div>
                         </form>
                     </div>
                 </div>
             </div>
-        </section>
-        <!----------------- change post (hidden section) --------------->
-        <section id="popup2" class="hide modal">
-            <div class="popup">
-                <h2>Muokkaa kuvausta</h2>
-                <a class="closeMe2" href="#">&times;</a>
-                <div class="forms">
-                    <div class="form-wrapper">
-                        <form id="mod-cat-form" class="light-border dark">
-                            <input class="light-border" maxlength="140" type="text" name="kuvaus"
-                                   placeholder="Kuvaus" required/>
-
-                            <input type="hidden" name="id"/>
-                            <button class="light-border btn-form changePost" type="submit">
-                                Tallentaa
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section class="container-fixed">
-            <i class="fas fa-level-up-alt" onclick="topFunction()"></i>
-            <button class="addPost btn-form">Lisää&nbsp;kuva</button>
-        </section>
-    </main>
-</div>
-
-<!-------------------------------- image-modal -------------------------->
-<div class="hide modal" id="image-modal">
-    <a href="#" class="close">Poistu</a>
-    <img src="" alt=""/>
-
-    <div id="kommenttiOsio">
-        <div id="kommenttiKentta">
-            <h3>Kommentit</h3>
-            <hr/>
-            <ul id="kuvanKuvaus"></ul>
-            <ul class="kommentit" id="ulKommentti"></ul>
-
-        </div>
-        <div id="teeKommentti">
-            <form method="post" enctype="application/x-www-form-urlencoded" id="kommentti" class="light-border">
-                <input id="kommenttiInput" class="light-border" type="text" name="kommentti"
-                       placeholder="Kirjoita kommentti" required/>
-                <input type="hidden" name="kuvaID" id="commentKuvaID"/>
-                <input type="hidden" name="userID" id="commentUserID"/>
-
-                <button class="light-border btn-form" type="submit">
-                    Julkaise
-                </button>
-            </form>
         </div>
     </div>
-</div>
-<!-------------------------------- footer ------------------------->
-<footer></footer>
-<script src="js/serialize.js"></script>
-<script src="https://api.tiles.mapbox.com/mapbox-gl-js/v1.5.0/mapbox-gl.js"></script>
-<script src="js/mapbox.js"></script>
-<script src="js/main5.js"></script>
+    <!-------------------------------- footer ------------------------->
+    <footer></footer>
+    <script src="js/serialize.js"></script>
+    <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v1.5.0/mapbox-gl.js"></script>
+    <script src="js/mapbox.js"></script>
+    <script src="js/main5.js"></script>
 </body>
 
 </html>

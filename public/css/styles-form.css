@@ -153,6 +153,12 @@
   width: 85%;
 }
 
+.stripe-dashed {
+  margin-top: 2em;
+  margin-bottom: 2em;
+  border: 1px dashed #ccc;
+  width: 95%;
+}
 
 h2, h3 {
   font-family: 'Merriweather Sans', sans-serif;
@@ -258,6 +264,10 @@ label {
 
   .warm {
     background-color:#ff8540!important;
+  }
+
+  .warm-border {
+    border-color:#ff8540!important;
   }
 
   .btn-form:hover, .btn-form-small:hover {

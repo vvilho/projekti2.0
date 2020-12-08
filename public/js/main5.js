@@ -62,13 +62,9 @@ const createCatCards = (cats) => {
             h4.innerHTML = cat.ownername;
             const p = document.createElement('p');
             p.innerHTML = `Kuvaus: ${cat.kuvaus}`;
-            const hr = document.createElement('hr');
-            const br = document.createElement('br');
 
             li.appendChild(h4);
             li.appendChild(p);
-            li.appendChild(hr);
-            li.appendChild(br);
 
             ulKuvaus.appendChild(li);
 
@@ -217,7 +213,10 @@ const createCatCards = (cats) => {
 
 
 const createCommentUl = (comments) => {
-    ulKommentti.innerHTML = '';
+    if (comments.length == 0){
+        ulKommentti.innerHTML = 'Ei kommentteja vielä';
+    } else {
+        ulKommentti.innerHTML = '';
     comments.forEach((comment) => {
 
         const li = document.createElement('li');
@@ -225,16 +224,17 @@ const createCommentUl = (comments) => {
         h4.innerHTML = comment.nimi;
         const p = document.createElement('p');
         p.innerHTML = comment.kommenttiText;
-        const br = document.createElement('br');
+        const hr = document.createElement('hr')
+        hr.classList.add('stripe-dashed');
 
         li.appendChild(h4);
         li.appendChild(p);
-        li.appendChild(br);
-        li.appendChild(br);
+        li.appendChild(hr);
 
         ulKommentti.appendChild(li);
 
     });
+}
 
 
 };

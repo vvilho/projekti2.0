@@ -116,9 +116,6 @@ select {
   cursor: pointer;
 }
 
-.btn-mod, .btn-del {
-}
-
 button:hover {
   background-color:#3E3F3F;
 }
@@ -138,10 +135,10 @@ button:hover {
 }
 
 .modal img {
-  display: block;
-  height: 50vh;
-  margin: auto;
-  padding-top: 10vh;
+  display: flex;
+  max-height: 85vh;
+  max-width: 100vh;
+  margin-top: -12vh;
 }
 
 .close {
