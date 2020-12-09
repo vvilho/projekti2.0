@@ -74,11 +74,13 @@ const createCatCards = (cats) => {
 
             //get imagecomments
             getComments();
-            try {
+            /*try {
                 const coords = JSON.parse(cat.coords);
                 addMarker(coords);
             } catch (e) {
             }
+
+             */
         });
         const likecount = document.createElement('p');
         const commentcount = document.createElement('p');
@@ -775,7 +777,6 @@ const tokenCheck = async (token) => {
         };
         const response = await fetch(url + '/cat/tokencheck', options);
         const json = await response.json();
-        console.log(json);
         return json;
     } catch (e) {
         console.log("Unauthorized access! Token is invalid");
