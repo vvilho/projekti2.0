@@ -53,6 +53,7 @@ const createKuvaCards = (kuvas) => {
             modalImage.src = url + '/' + kuva.tiedostoNimi;
             imageModal.alt = kuva.kuvaID;
             imageModal.classList.toggle('hide');
+            document.body.classList.add("stop-scrolling");
             const inputs = commentForm.querySelectorAll('input');
             inputs[0].value = '';
             inputs[1].value = kuva.kuvaID;
@@ -172,6 +173,7 @@ const createKuvaCards = (kuvas) => {
 
                 //add change-post-modal
                 changePostModal.classList.toggle('hide');
+                document.body.classList.add("stop-scrolling");
             });
 
 
@@ -254,26 +256,34 @@ const createCommentUl = (comments) => {
 // open add-post-modal
 buttonAddPost.addEventListener('click', () => {
     addPostModal.classList.toggle('hide');
+    document.body.classList.add("stop-scrolling");
 });
 
+// close change-post-modal
 buttonChangePost.addEventListener('click', () => {
     changePostModal.classList.toggle('hide');
+    document.body.classList.remove("stop-scrolling");
 });
 
-// open add-post-modal
-closeMe.addEventListener('click', () => {
+// close add-post-modal
+closeMe.addEventListener('click', (evt) => {
+    evt.preventDefault();
     addPostModal.classList.toggle('hide');
+    document.body.classList.remove("stop-scrolling");
 });
 
-// open change-post-modal
-closeMe2.addEventListener('click', () => {
+// close change-post-modal
+closeMe2.addEventListener('click', (evt) => {
+    evt.preventDefault();
     changePostModal.classList.toggle('hide');
+    document.body.classList.remove("stop-scrolling");
 });
 
 // close image-modal
 close.addEventListener('click', (evt) => {
     evt.preventDefault();
     imageModal.classList.toggle('hide');
+    document.body.classList.remove("stop-scrolling");
 });
 
 // close modals with escape
@@ -281,10 +291,13 @@ document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
         if (!imageModal.classList.contains('hide')) {
             imageModal.classList.toggle('hide');
+            document.body.classList.remove("stop-scrolling");
         } else if (!addPostModal.classList.contains('hide')) {
             addPostModal.classList.toggle('hide');
+            document.body.classList.remove("stop-scrolling");
         } else if (!changePostModal.classList.contains('hide')) {
             changePostModal.classList.toggle('hide');
+            document.body.classList.remove("stop-scrolling");
         }
     }
 });
@@ -410,6 +423,7 @@ addForm.addEventListener('submit', async (evt) => {
 
     //exit
     addPostModal.classList.toggle('hide');
+    document.body.classList.remove("stop-scrolling");
 });
 
 const getComments = async () => {
@@ -754,6 +768,20 @@ const getUserCount = async () => {
         console.log(e.message);
     }
 };
+
+
+//Change "Lisää kuva" -> "+"
+const mediaQuery = matchMedia("screen and (max-width: 900px)");
+let plussa = document.getElementById("plussa");
+
+mediaQuery.addListener(() => {
+  if (mediaQuery.matches){
+      document.getElementById("plussa").innerHTML = "+";
+  } else {
+      document.getElementById("plussa").innerHTML = "Lisää&nbsp;kuva";
+  }
+});
+mediaQuery.media; // "screen and (max-width: 900px)"
 
 
 //scroll-up code
