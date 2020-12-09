@@ -725,7 +725,7 @@ const getMostlikedUser = async () => {
 const createMostLikedUser = async (mostlikes) => {
     //show user that has most likes
     mostLikedNumero.innerHTML = '';
-    mostLikedNumero.innerHTML = mostlikes[0].nimi;
+    mostLikedNumero.innerHTML = mostlikes[0].omistaja;
 
 };
 
