@@ -28,6 +28,8 @@ const injectFile = (req, res, next) => {
 
 router.get('/', catController.cat_list_get);
 
+router.get('/tokencheck', catController.tokencheck);
+
 //router.get('/:id', catController.cat_get);
 
 router.get('/:omistaja', catController.cat_get_haku);

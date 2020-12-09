@@ -35,7 +35,8 @@ const comment_create_post = async (req, res) => {
 
 
     // Object desctructing
-    const {kommentti, kuvaID, userID} = req.body;
+    const {kommentti, kuvaID} = req.body;
+    const userID = req.user.userID;
     const params = [kommentti, kuvaID, userID];
     const comment = await commentModel.addcomment(params);
 

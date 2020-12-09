@@ -6,10 +6,7 @@ const likeModel = require('../models/likeModel');
 
 const likes = likeModel.likes;
 
-const like_list_get = async (req, res) => {
-    const likes = await likeModel.getAlllikes();
-    res.json(likes);
-};
+
 
 
 const like_get = async (req, res) => {
@@ -24,7 +21,9 @@ const like_get = async (req, res) => {
 
 
     // Object desctructing
-    const {kuvaID, userID} = req.params;
+    const {kuvaID} = req.params;
+    const userID = req.user.userID;
+
     const params = [kuvaID, userID];
     const like = await likeModel.getlike(params);
 
@@ -63,7 +62,8 @@ const like_create_post = async (req, res) => {
 
 
     // Object desctructing
-    const {kuvaID, userID} = req.body;
+    const {kuvaID} = req.body;
+    const userID = req.user.userID;
     const params = [kuvaID, userID];
     const like = await likeModel.addlike(params);
 
@@ -85,7 +85,8 @@ const like_delete = async (req, res) => {
 
 
     // Object desctructing
-    const {kuvaID, userID} = req.body;
+    const {kuvaID} = req.body;
+    const userID = req.user.userID;
     const params = [kuvaID, userID];
     const like = await likeModel.deletelike(params);
 
@@ -100,7 +101,6 @@ const like_get_most = async (req, res) => {
 };
 
 module.exports = {
-    like_list_get,
     like_get,
     all_likes_get,
     like_create_post,

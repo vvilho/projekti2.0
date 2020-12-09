@@ -74,6 +74,13 @@ figure {
   cursor: pointer;
 }
 
+.resp:hover {
+  width: 155px;
+  border: 2px solid;
+  border-color: #cccccc;
+
+}
+
 .forms {
   display: flex;
   flex-wrap: wrap;
@@ -211,3 +218,6 @@ button:hover {
   color: #ff8540;
 }
 
+.hidden {
+  display: none;
+}

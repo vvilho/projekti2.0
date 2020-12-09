@@ -27,18 +27,20 @@
             <h3 class="siteName">PHOTOGRAM</h3>
         </a>
 
-        <div id="userCountForm">
+        <div id="userCountForm" class="hidden" >
             <h7>
                 käyttäjämäärä:
             </h7>
+            <p id="userCountNumero"></p>
         </div>
 
-        <div id="mostLiked">
+        <div id="mostLiked" class="hidden">
             <h8>
                 tykätyin käyttäjä
             </h8>
+            <p id="mostLikedNumero"></p>
         </div>
-        <div class="dropdown" id="log-out">
+        <div class="dropdown hidden" id="log-out" >
             <p id="user-info"></p>
             <button class="profileButton">Kirjaudu ulos</button>
         </div>
@@ -114,7 +116,7 @@
             <!-------------------------------- search --------------------->
             <section>
                 <form id="kuvaHaku">
-                    <input id="hakuSana" class="light-border" type="text" name="omistaja"
+                    <input id="hakuSana" class="light-border" type="text" name="omistaja" autocomplete="off"
                         placeholder="hae käyttäjän kuvia" style="text-align: center" />
                     <button type="submit" class="light-border btn-form">Hae</button>
                 </form>
@@ -133,25 +135,20 @@
             <!----------------- add post (hidden section) --------------->
             <section id="popup1" class="hide modal">
                 <div class="popup">
-                    <h2>Lisä kuva</h2>
+                    <h2>Lisää kuva</h2>
                     <a class="closeMe" href="#">&times;</a>
                     <div class="forms">
                         <div class="form-wrapper">
                             <form class="light-border dark" enctype="multipart/form-data"
                                 enctype="application/x-www-form-urlencoded" id="add-cat-form">
-                                <input class="light-border" type="text" maxlength="140" name="kuvaus"
+                                <input class="light-border" type="text" maxlength="140" name="kuvaus" autocomplete="off"
                                     placeholder="Kuvaus" required />
                                 <select id="add-kunta" class="light-border" name="kunta" required>
-                                    <option value="" disabled selected>
-                                        Select your option
-                                    </option>
-                                    <option value="">Valitse kunta</option>
+
                                 </select>
                                 <input class="light-border" type="file" name="cat" accept="image/*" id="files" />
-                                <input type="hidden" name="id" />
-                                <input type="hidden" name="owner" />
                                 <button class="light-border btn-form" type="submit">
-                                    Lisä
+                                    Lisää
                                 </button>
                             </form>
                         </div>
@@ -168,16 +165,19 @@
                             <form id="mod-cat-form" class="light-border dark">
                                 <input class="light-border" maxlength="140" type="text" name="kuvaus"
                                     placeholder="Kuvaus" required />
+                                <input type="hidden" name="kuvaID">
 
-                                <input type="hidden" name="id" />
+
                                 <button class="light-border btn-form changePost" type="submit">
-                                    Tallentaa
+                                    Tallenna
                                 </button>
                             </form>
                         </div>
                     </div>
                 </div>
             </section>
+            <!----------------- add new post and go up --------------->
+
             <section class="container-fixed">
                 <i class="fas fa-level-up-alt" onclick="topFunction()"></i>
                 <button class="addPost btn-form">Lisää&nbsp;kuva</button>
@@ -209,10 +209,9 @@
 
                     <div id="teeKommentti">
                         <form method="post" enctype="application/x-www-form-urlencoded" id="kommentti" class="">
-                            <input id="kommenttiInput" class="light-border" type="text" name="kommentti"
+                            <input id="kommenttiInput" class="light-border" type="text" name="kommentti" autocomplete="off"
                                 placeholder="Kirjoita kommentti" required />
                             <input type="hidden" name="kuvaID" id="commentKuvaID" />
-                            <input type="hidden" name="userID" id="commentUserID" />
                             <div class="row-center">
                                 <button class="light-border btn-form" type="submit">
                                     Julkaise
