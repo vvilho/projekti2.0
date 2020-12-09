@@ -1,31 +1,31 @@
-// catController
+// kuvaController
 'use strict';
 
 const {validationResult} = require('express-validator');
-const catModel = require('../models/catModel');
+const kuvaModel = require('../models/kuvaModel');
 const {makeThumbnail} = require('../utils/resize');
 const {getCoordinates} = require('../utils/imageMeta');
-const cats = catModel.cats;
+const kuvat = kuvaModel.kuvat;
 
-const cat_list_get = async (req, res) => {
-    const cats = await catModel.getAllCats();
-    res.json(cats);
+const kuva_list_get = async (req, res) => {
+    const kuvat = await kuvaModel.getAllkuvat();
+    res.json(kuvat);
 };
 
-const cat_get_haku = async (req, res) => {
+const kuva_get_haku = async (req, res) => {
     const omistaja = req.params.omistaja;
-    const cat = await catModel.getCatHaku(omistaja);
-    res.json(cat);
+    const kuva = await kuvaModel.getKuvaHaku(omistaja);
+    res.json(kuva);
 };
 
-const cat_get = async (req, res) => {
+const kuva_get = async (req, res) => {
     const id = req.params.id;
-    const cat = await catModel.getCat(id);
-    res.json(cat);
+    const kuva = await kuvaModel.getKuva(id);
+    res.json(kuva);
 };
 
-const cat_create_post = async (req, res) => {
-    console.log('cat_create_post', req.body, req.file);
+const kuva_create_post = async (req, res) => {
+    console.log('kuva_create_post', req.body, req.file);
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -44,14 +44,14 @@ const cat_create_post = async (req, res) => {
     const {kuvaus, id, owner, kunta} = req.body;
     const params = [kuvaus, req.file.filename, id, coords, owner, kunta];
 
-    const cat = await catModel.addCat(params);
+    const kuva = await kuvaModel.addKuva(params);
 
     res.json({message: 'upload ok'});
 
 };
 
-const cat_update_put = async (req, res) => {
-    console.log('cat_update_put', req.body);
+const kuva_update_put = async (req, res) => {
+    console.log('kuva_update_put', req.body);
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({errors: errors.array()});
@@ -61,17 +61,17 @@ const cat_update_put = async (req, res) => {
     const {kuvaus, id} = req.body;
     const params = [kuvaus, id];
 
-    const cat = await catModel.updateCat(params);
+    const kuva = await kuvaModel.updateKuva(params);
 
 
     res.json({message: 'modify ok'});
 
 };
 
-const cat_delete = async (req, res) => {
+const kuva_delete = async (req, res) => {
     const id = req.params.id;
-    const cat = await catModel.deleteCat(id);
-    res.json(cat);
+    const kuva = await kuvaModel.deleteKuva(id);
+    res.json(kuva);
 };
 
 const make_thumbnail = async (req, res, next) => {
@@ -89,11 +89,11 @@ const make_thumbnail = async (req, res, next) => {
 
 
 module.exports = {
-    cat_list_get,
-    cat_get,
-    cat_get_haku,
-    cat_create_post,
-    cat_update_put,
-    cat_delete,
+    kuva_list_get,
+    kuva_get,
+    kuva_get_haku,
+    kuva_create_post,
+    kuva_update_put,
+    kuva_delete,
     make_thumbnail,
 };

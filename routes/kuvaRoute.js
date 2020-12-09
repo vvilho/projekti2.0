@@ -1,10 +1,10 @@
 'use strict';
-// catRoute
+// kuvaRoute
 const express = require('express');
 const {body} = require('express-validator');
 const router = express.Router();
 const multer = require('multer')
-const catController = require('../controllers/catController');
+const kuvaController = require('../controllers/kuvaController');
 
 
 const fileFilter = (req, file, cb) => {
@@ -26,30 +26,30 @@ const injectFile = (req, res, next) => {
 }
 
 
-router.get('/', catController.cat_list_get);
+router.get('/', kuvaController.kuva_list_get);
 
-//router.get('/:id', catController.cat_get);
+//router.get('/:id', kuvaController.kuva_get);
 
-router.get('/:omistaja', catController.cat_get_haku);
+router.get('/:omistaja', kuvaController.kuva_get_haku);
 
 
 router.post('/',
-    upload.single('cat'),
-    injectFile, catController.make_thumbnail,
+    upload.single('kuva'),
+    injectFile, kuvaController.make_thumbnail,
     [
         body('kuvaus', 'vaadittu kenttä').isLength({min: 1}),
         body('mimetype', 'ei ole kuva').contains('image'),
     ],
-    catController.cat_create_post);
+    kuvaController.kuva_create_post);
 
 
 router.put('/',
     [
         body('kuvaus', 'kuvaus pakollinen').isLength({min: 1}),
     ],
-    catController.cat_update_put);
+    kuvaController.kuva_update_put);
 
-router.delete('/:id', catController.cat_delete);
+router.delete('/:id', kuvaController.kuva_delete);
 
 module.exports = router;
 

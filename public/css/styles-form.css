@@ -401,8 +401,16 @@ ul[style] {
 
 #kuvaHaku {
     display: flex;
-    flex-direction: row}
+    flex-direction: row
+}
 
+#mostLiked {
+  font-family:'Raleway', sans-serif; 
+}
+
+#userCountForm {
+  font-family:'Raleway', sans-serif; 
+}
 
 
 

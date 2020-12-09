@@ -8,8 +8,8 @@ const logOut = document.querySelector('#log-out');
 const main = document.querySelector('main');
 const loginForm = document.querySelector('#login-form');
 const addUserForm = document.querySelector('#add-user-form');
-const addForm = document.querySelector('#add-cat-form');
-const modForm = document.querySelector('#mod-cat-form');
+const addForm = document.querySelector('#add-kuva-form');
+const modForm = document.querySelector('#mod-kuva-form');
 const ul = document.querySelector('ul');
 const kuntaList = document.querySelectorAll('#add-kunta');
 const imageModal = document.querySelector('#image-modal');
@@ -30,29 +30,29 @@ const userCountForm = document.querySelector('#userCountForm');
 const mostLiked = document.querySelector('#mostLiked');
 
 
-// create cat cards
-const createCatCards = (cats) => {
+// create kuva cards
+const createKuvaCards = (kuvat) => {
     // clear ul
     ul.innerHTML = '';
-    cats.forEach((cat) => {
+    kuvat.forEach((kuva) => {
 
 
         // create li with DOM methods
         const img = document.createElement('img');
-        img.src = url + '/thumbnails/' + cat.tiedostoNimi;
-        img.alt = cat.kuvaID;
+        img.src = url + '/thumbnails/' + kuva.tiedostoNimi;
+        img.alt = kuva.kuvaID;
         img.classList.add('resp');
 
         // open large image when clicking image
 
         img.addEventListener('click', () => {
 
-            modalImage.src = url + '/' + cat.tiedostoNimi;
-            imageModal.alt = cat.kuvaID;
+            modalImage.src = url + '/' + kuva.tiedostoNimi;
+            imageModal.alt = kuva.kuvaID;
             imageModal.classList.toggle('hide');
             const inputs = commentForm.querySelectorAll('input');
             inputs[0].value = '';
-            inputs[1].value = cat.kuvaID;
+            inputs[1].value = kuva.kuvaID;
             inputs[2].value = sessionStorage.getItem('loggedUserID');
 
             //add kuvaus as first comment
@@ -60,9 +60,9 @@ const createCatCards = (cats) => {
 
             const li = document.createElement('li');
             const h4 = document.createElement('h4');
-            h4.innerHTML = cat.ownername;
+            h4.innerHTML = kuva.ownername;
             const p = document.createElement('p');
-            p.innerHTML = `Kuvaus: ${cat.kuvaus}`;
+            p.innerHTML = `Kuvaus: ${kuva.kuvaus}`;
             const hr = document.createElement('hr');
             const br = document.createElement('br');
 
@@ -76,7 +76,7 @@ const createCatCards = (cats) => {
             //get imagecomments
             getComments();
             try {
-                const coords = JSON.parse(cat.coords);
+                const coords = JSON.parse(kuva.coords);
                 addMarker(coords);
             } catch (e) {
             }
@@ -85,18 +85,18 @@ const createCatCards = (cats) => {
         const figure = document.createElement('figure').appendChild(img);
 
         const h2 = document.createElement('h2');
-        h2.innerHTML = cat.ownername;
+        h2.innerHTML = kuva.ownername;
 
         const likecount = document.createElement('p');
-        getlikes(cat.kuvaID).then(x => {
+        getlikes(kuva.kuvaID).then(x => {
 
             likecount.innerHTML = `Likes: ${x[0].likecount}`;
         })
 
         const p4 = document.createElement('p');
-        p4.innerHTML = `Paikka: ${cat.kunta}`;
+        p4.innerHTML = `Paikka: ${kuva.kunta}`;
         const p3 = document.createElement('p');
-        p3.innerHTML = `Kuvaus: ${cat.kuvaus}`;
+        p3.innerHTML = `Kuvaus: ${kuva.kuvaus}`;
         const li = document.createElement('li');
         const hr = document.createElement('hr');
         const like = document.createElement('i');
@@ -111,7 +111,7 @@ const createCatCards = (cats) => {
 
         //if user has liked a picture set button color red
 
-        getlike(cat.kuvaID, sessionStorage.getItem('loggedUserID')).then(x => {
+        getlike(kuva.kuvaID, sessionStorage.getItem('loggedUserID')).then(x => {
             if(x){
                 like.innerHTML = '';
                 like.classList.add('fas');
@@ -127,19 +127,19 @@ const createCatCards = (cats) => {
                 like.classList.remove('fas');
                 like.classList.remove('fa-thumbs-up');
                 like.classList.remove('liked-color');
-                removelike(cat.kuvaID, sessionStorage.getItem('loggedUserID'));
+                removelike(kuva.kuvaID, sessionStorage.getItem('loggedUserID'));
             }else{
-                addlike(cat.kuvaID, sessionStorage.getItem('loggedUserID'));
+                addlike(kuva.kuvaID, sessionStorage.getItem('loggedUserID'));
                 like.classList.add('fas');
                 like.classList.add('tfa-thumbs-up');
                 like.classList.add('liked-color');
             }
-            getCat();
+            getKuva();
         });
 
 
-        // add selected cat's values to modify form
-        if (cat.userID == sessionStorage.getItem('loggedUserID')) {
+        // add selected kuva's values to modify form
+        if (kuva.userID == sessionStorage.getItem('loggedUserID')) {
             const modButton = document.createElement('button');
             modButton.innerHTML = 'Muokkaa';
             modButton.classList.add('btn-form');
@@ -147,14 +147,14 @@ const createCatCards = (cats) => {
             modButton.addEventListener('click', () => {
                 console.log('modifynappi');
                 const inputs = modForm.querySelectorAll('input');
-                inputs[0].value = cat.kuvaus;
-                inputs[1].value = cat.kuvaID;
+                inputs[0].value = kuva.kuvaus;
+                inputs[1].value = kuva.kuvaID;
                 //add change-post-modal
                 changePostModal.classList.toggle('hide');
             });
 
 
-            // delete selected cat
+            // delete selected kuva
             const delButton = document.createElement('button');
             delButton.innerHTML = 'Poista';
             delButton.classList.add('btn-form');
@@ -168,10 +168,10 @@ const createCatCards = (cats) => {
                         },
                     };
                     try {
-                        const response = await fetch(url + '/cat/' + cat.kuvaID, fetchOptions);
+                        const response = await fetch(url + '/kuva/' + kuva.kuvaID, fetchOptions);
                         const json = await response.json();
                         console.log('delete response', json);
-                        getCat();
+                        getKuva();
                     } catch (e) {
                         console.log(e.message());
                     }
@@ -267,11 +267,11 @@ hakuForm.addEventListener('submit', async (evt) => {
                 'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
             },
         };
-        const response = await fetch(url + '/cat/' + owner, options);
-        const cats = await response.json();
+        const response = await fetch(url + '/kuva/' + owner, options);
+        const kuvat = await response.json();
 
-        if (cats.length >= 1) {
-            createCatCards(cats);
+        if (kuvat.length >= 1) {
+            createKuvatCards(kuvat);
         } else {
             alert('Haulla ei löytynyt yhtään tulosta');
         }
@@ -281,24 +281,24 @@ hakuForm.addEventListener('submit', async (evt) => {
 })
 
 
-const getCat = async () => {
-    //Set addcat form hidden input value to userID
+const getKuva = async () => {
+    //Set addkuva form hidden input value to userID
     const inputs = addForm.querySelectorAll('input');
     inputs[2].value = sessionStorage.getItem('loggedUserID');
     inputs[3].value = sessionStorage.getItem('loggedUser');
 
     userInfo.innerHTML = `${sessionStorage.getItem('loggedUser')}`;
-    console.log('getCat token ', sessionStorage.getItem('token'));
+    console.log('getKuva token ', sessionStorage.getItem('token'));
     try {
         const options = {
             headers: {
                 'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
             },
         };
-        const response = await fetch(url + '/cat', options);
-        const cats = await response.json();
-        console.log(cats);
-        createCatCards(cats);
+        const response = await fetch(url + '/kuva', options);
+        const kuvat = await response.json();
+        console.log(kuvat);
+        createKuvaCards(kuvat);
     } catch (e) {
         console.log(e.message);
     }
@@ -363,10 +363,10 @@ addForm.addEventListener('submit', async (evt) => {
         body: fd,
     };
 
-    const response = await fetch(url + '/cat', fetchOptions);
+    const response = await fetch(url + '/kuva', fetchOptions);
     const json = await response.json();
     console.log('add response', json);
-    getCat();
+    getKuva();
     alert('Uusi kuva lisätty! :)');
 });
 
@@ -526,10 +526,10 @@ modForm.addEventListener('submit', async (evt) => {
         body: JSON.stringify(data),
     };
 
-    const response = await fetch(url + '/cat', fetchOptions);
+    const response = await fetch(url + '/kuva', fetchOptions);
     const json = await response.json();
     console.log('modifyKuvaus response', json);
-    getCat();
+    getKuva();
 });
 
 // login
@@ -557,12 +557,12 @@ loginForm.addEventListener('submit', async (evt) => {
 
         console.log('loggedUser', sessionStorage.getItem('loggedUser'));
 
-        // show/hide forms + cats
+        // show/hide forms + kuvas
         loginWrapper.style.display = 'none';
         logOut.style.display = 'block';
         main.style.display = 'block';
         userInfo.innerHTML = `${json.user.nimi}`;
-        getCat();
+        getKuva();
         getKunta();
     }
 });
@@ -585,7 +585,7 @@ logOut.addEventListener('click', async (evt) => {
 
 
         alert('Olet kirjautunut ulos: ' + sessionStorage.getItem('loggedUser'));
-        // show/hide forms + cats
+        // show/hide forms + kuvas
         loginWrapper.style.display = 'flex';
         logOut.style.display = 'none';
         main.style.display = 'none';
@@ -624,12 +624,12 @@ addUserForm.addEventListener("submit", async (evt) => {
         sessionStorage.setItem("loggedUserID", json.user.userID);
 
         console.log("loggedUser", sessionStorage.getItem("loggedUser"));
-        // show/hide forms + cats
+        // show/hide forms + kuvas
         loginWrapper.style.display = "none";
         logOut.style.display = "block";
         main.style.display = "block";
         userInfo.innerHTML = `${json.user.nimi}`;
-        getCat();
+        getKuva();
         getKunta();
     } else {
         document.querySelector(".log").innerHTML = '<span class="log-style">Salasanat eivät täsmä</span>'
@@ -712,12 +712,12 @@ function topFunction() {
   document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 }
 
-// when app starts, check if token exists and hide login form, show logout button and main content, get cats and users
+// when app starts, check if token exists and hide login form, show logout button and main content, get kuvas and users
 if (sessionStorage.getItem('token')) {
     loginWrapper.style.display = 'none';
     logOut.style.display = 'block';
     main.style.display = 'block';
-    getCat();
+    getKuva();
     getKunta();
     getUserCount();
     getMostlikedUser();
