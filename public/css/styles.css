@@ -1,0 +1,583 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    background-image: linear-gradient(to bottom, rgb(0, 92, 122) 500px, #D8E6EB 500px);
+    height: 100%;
+    min-height: 100vh;
+    background-repeat: no-repeat;
+    font-family: 'Raleway', sans-serif;
+}
+
+header {
+    padding: 0 3vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 60px;
+    background-color: #FFFFFF;
+}
+
+header .profileButton {
+    display: inline-block;
+    background-color: #1134AD;
+    border-radius: 30px;
+    border: none;
+    padding: 7px 25px;
+    color: #ffffff;
+    font-size: 1em;
+    cursor: pointer;
+    margin-top: 0.5em;
+}
+
+header .profileButton:hover, header .profileButton:focus {
+    background-color: #294fd9;
+}
+
+#log-out [style] {
+  display: flex !important;
+}
+
+header .siteName {
+  color: #1134AD;
+  font-size: 1.2em;
+  margin-top: 1.3em;
+}
+
+#user-info {
+  float: left;
+  padding-right: 20px;
+}
+
+.container {
+  max-width: 55em;
+  margin: auto;
+  padding: 1em;
+  display: flex;
+  position: relative;
+}
+
+.container-fixed {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  bottom: 3%;
+  right: 2%;
+}
+
+.form-wrapper-login {
+  width: 500px;
+  height: 300px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 30px;
+  margin-bottom: 6%;
+  margin-top: 2%;
+}
+
+.form-wrapper-register {
+  width: 500px;
+  height: 390px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 30px;
+  margin-bottom: 4%;
+}
+
+#main-wrapper {
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 30px;
+  margin-bottom: 4%;
+  display: flex;
+  position: relative;
+  text-align: center;
+  margin-top: 2%;
+}
+#main-wrapper ul {
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+#main-wrapper .form-wrapper {
+  justify-content: center;
+}
+
+.container-form-register {
+  display: flex;
+  flex-direction: column;
+  margin-left: -14%;
+}
+
+.container-form-login {
+  display: flex;
+  flex-direction: column;
+  margin-left: -22%;
+}
+
+#kuvaHaku {
+  display: flex;
+  flex-direction: row;
+}
+
+.form-row {
+  margin: 5px;
+  display: flex;
+}
+
+.row-center {
+  display: flex;
+  justify-content: center;
+}
+
+.rightTab {
+  display: inline-block;
+  text-align: left;
+  width: 50%;
+  vertical-align: middle;
+  margin-left: 15px;
+}
+
+figure {
+  margin: 0;
+  padding: 0;
+}
+
+.resp {
+  width: 300px;
+  cursor: pointer;
+}
+
+.forms {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.form-wrapper {
+  width: 70%;
+  margin: 40px 10px;
+}
+
+/*----------------------------   modals   --------------------------*/
+
+/*------  image modal  -------*/
+
+.modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,.5);
+  position: fixed;
+  transition: 2s;
+  transition-timing-function: ease-in-out;
+}
+
+.modal img {
+  display: flex;
+  max-height: 85vh;
+  max-width: 100vh;
+  margin-top: -12vh;
+}
+
+#kommenttiKentta h3 {
+  text-align: center;
+
+}
+
+.container-modal {
+  display: flex;
+  position: relative;
+}
+
+#kommenttiOsio {
+  width: 300px;
+  height: 100vh;
+  background-color: #FFFFFF;
+  padding: 40px 25px;
+}
+
+#kuvaOsio {
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+#ulKommentti {
+  height: 30vh;  
+  overflow: scroll;
+}
+
+#teeKommentti > form {
+  margin-top: 20px;
+}
+
+#kuvanKuvaus {
+  background-color: rgba(0, 92, 122, 0.1);
+  border-radius: 10px;
+  margin: 15px 0px;
+}
+
+.comments-style{
+  margin-bottom: 10px;
+}
+
+/*------  modals: add/chanege picture -------*/
+
+.popup {
+  margin: 70px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  width: 30%;
+  position: relative;
+  transition: all 0.5s ease-in-out;
+}
+
+.popup .closeMe, .popup .closeMe2 {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  transition: all 200ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+}
+
+.popup .closeMe:hover, .popup .closeMe2:hover {
+  color: #1134AD;
+}
+
+#map {
+  position: absolute;
+  bottom: 5vh;
+  right: 5vw;
+  width: 30vw;
+  height: 30vh;
+}
+
+/*----------------------------   elements   --------------------------*/
+
+/*------  stripes  -------*/
+
+.stripe-long {
+  border: 1px solid #005c7a;
+}
+
+.stripe-small {
+  margin-top: 2em;
+  margin-bottom: 2em;
+  border: 1px dashed #ccc;
+  width: 85%;
+}
+
+.stripe-dashed {
+  margin-top: 2em;
+  margin-bottom: 2em;
+  border: 1px dashed #ccc;
+  width: 95%;
+}
+
+/*------   extra add elemetns  -------*/
+
+.hide {
+  display: none !important;
+}
+
+.light-border {
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  padding: 1em;
+  box-sizing: border-box;
+}
+
+.warm {
+  background-color: #ff8540 !important;
+}
+
+.warm-border {
+  border-color: #ff8540 !important;
+}
+
+.dark {
+  border: 2px solid #005C7A !important;
+}
+
+/*------   text -------*/
+h2,
+h3 {
+  font-family: "Merriweather Sans", sans-serif;
+  text-align: center;
+  color: #1134ad;
+  margin-bottom: 30px;
+  margin-top: 10px;
+}
+
+.popup > h2 {
+  margin-bottom: -10px;
+}
+
+h1 {
+  /*color: #ff8540;*/
+  font-family: "Merriweather Sans", sans-serif;
+  color: #a64227;
+  border-bottom: 2px solid #005c7a;
+  padding-bottom: 20px;
+}
+
+label {
+  display: inline-block;
+  text-align: right;
+  width: 40%;
+  padding: 5px;
+  padding-right: 0px;
+  vertical-align: top;
+  margin-top: 10px;
+  color: #1134ad;
+  font-weight: 700;
+  font-size: 1.1em;
+}
+
+/*------   buttons, links -------*/
+
+.tykkaaBtn {
+  background-color: #a64227;
+}
+
+.btn-form {
+  display: inline-block;
+  margin: .5em 0;
+  background-color: #005C7A;
+  border-radius: 7px;
+  font-weight: 700;
+  color: white;
+  font-size: 1em;
+  padding: 10px 20px;
+  margin: 10px;
+  border: 0px solid;
+  cursor: pointer;
+}
+
+.btn-form-small {
+  display: inline-block;
+  margin: .5em 0;
+  background-color: #005c7a;
+  border-radius: 5px;
+  font-weight: 700;
+  color: white;
+  font-size: 0.9em;
+  padding: 7px;
+  margin: 20px;
+  border: 0px solid;
+  cursor: pointer;
+}
+
+.label-button {
+  display: inline-block;
+  background-color: white;
+  border-radius: 3px;
+  font-weight: 300;
+  color: #005c7a;
+  font-size: 0.9em;
+  padding: 5px;
+  margin: 2px;
+  border: 1px solid #005c7a;
+  cursor: pointer;
+}
+
+.btn-form:hover,
+.btn-form-small:hover {
+  background-color: #3e3f3f;
+}
+
+.close {
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  color: #1134AD;
+  text-shadow: #000;
+  font-size: 2em;
+  background-color: white;
+  height: 20px;
+  width: 60px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+a:link {
+  text-decoration: none;
+  color: #1134ad;
+  font-weight: 700;
+  font-size: 1em;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a:active {
+  text-decoration: underline;
+}
+
+/*------   input, select, list  -------*/
+
+input {
+  padding: 10px;
+  padding-left: 7px;
+  padding-right: 7px;
+  margin: 7px;
+  border: 2px solid#cccccc;
+  border-radius: 7px;
+  font-family: "Raleway", sans-serif;
+  font-size: 0.9em;
+}
+
+select {
+  display: block;
+  font-size: 1em;
+  font-family: sans-serif;
+  font-weight: 700;
+  color: #444;
+  line-height: 1;
+  padding: 7px;
+  box-sizing: border-box;
+  margin: 0;
+  margin-left: 7px;
+  border: 1px solid #aaa;
+  box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.04);
+  border-radius: 0.5em;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: #fff;
+  cursor: pointer;
+  /* note: bg image below uses 2 urls. The first is an svg data uri for the arrow icon, and the second is the gradient. 
+    for the icon, if you want to change the color, be sure to use `%23` instead of `#`, since it's a url. You can also swap in a different svg icon or an external image reference
+    
+    */
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E"),
+    linear-gradient(to bottom, #ffffff 0%, #e5e5e5 100%);
+  background-repeat: no-repeat, repeat;
+  /* arrow icon position (1em from the right, 50% vertical) , then gradient position*/
+  background-position: right 0.7em top 50%, 0 0;
+  /* icon size, then gradient */
+  background-size: 0.65em auto, 100%;
+}
+/* Hide arrow icon in IE browsers */
+select::-ms-expand {
+  display: none;
+}
+/* Hover style */
+select:hover {
+  border-color: #888;
+}
+/* Focus style */
+select:focus {
+  border-color: #aaa;
+  /* It'd be nice to use -webkit-focus-ring-color here but it doesn't work on box-shadow */
+  box-shadow: 0 0 1px 3px rgba(59, 153, 252, 0.7);
+  box-shadow: 0 0 0 3px -moz-mac-focusring;
+  color: #444;
+  outline: none;
+}
+
+select {
+  line-height: 1em;
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: #fff;
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
+  background-repeat: no-repeat, repeat;
+  background-position: right .7em top 50%, 0 0;
+  background-size: .65em auto, 100%;
+}
+
+input[type="file"] {
+  cursor: pointer;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  /*box-shadow: 0 0 3px #FF8540;
+      -moz-box-shadow: 0 0 3px #FF8540;
+      -webkit-box-shadow: 0 0 3px #FF8540;*/
+  border: 2px solid rgba(255, 133, 64, 0.7);
+  /*background-color: rgba(255, 133, 64, 0.07);*/
+  /*background-color: rgba(17, 52, 173, 0.05);*/
+  outline-offset: 0px;
+  outline: none;
+}
+
+input, select {
+  display: inline-block;
+  width: 100%;
+  margin: .5em 0;
+}
+
+ul[style] {
+  list-style-type: none !important;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  display: block;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+li {
+  width: 97%;
+  margin: .5em;
+}
+
+/*------   icons   -------*/
+
+.fa-level-up-alt {
+  color: #1134AD;
+  font-size: 25px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.fa-level-up-alt:hover {
+  color: #3E3F3F
+}
+
+.fa-thumbs-up {
+  color: #3E3F3F;
+  font-size: 30px;
+  cursor: pointer;
+  padding: 10px
+}
+
+.fa-thumbs-up:hover {
+  color: black;
+}
+
+.fa-thumbs-up.liked-color {
+  color: #ff8540;
+}
+
+
