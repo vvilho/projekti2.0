@@ -717,6 +717,7 @@ const getMostlikedUser = async () => {
         const response = await fetch(url + '/like/most', options);
         const mostlikes = await response.json();
         createMostLikedUser(mostlikes);
+        console.log(mostlikes);
     } catch (e) {
         console.log(e.message);
     }
