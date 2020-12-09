@@ -8,8 +8,8 @@ const logOut = document.querySelector('#log-out');
 const main = document.querySelector('main');
 const loginForm = document.querySelector('#login-form');
 const addUserForm = document.querySelector('#add-user-form');
-const addForm = document.querySelector('#add-cat-form');
-const modForm = document.querySelector('#mod-cat-form');
+const addForm = document.querySelector('#add-kuva-form');
+const modForm = document.querySelector('#mod-kuva-form');
 const ul = document.querySelector('ul');
 const kuntaList = document.querySelectorAll('#add-kunta');
 const imageModal = document.querySelector('#image-modal');
@@ -32,17 +32,17 @@ const mostLikedNumero = document.querySelector('#mostLikedNumero');
 
 
 
-// create cat cards
-const createCatCards = (cats) => {
+// create kuva cards
+const createKuvaCards = (kuvas) => {
     // clear ul
     ul.innerHTML = '';
-    cats.reverse().forEach((cat) => {
+    kuvas.reverse().forEach((kuva) => {
 
 
         // create li with DOM methods
         const img = document.createElement('img');
-        img.src = url + '/thumbnails/' + cat.tiedostoNimi;
-        img.alt = cat.kuvaID;
+        img.src = url + '/thumbnails/' + kuva.tiedostoNimi;
+        img.alt = kuva.kuvaID;
         img.classList.add('resp');
         img.title = "Klikkaa nähdäksesi kommentit";
 
@@ -50,12 +50,12 @@ const createCatCards = (cats) => {
 
         img.addEventListener('click', () => {
 
-            modalImage.src = url + '/' + cat.tiedostoNimi;
-            imageModal.alt = cat.kuvaID;
+            modalImage.src = url + '/' + kuva.tiedostoNimi;
+            imageModal.alt = kuva.kuvaID;
             imageModal.classList.toggle('hide');
             const inputs = commentForm.querySelectorAll('input');
             inputs[0].value = '';
-            inputs[1].value = cat.kuvaID;
+            inputs[1].value = kuva.kuvaID;
 
 
             //add kuvaus as first comment
@@ -63,9 +63,9 @@ const createCatCards = (cats) => {
 
             const li = document.createElement('li');
             const h4 = document.createElement('h4');
-            h4.innerHTML = cat.ownername;
+            h4.innerHTML = kuva.ownername;
             const p = document.createElement('p');
-            p.innerHTML = `Kuvaus: ${cat.kuvaus}`;
+            p.innerHTML = `Kuvaus: ${kuva.kuvaus}`;
 
             li.appendChild(h4);
             li.appendChild(p);
@@ -75,7 +75,7 @@ const createCatCards = (cats) => {
             //get imagecomments
             getComments();
             /*try {
-                const coords = JSON.parse(cat.coords);
+                const coords = JSON.parse(kuva.coords);
                 addMarker(coords);
             } catch (e) {
             }
@@ -89,23 +89,23 @@ const createCatCards = (cats) => {
         const figure = document.createElement('figure').appendChild(img);
 
         const h2 = document.createElement('h2');
-        h2.innerHTML = cat.ownername;
+        h2.innerHTML = kuva.ownername;
 
-        getlikes(cat.kuvaID).then(x => {
+        getlikes(kuva.kuvaID).then(x => {
 
             likecount.innerHTML = `Tykkäyksiä: ${x[0].likecount}`;
         });
 
-        getcommentmaara(cat.kuvaID).then(x => {
+        getcommentmaara(kuva.kuvaID).then(x => {
 
             commentcount.innerHTML = `Kommentteja: ${x[0].maara}`;
         });
 
 
         const p4 = document.createElement('p');
-        p4.innerHTML = `Paikka: ${cat.kunta}`;
+        p4.innerHTML = `Paikka: ${kuva.kunta}`;
         const p3 = document.createElement('p');
-        p3.innerHTML = `Kuvaus: ${cat.kuvaus}`;
+        p3.innerHTML = `Kuvaus: ${kuva.kuvaus}`;
         const li = document.createElement('li');
         const hr = document.createElement('hr');
         const like = document.createElement('i');
@@ -122,7 +122,7 @@ const createCatCards = (cats) => {
 
         //if user has liked a picture set thumbsup color yellow
 
-        getlike(cat.kuvaID).then(x => {
+        getlike(kuva.kuvaID).then(x => {
             if (x) {
                 //like.innerHTML = '';
 
@@ -134,20 +134,20 @@ const createCatCards = (cats) => {
         like.addEventListener('click', async () => {
             if (like.classList.contains('liked-color')) {
                 //remove like from photo and update database
-                await removelike(cat.kuvaID);
+                await removelike(kuva.kuvaID);
 
                 like.classList.toggle('liked-color');
-                await getlikes(cat.kuvaID).then(x => {
+                await getlikes(kuva.kuvaID).then(x => {
 
                     likecount.innerHTML = `Tykkäyksiä: ${x[0].likecount}`;
                 });
 
             } else {
                 //add like to photo and update database
-                await addlike(cat.kuvaID);
+                await addlike(kuva.kuvaID);
 
                 like.classList.toggle('liked-color');
-                await getlikes(cat.kuvaID).then(x => {
+                await getlikes(kuva.kuvaID).then(x => {
 
                     likecount.innerHTML = `Tykkäyksiä: ${x[0].likecount}`;
                 });
@@ -157,8 +157,8 @@ const createCatCards = (cats) => {
         });
 
 
-        // add selected cat's values to modify form
-        if (cat.userID == sessionStorage.getItem('loggedUserID')) {
+        // add selected kuva's values to modify form
+        if (kuva.userID == sessionStorage.getItem('loggedUserID')) {
             const modButton = document.createElement('button');
             modButton.innerHTML = 'Muokkaa';
             modButton.classList.add('btn-form');
@@ -167,15 +167,15 @@ const createCatCards = (cats) => {
             modButton.addEventListener('click', () => {
                 console.log('modifynappi');
                 const inputs = modForm.querySelectorAll('input');
-                inputs[0].value = cat.kuvaus;
-                inputs[1].value = cat.kuvaID;
+                inputs[0].value = kuva.kuvaus;
+                inputs[1].value = kuva.kuvaID;
 
                 //add change-post-modal
                 changePostModal.classList.toggle('hide');
             });
 
 
-            // delete selected cat
+            // delete selected kuva
             const delButton = document.createElement('button');
             delButton.innerHTML = 'Poista';
             delButton.classList.add('btn-form');
@@ -190,10 +190,10 @@ const createCatCards = (cats) => {
                         },
                     };
                     try {
-                        const response = await fetch(url + '/cat/' + cat.kuvaID, fetchOptions);
+                        const response = await fetch(url + '/kuva/' + kuva.kuvaID, fetchOptions);
                         const json = await response.json();
                         console.log('Kuva poistettu');
-                        getCat();
+                        getKuva();
                     } catch (e) {
                         console.log(e.message());
                     }
@@ -303,11 +303,11 @@ hakuForm.addEventListener('submit', async (evt) => {
                 'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
             },
         };
-        const response = await fetch(url + '/cat/' + owner, options);
-        const cats = await response.json();
+        const response = await fetch(url + '/kuva/' + owner, options);
+        const kuvas = await response.json();
 
-        if (cats.length >= 1) {
-            createCatCards(cats);
+        if (kuvas.length >= 1) {
+            createKuvaCards(kuvas);
         } else {
             alert('Haulla ei löytynyt yhtään tulosta');
         }
@@ -317,20 +317,20 @@ hakuForm.addEventListener('submit', async (evt) => {
 })
 
 
-const getCat = async () => {
+const getKuva = async () => {
 
 
     userInfo.innerHTML = `${sessionStorage.getItem('loggedUser')}`;
-    console.log('getCat token ', sessionStorage.getItem('token'));
+    console.log('getKuva token ', sessionStorage.getItem('token'));
     try {
         const options = {
             headers: {
                 'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
             },
         };
-        const response = await fetch(url + '/cat', options);
-        const cats = await response.json();
-        createCatCards(cats);
+        const response = await fetch(url + '/kuva', options);
+        const kuvas = await response.json();
+        createKuvaCards(kuvas);
     } catch (e) {
         console.log(e.message);
     }
@@ -395,10 +395,10 @@ addForm.addEventListener('submit', async (evt) => {
         body: fd,
     };
 
-    const response = await fetch(url + '/cat', fetchOptions);
+    const response = await fetch(url + '/kuva', fetchOptions);
     const json = await response.json();
     console.log('add response', json);
-    getCat();
+    getKuva();
     alert('Uusi kuva lisätty! :)');
     //clear inputs
     const inputs = addForm.querySelectorAll('input');
@@ -584,10 +584,10 @@ modForm.addEventListener('submit', async (evt) => {
         body: JSON.stringify(data),
     };
 
-    const response = await fetch(url + '/cat', fetchOptions);
+    const response = await fetch(url + '/kuva', fetchOptions);
     const json = await response.json();
     console.log('modifyKuvaus response', json);
-    getCat();
+    getKuva();
 });
 
 // login
@@ -615,14 +615,14 @@ loginForm.addEventListener('submit', async (evt) => {
 
         console.log('loggedUser', sessionStorage.getItem('loggedUser'));
 
-        // show/hide forms + cats
+        // show/hide forms + kuvas
         loginWrapper.style.display = 'none';
         logOut.style.display = 'block';
         main.style.display = 'block';
         mostLiked.style.display = 'block';
         userCountForm.style.display = 'block';
         userInfo.innerHTML = `${json.user.nimi}`;
-        getCat();
+        getKuva();
         getKunta();
         getUserCount();
         getMostlikedUser();
@@ -647,7 +647,7 @@ logOut.addEventListener('click', async (evt) => {
 
 
         alert('Olet kirjautunut ulos: ' + sessionStorage.getItem('loggedUser'));
-        // show/hide forms + cats
+        // show/hide forms + kuvas
         loginWrapper.style.display = 'flex';
         logOut.style.display = 'none';
         main.style.display = 'none';
@@ -688,14 +688,14 @@ addUserForm.addEventListener("submit", async (evt) => {
         sessionStorage.setItem("loggedUserID", json.user.userID);
 
         console.log("loggedUser", sessionStorage.getItem("loggedUser"));
-        // show/hide forms + cats
+        // show/hide forms + kuvas
         loginWrapper.style.display = "none";
         logOut.style.display = "block";
         main.style.display = "block";
         mostLiked.style.display = 'block';
         userCountForm.style.display = 'block';
         userInfo.innerHTML = `${json.user.nimi}`;
-        getCat();
+        getKuva();
         getKunta();
         getUserCount();
         getMostlikedUser();
@@ -775,7 +775,7 @@ const tokenCheck = async (token) => {
                 'Authorization': 'Bearer ' + token,
             },
         };
-        const response = await fetch(url + '/cat/tokencheck', options);
+        const response = await fetch(url + '/kuva/tokencheck', options);
         const json = await response.json();
         return json;
     } catch (e) {
@@ -792,7 +792,7 @@ const tokenCheck = async (token) => {
 
 };
 
-// when app starts, check if token exists and hide login form, show logout button and main content, get cats and users
+// when app starts, check if token exists and hide login form, show logout button and main content, get kuvas and users
 
 const tokenOK = tokenCheck(sessionStorage.getItem('token'));
 
@@ -804,7 +804,7 @@ if (tokenOK) {
     main.style.display = 'block';
     mostLiked.style.display = 'block';
     userCountForm.style.display = 'block';
-    getCat();
+    getKuva();
     getKunta();
     getUserCount();
     getMostlikedUser();

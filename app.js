@@ -2,7 +2,7 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const catRoute = require('./routes/catRoute');
+const kuvaRoute = require('./routes/kuvaRoute');
 const userRoute = require('./routes/userRoute');
 const passport = require('./utils/pass.js');
 const authRoute = require('./routes/authRoute.js');
@@ -27,7 +27,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use('/auth', authRoute);
-app.use('/cat', passport.authenticate('jwt', {session: false}), catRoute);
+app.use('/kuva', passport.authenticate('jwt', {session: false}), kuvaRoute);
 app.use('/user', passport.authenticate('jwt', {session: false}), userRoute);
 app.use('/comment', passport.authenticate('jwt', {session: false}), commentRoute);
 app.use('/like', passport.authenticate('jwt', {session: false}), likeRoute);
