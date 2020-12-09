@@ -414,8 +414,16 @@ ul[style] {
     flex-direction: row}
 
 
-
-
+#userCountForm{
+  font-family: "Merriweather Sans", sans-serif;
+  font-size: 1.2em;
+  margin-top: 1.3em;
+}
+.h7{
+  font-family: "Merriweather Sans", sans-serif;
+  font-size: 1.2em;
+  margin-top: 1.3em;
+}
 
     
 
