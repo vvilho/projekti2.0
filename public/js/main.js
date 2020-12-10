@@ -466,7 +466,7 @@ addForm.addEventListener('submit', async (evt) => {
     const response = await fetch(url + '/kuva', fetchOptions);
     const json = await response.json();
     console.log('add response', json);
-    getKuva();
+    await getKuva();
     alert('Uusi kuva lisätty! :)');
     //clear inputs
     const inputs = addForm.querySelectorAll('input');
@@ -807,7 +807,7 @@ const createMostLikedUser = async (mostlikes) => {
     } else {
         mostLikedNumero.innerHTML = mostlikes[0].omistaja;
     }
-    console.log(mostlikes[0].omistaja);
+
 
 };
 
