@@ -187,6 +187,7 @@ figure {
 /*------  image modal  -------*/
 
 .modal {
+  animation: modal 0.7s;
   position: absolute;
   top: 0;
   left: 0;
@@ -194,10 +195,17 @@ figure {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   position: fixed;
-  transition: 2s;
-  transition-timing-function: ease-in-out;
   overflow-y: auto;
   z-index: 1;
+}
+
+@keyframes modal {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .modal img {
@@ -269,6 +277,7 @@ figure {
 }
 
 .closeButton {
+  animation: modal 0.7s;
   height: 2em;
 }
 
@@ -312,7 +321,6 @@ figure {
   position: absolute;
   top: 0.3em;
   right: 1em;
-  transition: all 0.5s ease-in-out;
   font-size: 2em;
   font-weight: bold;
   text-decoration: none;
