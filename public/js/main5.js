@@ -70,7 +70,7 @@ const createKuvaCards = (kuvas) => {
             const h4 = document.createElement('h4');
             h4.innerHTML = kuva.ownername;
             const p = document.createElement('p');
-            p.innerHTML = `Kuvaus: ${kuva.kuvaus}`;
+            p.innerHTML = kuva.kuvaus;
 
             li.appendChild(h4);
             li.appendChild(p);
@@ -102,25 +102,33 @@ const createKuvaCards = (kuvas) => {
 
 
         const p4 = document.createElement('p');
-        p4.innerHTML = `Paikka: ${kuva.kunta}`;
         const p3 = document.createElement('p');
-        p3.innerHTML = `Kuvaus: ${kuva.kuvaus}`;
         const li = document.createElement('li');
         const hr = document.createElement('hr');
         const like = document.createElement('i');
         const comment = document.createElement('i');
+        const location = document.createElement('i');
         const div = document.createElement('div');
+        const div2 = document.createElement('div');
+
         like.classList.add('fas');
         like.classList.add('fa-thumbs-up');
-        comment.classList.add('far');
+        comment.classList.add('fas');
         comment.classList.add('fa-comment-alt');
+        location.classList.add('fas');
+        location.classList.add('fa-map-marker-alt');
         div.classList.add('flex-me');
         hr.classList.add('stripe-small');
         li.classList.add('list-container');
-        p4.classList.add('kunta');
-        li.appendChild(p4);
+        div2.classList.add('flex-me');
+
+        li.appendChild(div2);
+        div2.appendChild(location);
+        p4.innerHTML = kuva.kunta;
+        div2.appendChild(p4);
         li.appendChild(h2);
         li.appendChild(figure);
+        p3.innerHTML = kuva.kuvaus;
         li.appendChild(p3);
         li.appendChild(div);
         div.appendChild(like);
@@ -238,12 +246,17 @@ const createKuvaCards = (kuvas) => {
                     }
                 }
             });
+            const div3 = document.createElement('div');
             const div1 = document.createElement('div');
-            div1.classList.add('flex-me2');
-            li.appendChild(div1);
+            div3.classList.add('container-list-item');
+            li.appendChild(div3);
+            div3.appendChild(div2);
+            div2.appendChild(location);
+            p4.innerHTML = kuva.kunta;
+            div2.appendChild(p4);
+            div3.appendChild(div1);
             div1.appendChild(modButton);
             div1.appendChild(delButton);
-            li.appendChild(p4);
             li.appendChild(h2);
             li.appendChild(figure);
             li.appendChild(p3);
@@ -824,15 +837,32 @@ const getUserCount = async () => {
 };
 
 
+const countAllUsers = document.getElementById("userCountForm");
+const likedUser = document.getElementById("mostLiked");
 //Change "Lisää kuva" -> "+"
-const mediaQuery = matchMedia("screen and (max-width: 900px)");
+const mediaQuery1 = matchMedia("screen and (max-width: 900px)");
 let plussa = document.getElementById("plussa");
 
-mediaQuery.addListener(() => {
-    if (mediaQuery.matches) {
-        document.getElementById("plussa").innerHTML = "+";
+mediaQuery1.addListener(() => {
+    if (mediaQuery1.matches) {
+        document.getElementById("plussa").innerHTML = "+";       
+
     } else {
         document.getElementById("plussa").innerHTML = "Lisää&nbsp;kuva";
+
+    }
+});
+mediaQuery1.media; // "screen and (max-width: 900px)"
+
+const mediaQuery = matchMedia("screen and (max-width: 800px)");
+
+mediaQuery.addListener(() => {
+    if (mediaQuery.matches) {   
+        countAllUsers.classList.add('hide');
+        likedUser.classList.add('hide');
+    } else {
+        countAllUsers.classList.remove('hide');
+        likedUser.classList.remove('hide');
     }
 });
 mediaQuery.media; // "screen and (max-width: 900px)"
