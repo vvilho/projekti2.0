@@ -166,6 +166,11 @@ figure {
   cursor: pointer;
 }
 
+.resp:hover {
+  border: 2px ;
+  border-color: #3E3F3F;
+}
+
 .forms {
   display: flex;
   flex-wrap: wrap;
@@ -635,8 +640,9 @@ li {
 
 .kunta {
   text-align: left;
-  font-weight: bold;
+  font-weight: lighter;
   font-size: 1.1em;
+
 }
 
 .flex-me {
@@ -652,6 +658,9 @@ li {
   color: #3E3F3F;
   font-size: 30px;
   padding: 10px;
+}
+.fa-comment-alt:hover{
+  cursor: pointer;
 }
 
 #userCountForm{

@@ -31,7 +31,6 @@ const userCountNumero = document.querySelector('#userCountNumero');
 const mostLikedNumero = document.querySelector('#mostLikedNumero');
 
 
-
 // create kuva cards
 const createKuvaCards = (kuvas) => {
     // clear ul
@@ -75,13 +74,7 @@ const createKuvaCards = (kuvas) => {
 
             //get imagecomments
             getComments();
-            /*try {
-                const coords = JSON.parse(kuva.coords);
-                addMarker(coords);
-            } catch (e) {
-            }
 
-             */
         });
         const likecount = document.createElement('p');
         const commentcount = document.createElement('p');
@@ -129,6 +122,36 @@ const createKuvaCards = (kuvas) => {
         div.appendChild(likecount);
         div.appendChild(comment);
         div.appendChild(commentcount);
+
+        comment.addEventListener('click', () => {
+
+            modalImage.src = url + '/' + kuva.tiedostoNimi;
+            imageModal.alt = kuva.kuvaID;
+            imageModal.classList.toggle('hide');
+            document.body.classList.add("stop-scrolling");
+            const inputs = commentForm.querySelectorAll('input');
+            inputs[0].value = '';
+            inputs[1].value = kuva.kuvaID;
+
+
+            //add kuvaus as first comment
+            ulKuvaus.innerHTML = '';
+
+            const li = document.createElement('li');
+            const h4 = document.createElement('h4');
+            h4.innerHTML = kuva.ownername;
+            const p = document.createElement('p');
+            p.innerHTML = `Kuvaus: ${kuva.kuvaus}`;
+
+            li.appendChild(h4);
+            li.appendChild(p);
+
+            ulKuvaus.appendChild(li);
+
+            //get imagecomments
+            getComments();
+
+        });
 
         //if user has liked a picture set thumbsup color yellow
 
@@ -754,7 +777,12 @@ const getMostlikedUser = async () => {
 const createMostLikedUser = async (mostlikes) => {
     //show user that has most likes
     mostLikedNumero.innerHTML = '';
-    mostLikedNumero.innerHTML = mostlikes[0].omistaja;
+    if (mostlikes[0].omistaja == []) {
+        mostLikedNumero.innerHTML = 'ei tykkäyksiä';
+    } else {
+        mostLikedNumero.innerHTML = mostlikes[0].omistaja;
+    }
+    console.log(mostlikes[0].omistaja);
 
 };
 
@@ -789,11 +817,11 @@ const mediaQuery = matchMedia("screen and (max-width: 900px)");
 let plussa = document.getElementById("plussa");
 
 mediaQuery.addListener(() => {
-  if (mediaQuery.matches){
-      document.getElementById("plussa").innerHTML = "+";
-  } else {
-      document.getElementById("plussa").innerHTML = "Lisää&nbsp;kuva";
-  }
+    if (mediaQuery.matches) {
+        document.getElementById("plussa").innerHTML = "+";
+    } else {
+        document.getElementById("plussa").innerHTML = "Lisää&nbsp;kuva";
+    }
 });
 mediaQuery.media; // "screen and (max-width: 900px)"
 
@@ -823,7 +851,7 @@ const tokenCheck = async (token) => {
         return json;
     } catch (e) {
         console.log("Unauthorized access! Token is invalid");
-        console.log('vaara token');
+
         loginWrapper.style.display = 'block';
         logOut.style.display = 'none';
         main.style.display = 'none';
@@ -840,7 +868,6 @@ const tokenCheck = async (token) => {
 const tokenOK = tokenCheck(sessionStorage.getItem('token'));
 
 
-
 if (tokenOK) {
     loginWrapper.style.display = 'none';
     logOut.style.display = 'block';
@@ -852,7 +879,8 @@ if (tokenOK) {
     getUserCount();
     getMostlikedUser();
     console.log('Page updated');
-};
+}
+;
 
 
 //loppu
