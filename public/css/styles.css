@@ -509,9 +509,9 @@ input {
 
 select {
   display: block;
-  font-size: 1em;
-  font-family: sans-serif;
-  font-weight: 700;
+  font-size: 0.9em;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 400;
   color: #444;
   line-height: 1;
   padding: 7px;
@@ -638,20 +638,23 @@ li {
   color: #ff8540;
 }
 
-.kunta {
-  text-align: left;
-  font-weight: lighter;
-  font-size: 1.1em;
-
+.fa-map-marker-alt {
+  display: flex;
+  flex-direction: row;
+  color: #3E3F3F;
+  font-size: 30px;
+  cursor: pointer;
+  padding: 10px
 }
 
 .flex-me {
   display: flex;
+  margin-top: -7px;
 }
 
-.flex-me2 {
-  display: inline-block;
-  float: right;
+.container-list-item {
+  display: flex;
+  justify-content: space-between;
 }
 
 .fa-comment-alt {
