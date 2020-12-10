@@ -31,6 +31,11 @@ const userCountNumero = document.querySelector('#userCountNumero');
 const mostLikedNumero = document.querySelector('#mostLikedNumero');
 
 
+
+
+
+
+
 // create kuva cards
 const createKuvaCards = (kuvas) => {
     // clear ul
@@ -730,30 +735,37 @@ addUserForm.addEventListener("submit", async (evt) => {
     };
     //Check if passwords matches if statment
     if (salasana == toistaSalasana) {
-        const response = await fetch(url + "/auth/register", fetchOptions);
-        const json = await response.json();
-        console.log("user add response", json);
-        // save token
-        sessionStorage.setItem("token", json.token);
-        sessionStorage.setItem("loggedUser", json.user.nimi);
-        sessionStorage.setItem("loggedUserID", json.user.userID);
+        try {
+            const response = await fetch(url + "/auth/register", fetchOptions);
+            const status = response.status;
+            console.log(status);
+            if (status == 400) {
+                alert('Sähköposti on varattu');
+                location.reload();
+            }else{
+                alert('Käyttäjä lisätty onnistuneesti');
+                location.reload();
+            }
 
-        console.log("loggedUser", sessionStorage.getItem("loggedUser"));
-        // show/hide forms + kuvas
-        loginWrapper.style.display = "none";
-        logOut.style.display = "block";
-        main.style.display = "block";
-        mostLiked.style.display = 'block';
-        userCountForm.style.display = 'block';
-        userInfo.innerHTML = `${json.user.nimi}`;
-        getKuva();
-        getKunta();
-        getUserCount();
-        getMostlikedUser();
+
+
+
+
+
+        }catch(e) {
+
+            console.log(e);
+
+        }
     } else {
-        document.querySelector(".log").innerHTML = '<span class="log-style">Salasanat eivät täsmä</span>'
+        alert('Salasanat eivät täsmää');
 
-        console.log("salasanat eivät täsmä");
+
+        document.getElementById("salasana").value = '';
+        document.getElementById("toistaSalasana").value = '';
+
+
+        console.log("salasanat eivät täsmää");
     }
 });
 
@@ -862,6 +874,18 @@ const tokenCheck = async (token) => {
 
 
 };
+// when input is selected if it has title then show span with the title
+function insertAfter(el, referenceNode) {
+    referenceNode.parentNode.insertBefore(el, referenceNode.nextSibling);
+}
+
+window.addEventListener("load",() => {
+    document.querySelectorAll("input").forEach(inp => {
+        let span = document.createElement('span');
+        span.innerHTML = inp.getAttribute("title");
+        insertAfter(span, inp);
+    })
+})
 
 // when app starts, check if token exists and hide login form, show logout button and main content, get kuvas and users
 

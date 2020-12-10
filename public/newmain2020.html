@@ -71,32 +71,34 @@
             <!-------------------------------- register ------------------------------->
             <section class="form-wrapper-register">
                 <h2>Uusi käyttäjä?</h2>
-                <form id="add-user-form">
+                <form id="add-user-form" autocomplete="off">
                     <div class="container-form-register">
+                        <input  style="display:none" type="email" name="fakeusernameremembered">
+                        <input  style="display:none" type="password" name="fakepasswordremembered">
                         <div class="form-row">
                             <label for="nimi">Nimi:</label>
                             <div class="rightTab">
-                                <input autofocus type="text" name="name" id="nimi" placeholder="nimi" required />
+                                <input autofocus type="text" name="name" id="nimi" placeholder="nimi" maxlength="30" required />
                             </div>
                         </div>
                         <div class="form-row">
                             <label for="email">Sähköposti:</label>
                             <div class="rightTab">
-                                <input autofocus type="email" id="email" name="username" placeholder="sähköposti"
+                                <input autofocus type="email" id="email" name="username" placeholder="sähköposti" autocomplete="nope" maxlength="50"
                                     required />
                             </div>
                         </div>
                         <div class="form-row">
                             <label for="salasana">Salasana:</label>
                             <div class="rightTab">
-                                <input type="password" id="salasana" name="password" pattern="(?=.*[A-Z]).{8,}" autocomplete="off"
-                                    placeholder="salasana" required />
+                                <input type="password" id="salasana" name="password" pattern="(?=.*[A-Z]).{8,}" autocomplete="nope" maxlength="50"
+                                    placeholder="salasana" title="Vähintään 8 merkkiä ja yksi iso kirjain " required />
                             </div>
                         </div>
                         <div class="form-row">
                             <label for="toistaSalasana">Toista&nbsp;salasana:</label>
                             <div class="rightTab">
-                                <input type="password" id="toistaSalasana" name="password" pattern="(?=.*[A-Z]).{8,}" autocomplete="off"
+                                <input type="password" id="toistaSalasana" name="password" pattern="(?=.*[A-Z]).{8,}" autocomplete="nope" maxlength="50"
                                     placeholder="salasana" required />
                             </div>
                         </div>
@@ -210,7 +212,7 @@
                     <div id="teeKommentti">
                         <form method="post" enctype="application/x-www-form-urlencoded" id="kommentti" class="">
                             <input id="kommenttiInput" class="light-border" type="text" name="kommentti" autocomplete="off"
-                                placeholder="Kirjoita kommentti" required />
+                                placeholder="Kirjoita kommentti" maxlength="140" required />
                             <input type="hidden" name="kuvaID" id="commentKuvaID" />
                             <div class="row-center">
                                 <button class="light-border btn-form" type="submit">

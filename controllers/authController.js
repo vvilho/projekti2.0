@@ -45,9 +45,10 @@ const user_create_post = async (req, res, next) => {
         ];
 
         if (await userModel.addUser(params)) {
-            next();
+            res.json({message: '1'});
+
         } else {
-            res.status(400).json({error: 'register error'});
+            res.status(400).json({message: '0'});
         }
     }
 };

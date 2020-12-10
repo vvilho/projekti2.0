@@ -35,11 +35,11 @@ const addUser = async (params) => {
         const [rows] = await promisePool.execute(
             'INSERT into user (nimi, email, password) VALUES (?,?,?)', params);
         console.log('addUser: rows', rows);
-        return rows;
+        return true;
 
     } catch (e) {
         console.log('userModel error', e.message);
-        return {error: 'DB Error'}
+        return false;
     }
 };
 

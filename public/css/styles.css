@@ -86,7 +86,7 @@ header .siteName {
 
 .form-wrapper-register {
   width: 500px;
-  height: 390px;
+  height: 420px;
   background-color: #ffffff;
   border-radius: 10px;
   padding: 30px;
@@ -687,4 +687,11 @@ li {
   margin: 3%;
   border: 0px;
   text-align: center;
+}
+
+input + span {
+  display: none;
+}
+input:focus + span {
+  display: block;
 }
