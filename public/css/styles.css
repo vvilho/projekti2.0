@@ -172,6 +172,7 @@ figure {
   justify-content: center;
 }
 
+
 /*----------------------------   modals   --------------------------*/
 
 /*------  image modal  -------*/
@@ -616,6 +617,8 @@ li {
 }
 
 .fa-thumbs-up {
+  display: flex;
+  flex-direction: row;
   color: #3E3F3F;
   font-size: 30px;
   cursor: pointer;
@@ -630,7 +633,26 @@ li {
   color: #ff8540;
 }
 
+.kunta {
+  text-align: left;
+  font-weight: bold;
+  font-size: 1.1em;
+}
 
+.flex-me {
+  display: flex;
+}
+
+.flex-me2 {
+  display: inline-block;
+  float: right;
+}
+
+.fa-comment-alt {
+  color: #3E3F3F;
+  font-size: 30px;
+  padding: 10px;
+}
 
 #userCountForm{
   font-family: "Merriweather Sans", sans-serif;

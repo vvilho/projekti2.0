@@ -94,12 +94,12 @@ const createKuvaCards = (kuvas) => {
 
         getlikes(kuva.kuvaID).then(x => {
 
-            likecount.innerHTML = `Tykkäyksiä: ${x[0].likecount}`;
+            likecount.innerHTML = x[0].likecount;
         });
 
         getcommentmaara(kuva.kuvaID).then(x => {
 
-            commentcount.innerHTML = `Kommentteja: ${x[0].maara}`;
+            commentcount.innerHTML = x[0].maara;
         });
 
 
@@ -110,16 +110,25 @@ const createKuvaCards = (kuvas) => {
         const li = document.createElement('li');
         const hr = document.createElement('hr');
         const like = document.createElement('i');
+        const comment = document.createElement('i');
+        const div = document.createElement('div');
         like.classList.add('fas');
-        like.classList.add('fa-thumbs-up')
+        like.classList.add('fa-thumbs-up');
+        comment.classList.add('far');
+        comment.classList.add('fa-comment-alt');
+        div.classList.add('flex-me');
         hr.classList.add('stripe-small');
+        li.classList.add('list-container');
+        p4.classList.add('kunta');
+        li.appendChild(p4);
         li.appendChild(h2);
         li.appendChild(figure);
-        li.appendChild(p4);
         li.appendChild(p3);
-        li.appendChild(likecount);
-        li.appendChild(commentcount);
-        li.appendChild(like);
+        li.appendChild(div);
+        div.appendChild(like);
+        div.appendChild(likecount);
+        div.appendChild(comment);
+        div.appendChild(commentcount);
 
         //if user has liked a picture set thumbsup color yellow
 
@@ -140,7 +149,7 @@ const createKuvaCards = (kuvas) => {
                 like.classList.toggle('liked-color');
                 await getlikes(kuva.kuvaID).then(x => {
 
-                    likecount.innerHTML = `Tykkäyksiä: ${x[0].likecount}`;
+                    likecount.innerHTML = x[0].likecount;
                 });
 
             } else {
@@ -150,7 +159,7 @@ const createKuvaCards = (kuvas) => {
                 like.classList.toggle('liked-color');
                 await getlikes(kuva.kuvaID).then(x => {
 
-                    likecount.innerHTML = `Tykkäyksiä: ${x[0].likecount}`;
+                    likecount.innerHTML = x[0].likecount;
                 });
             }
 
@@ -162,7 +171,7 @@ const createKuvaCards = (kuvas) => {
         if (kuva.userID == sessionStorage.getItem('loggedUserID')) {
             const modButton = document.createElement('button');
             modButton.innerHTML = 'Muokkaa';
-            modButton.classList.add('btn-form');
+            modButton.classList.add('label-button');
             modButton.classList.add('btn-mod');
             modButton.title = "muokkaa kuvausta";
             modButton.addEventListener('click', () => {
@@ -180,7 +189,7 @@ const createKuvaCards = (kuvas) => {
             // delete selected kuva
             const delButton = document.createElement('button');
             delButton.innerHTML = 'Poista';
-            delButton.classList.add('btn-form');
+            delButton.classList.add('label-button');
             delButton.classList.add('btn-del');
             delButton.title = "poista kuva";
             delButton.addEventListener('click', async () => {
@@ -201,15 +210,20 @@ const createKuvaCards = (kuvas) => {
                     }
                 }
             });
+            const div1 = document.createElement('div');
+            div1.classList.add('flex-me2');
+            li.appendChild(div1);
+            div1.appendChild(modButton);
+            div1.appendChild(delButton);
+            li.appendChild(p4);
             li.appendChild(h2);
             li.appendChild(figure);
-            li.appendChild(p4);
             li.appendChild(p3);
-            li.appendChild(likecount);
-            li.appendChild(commentcount);
-            li.appendChild(like);
-            li.appendChild(modButton);
-            li.appendChild(delButton);
+            li.appendChild(div);
+            div.appendChild(like);
+            div.appendChild(likecount);
+            div.appendChild(comment);
+            div.appendChild(commentcount);
 
 
         }
