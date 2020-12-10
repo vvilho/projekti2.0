@@ -837,23 +837,32 @@ const getUserCount = async () => {
 };
 
 
-const countAllUsers = document.getElementById("userCountForm");
-const likedUser = document.getElementById("mostLiked");
 //Change "Lisää kuva" -> "+"
-const mediaQuery = matchMedia("screen and (max-width: 900px)");
+const mediaQuery1 = matchMedia("screen and (max-width: 900px)");
 let plussa = document.getElementById("plussa");
 
-mediaQuery.addListener(() => {
-    if (mediaQuery.matches) {
+mediaQuery1.addListener(() => {
+    if (mediaQuery1.matches) {
         document.getElementById("plussa").innerHTML = "+";       
-        countAllUsers.classList.add('hide');
-        likedUser.classList.add('hide');
     } else {
         document.getElementById("plussa").innerHTML = "Lisää&nbsp;kuva";
-        countAllUsers.classList.remove('hide');
     }
 });
-mediaQuery.media; // "screen and (max-width: 900px)"
+mediaQuery1.media; // "screen and (max-width: 900px)"
+
+const mediaQuery = matchMedia("screen and (max-width: 800px)");
+const countAllUsers = document.getElementById("userCountForm");
+const likedUser = document.getElementById("mostLiked");
+mediaQuery.addListener(() => {
+    if (mediaQuery.matches) {     
+        countAllUsers.classList.add('hide');
+        likedUser.classList.add('hide');
+    } else {  
+        countAllUsers.classList.remove('hide');
+        likedUser.classList.remove('hide');
+    }
+});
+mediaQuery.media; // "screen and (max-width: 800px)"
 
 
 //scroll-up code
