@@ -837,36 +837,22 @@ const getUserCount = async () => {
 };
 
 
-//Change "Lisää kuva" -> "+"
-const mediaQuery1 = matchMedia("screen and (max-width: 900px)");
-let plussa = document.getElementById("plussa");
-
-mediaQuery1.addListener(() => {
+// media query change 1: change "Lisää kuva" -> "+"
+// media query change 2: header text
+function WidthChange(mediaQuery1) {
+    const plussa = document.getElementById("plussa");
+    const countAllUsers = document.getElementById("userCountForm");
+    const likedUser = document.getElementById("mostLiked");
     if (mediaQuery1.matches) {
-        document.getElementById("plussa").innerHTML = "+";       
-    } else {
-        document.getElementById("plussa").innerHTML = "Lisää&nbsp;kuva";
-    }
-});
-mediaQuery1.media; // "screen and (max-width: 900px)"
-
-const mediaQuery = matchMedia("screen and (max-width: 800px)");
-const countAllUsers = document.getElementById("userCountForm");
-const likedUser = document.getElementById("mostLiked");
-mediaQuery.addListener(() => {
-    if (mediaQuery.matches) {     
+        plussa.innerHTML = "+";  
         countAllUsers.classList.add('hide');
         likedUser.classList.add('hide');
-    } else {  
+    } else {
+        plussa.innerHTML = "Lisää&nbsp;kuva";
         countAllUsers.classList.remove('hide');
         likedUser.classList.remove('hide');
     }
-});
-mediaQuery.media; // "screen and (max-width: 800px)"
-
-
-//scroll-up code
-//Get the button:
+}
 
 
 // When the user clicks on the button, scroll to the top of the document
