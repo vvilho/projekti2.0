@@ -115,7 +115,7 @@ const createKuvaCards = (kuvas) => {
         like.classList.add('fa-thumbs-up');
         comment.classList.add('fas');
         comment.classList.add('fa-comment-alt');
-        location.classList.add('far');
+        location.classList.add('fas');
         location.classList.add('fa-map-marker-alt');
         div.classList.add('flex-me');
         hr.classList.add('stripe-small');
