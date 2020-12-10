@@ -71,7 +71,7 @@ header .siteName {
   flex-direction: column;
   position: fixed;
   bottom: 3%;
-  right: 2%;
+  right: 0.6vw;
 }
 
 .form-wrapper-login {
