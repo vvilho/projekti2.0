@@ -837,7 +837,12 @@ const getUserCount = async () => {
     }
 };
 
-
+//Change "Lisää kuva" -> "+"
+if (matchMedia) {
+    const mediaQuery1 = window.matchMedia("(max-width: 900px)");
+    mediaQuery1.addListener(WidthChange);
+    WidthChange(mediaQuery1);
+}
 // media query change 1: change "Lisää kuva" -> "+"
 // media query change 2: header text
 function WidthChange(mediaQuery1) {
