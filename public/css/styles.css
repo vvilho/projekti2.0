@@ -55,9 +55,13 @@ header .siteName {
 }
 
 .container {
+  display: flex;
+  justify-content: center;
+}
+
+#login-wrapper {
   max-width: 55em;
   margin: auto;
-  padding: 1em;
   display: flex;
   position: relative;
 }
@@ -67,7 +71,7 @@ header .siteName {
   flex-direction: column;
   position: fixed;
   bottom: 3%;
-  right: 2%;
+  right: 0.6vw;
 }
 
 .form-wrapper-login {
@@ -77,7 +81,7 @@ header .siteName {
   border-radius: 10px;
   padding: 30px;
   margin-bottom: 6%;
-  margin-top: 2%;
+  margin-top: 1.8em;
 }
 
 .form-wrapper-register {
@@ -90,8 +94,7 @@ header .siteName {
 }
 
 #main-wrapper {
-  width: 100%;
-  height: 100%;
+  width: 60vw;
   background-color: #ffffff;
   border-radius: 10px;
   padding: 30px;
@@ -99,11 +102,19 @@ header .siteName {
   display: flex;
   position: relative;
   text-align: center;
-  margin-top: 2%;
+  margin-top: 1.8em;
+  justify-content: center;
+  align-items: center;
 }
+
 #main-wrapper ul {
   flex-direction: row;
   justify-content: space-evenly;
+}
+
+.form-wrapper {
+  width: 35em;
+  margin: 1.5em;
 }
 
 #main-wrapper .form-wrapper {
@@ -161,10 +172,6 @@ figure {
   justify-content: center;
 }
 
-.form-wrapper {
-  width: 70%;
-  margin: 40px 10px;
-}
 
 /*----------------------------   modals   --------------------------*/
 
@@ -176,22 +183,23 @@ figure {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0,0,0,.5);
+  background-color: rgba(0, 0, 0, 0.5);
   position: fixed;
   transition: 2s;
   transition-timing-function: ease-in-out;
+  overflow-y: auto;
+  z-index: 1;
 }
 
 .modal img {
   display: flex;
   max-height: 85vh;
-  max-width: 100vh;
-  margin-top: -12vh;
+  max-width: 50vw;
+  justify-content: center;
 }
 
 #kommenttiKentta h3 {
   text-align: center;
-
 }
 
 .container-modal {
@@ -200,10 +208,20 @@ figure {
 }
 
 #kommenttiOsio {
-  width: 300px;
-  height: 100vh;
-  background-color: #FFFFFF;
-  padding: 40px 25px;
+  overflow-y: initial !important;
+  overflow-x: hidden;
+  width: 25em;
+  background-color: #ffffff;
+  height: auto;
+}
+
+#teeKommentti {
+  background-color: #ffffff;
+  width: 100%;
+  padding-left: 25px;
+  padding-right: 25px;
+  margin-left: -25px;
+  padding-bottom: 30px;
 }
 
 #kuvaOsio {
@@ -217,11 +235,14 @@ figure {
   display: flex;
   flex-direction: column;
   height: 100vh;
+  margin-left: 25px;
+  margin-right: 25px;
 }
 
 #ulKommentti {
-  height: 30vh;  
+  height: 40vh;
   overflow: scroll;
+  overflow-x: hidden;
 }
 
 #teeKommentti > form {
@@ -234,28 +255,56 @@ figure {
   margin: 15px 0px;
 }
 
-.comments-style{
+.comments-style {
   margin-bottom: 10px;
+}
+
+.closeButton {
+  height: 2em;
+}
+
+.stop-scrolling {
+  height: 100%;
+  overflow: hidden;
+  padding-right: 15px; /* Avoid width reflow */
+}
+
+@media (max-width: 900px) {
+    .container-modal {
+        flex-direction: column;
+        overflow-x: hidden;
+      }
+
+      .modal img {
+        max-height: 85vh;
+        max-width: 70vw;
+        padding: 5vw;
+      }
+
+      #kommenttiOsio {
+        width: 100vw;
+      }
 }
 
 /*------  modals: add/chanege picture -------*/
 
 .popup {
-  margin: 70px auto;
-  padding: 20px;
+  margin: 10vh auto;
+  padding: 1em;
   background: #fff;
   border-radius: 5px;
-  width: 30%;
+  width: 23em;
   position: relative;
   transition: all 0.5s ease-in-out;
 }
 
-.popup .closeMe, .popup .closeMe2 {
+.popup .closeMe,
+.popup .closeMe2 {
   position: absolute;
-  top: 20px;
-  right: 30px;
-  transition: all 200ms;
-  font-size: 30px;
+  top: 0.3em;
+  right: 1em;
+  transition: all 0.5s ease-in-out;
+  font-size: 2em;
   font-weight: bold;
   text-decoration: none;
   color: #333;
@@ -568,6 +617,8 @@ li {
 }
 
 .fa-thumbs-up {
+  display: flex;
+  flex-direction: row;
   color: #3E3F3F;
   font-size: 30px;
   cursor: pointer;
@@ -582,7 +633,26 @@ li {
   color: #ff8540;
 }
 
+.kunta {
+  text-align: left;
+  font-weight: bold;
+  font-size: 1.1em;
+}
 
+.flex-me {
+  display: flex;
+}
+
+.flex-me2 {
+  display: inline-block;
+  float: right;
+}
+
+.fa-comment-alt {
+  color: #3E3F3F;
+  font-size: 30px;
+  padding: 10px;
+}
 
 #userCountForm{
   font-family: "Merriweather Sans", sans-serif;

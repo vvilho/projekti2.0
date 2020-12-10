@@ -178,7 +178,7 @@
 
             <section class="container-fixed">
                 <i class="fas fa-level-up-alt" onclick="topFunction()"></i>
-                <button class="addPost btn-form">Lisää&nbsp;kuva</button>
+                <button id="plussa" class="addPost btn-form">Lisää&nbsp;kuva</button>
             </section>
         </main>
     </div>
@@ -193,7 +193,9 @@
 
             <div id="kommenttiOsio">
                 <div class="flex-container">
-                    <a href="#" class="close">Close</a>
+                    <div class="closeButton">
+                        <a href="#" class="close">Close</a>
+                    </div>
                     <div>
                         <ul id="kuvanKuvaus"></ul>
                         <h3 class="comments-style">Kommentit</h3>
