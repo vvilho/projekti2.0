@@ -1,5 +1,5 @@
 'use strict';
-const url = 'http://localhost:3000'; // change url when uploading to server
+const url = '/app/'; // change url when uploading to server
 
 // select existing html elements
 const loginWrapper = document.querySelector('#login-wrapper');
@@ -465,7 +465,7 @@ addForm.addEventListener('submit', async (evt) => {
 
     const response = await fetch(url + '/kuva', fetchOptions);
     const json = await response.json();
-    console.log('add response', json);
+    console.log('add response', response);
     await getKuva();
     alert('Uusi kuva lisätty! :)');
     //clear inputs
@@ -802,7 +802,7 @@ const getMostlikedUser = async () => {
 const createMostLikedUser = async (mostlikes) => {
     //show user that has most likes
     mostLikedNumero.innerHTML = '';
-    if (mostlikes[0].omistaja == []) {
+    if (mostlikes == []) {
         mostLikedNumero.innerHTML = 'ei tykkäyksiä';
     } else {
         mostLikedNumero.innerHTML = mostlikes[0].omistaja;

@@ -679,17 +679,22 @@ li {
 
 #userCountForm{
   font-family: "Merriweather Sans", sans-serif;
-  color: #1134AD;
-  margin-top: 1%;
+  color: #000000;
+  font-weight: lighter;
+
+}
+#userCountForm p {
+  margin: 5px;
 }
 #mostLiked{
   font-family: "Merriweather Sans", sans-serif;
-  color: #1134AD;
-  margin-top: 1%;
+  color: #000000;
+  font-weight: lighter;
 }
-.h7{
-  border: 0px;
+#mostLiked p{
+  margin: 5px;
 }
+
 #userCountNumero{
   padding: 0%;
   margin: 3%;

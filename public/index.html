@@ -26,16 +26,16 @@
         </a>
        
          <div id="userCountForm">
-            <h7>
+            <p>
                 Käyttäjämäärä
-            </h7>
+            </p>
             <p id="userCountNumero"></p>
         </div>
     
         <div id="mostLiked">
-            <h8>
+            <p>
                 Tykätyin käyttäjä
-            </h8>
+            </p>
             <p id="mostLikedNumero"></p>
         </div>
         <div class="dropdown hidden" id="log-out" >
@@ -141,7 +141,7 @@
                         <div class="form-wrapper">
                             <form class="light-border dark" enctype="multipart/form-data"
                                 enctype="application/x-www-form-urlencoded" id="add-kuva-form">
-                                <input class="light-border" type="text" maxlength="140" name="kuvaus" autocomplete="off"
+                                <input class="light-border" type="text" maxlength="140" name="kuvaus" autocomplete="off" title="max 140 merkkiä"
                                     placeholder="Kuvaus" required />
                                 <select id="add-kunta" class="light-border" name="kunta" required>
 
@@ -163,7 +163,7 @@
                     <div class="forms">
                         <div class="form-wrapper">
                             <form id="mod-kuva-form" class="light-border dark">
-                                <input class="light-border" maxlength="140" type="text" name="kuvaus"
+                                <input class="light-border" maxlength="140" type="text" name="kuvaus" title="max 140 merkkiä"
                                     placeholder="Kuvaus" required />
                                 <input type="hidden" name="kuvaID">
 
@@ -211,7 +211,7 @@
 
                     <div id="teeKommentti">
                         <form method="post" enctype="application/x-www-form-urlencoded" id="kommentti" class="">
-                            <input id="kommenttiInput" class="light-border" type="text" name="kommentti" autocomplete="off"
+                            <input id="kommenttiInput" class="light-border" type="text" name="kommentti" autocomplete="off" title="max 140 merkkiä"
                                 placeholder="Kirjoita kommentti" maxlength="140" required />
                             <input type="hidden" name="kuvaID" id="commentKuvaID" />
                             <div class="row-center">
