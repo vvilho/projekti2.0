@@ -675,24 +675,29 @@ li {
 }
 .fa-comment-alt:hover{
   cursor: pointer;
+  color: black;
 }
+
 
 #userCountForm{
   font-family: "Merriweather Sans", sans-serif;
-  color: #000000;
+  color: #1134AD;
   font-weight: lighter;
 
 }
 #userCountForm p {
   margin: 5px;
+  font-size: 0.8em;
+
 }
 #mostLiked{
   font-family: "Merriweather Sans", sans-serif;
-  color: #000000;
+  color: #1134AD;
   font-weight: lighter;
 }
 #mostLiked p{
   margin: 5px;
+  font-size: 0.8em;
 }
 
 #userCountNumero{
