@@ -9,11 +9,20 @@ const authRoute = require('./routes/authRoute.js');
 const commentRoute = require('./routes/commentRoute');
 const likeRoute = require('./routes/likeRoute');
 const kuntaRoute = require('./routes/kuntaRoute');
+const fs      = require('fs');
+const https   = require('https');
+
 
 
 const app = express();
-const port = 3000;
+//const port = 3000;
 
+const sslkey  = fs.readFileSync('/etc/pki/tls/private/ca.key');
+const sslcert = fs.readFileSync('/etc/pki/tls/certs/ca.crt');
+const options = {
+    key: sslkey,
+    cert: sslcert
+};
 
 
 app.use(cors());
@@ -36,5 +45,6 @@ app.use('/kunta', passport.authenticate('jwt', {session: false}), kuntaRoute);
 
 
 
+https.createServer(options, app).listen(8000);
+//app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
