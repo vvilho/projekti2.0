@@ -15,7 +15,7 @@ const https   = require('https');
 
 
 const app = express();
-//const port = 3000;
+const port = 3000;
 
 const sslkey  = fs.readFileSync('/etc/pki/tls/private/ca.key');
 const sslcert = fs.readFileSync('/etc/pki/tls/certs/ca.crt');
