@@ -1,8 +1,5 @@
-# wop-starters
 
-Choose a branch and download as zip.
-# esimerkkisovellus
+Web-sovelluskehityksen perusteet kurssin lopputyö
 
+Photogram App.
 
-Jotta sovellus toimii niin lisää .# projekti2.0
-# projekti2.0
